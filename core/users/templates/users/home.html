@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Auto</th>
+            <th>Modelo</th>
+            <th>Marca</th>
+            <th>Año</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for auto, detalles in autos.items %}
+            <tr>
+                <td>{{ auto }}</td>
+                <td>{{ detalles.modelo }}</td>
+                <td>{{ detalles.marca }}</td>
+                <td>{{ detalles.año }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
