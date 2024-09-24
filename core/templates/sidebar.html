@@ -1,0 +1,49 @@
+<!-- Inicio del Sidebar -->
+<div class="sidebar">
+    <div class="sidebar-content js-simplebar">
+        <a class="sidebar-brand" href="{% url 'home' %}">
+            <span class="align-middle">AdminKit</span>
+        </a>
+
+        <ul class="sidebar-nav">
+            <li class="sidebar-header">
+                Páginas
+            </li>
+            <li class="sidebar-item active">
+                <a class="sidebar-link" href="{% url 'dashboard' %}">
+                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Tablero</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{% url 'profile' %}">
+                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Perfil</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{% url 'settings' %}">
+                    <i class="align-middle" data-feather="settings"></i> <span class="align-middle">Configuraciones</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{% url 'invoices' %}">
+                    <i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Facturas</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{% url 'tasks' %}">
+                    <i class="align-middle" data-feather="list"></i> <span class="align-middle">Tareas</span>
+                </a>
+            </li>
+            <li class="sidebar-header">
+                Herramientas y Componentes
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{% url 'ui_components' %}">
+                    <i class="align-middle" data-feather="package"></i> <span class="align-middle">Componentes UI</span>
+                </a>
+            </li>
+            <!-- Agrega más elementos según necesites -->
+        </ul>
+    </div>
+</div>
+<!-- Fin del Sidebar -->

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Título de tu Aplicación</title>
+    <!-- Enlazando el archivo CSS global -->
+    <link href="{% static 'css/global.css' %}" rel="stylesheet">
+</head>
+<body>
+    <!-- Incluir Navbar -->
+    {% include 'navbar.html' %}
+
+    <!-- Incluir Sidebar -->
+    {% include 'sidebar.html' %}
+
+    <!-- Contenido Principal -->
+    <div class="main-content">
+        {% block content %}
+        <!-- Este bloque será sobreescrito por otras plantillas que extiendan base.html -->
+        {% endblock %}
+    </div>
+
+    <!-- Scripts necesarios -->
+    <script src="{% static 'js/global.js' %}"></script>
+</body>
+</html>
