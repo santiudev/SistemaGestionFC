@@ -1,24 +1,45 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Auto</th>
-            <th>Modelo</th>
-            <th>Marca</th>
-            <th>Año</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for auto, detalles in autos.items %}
+<form method="post" id="autosForm">
+    {% csrf_token %}
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td>{{ auto }}</td>
-                <td>{{ detalles.modelo }}</td>
-                <td>{{ detalles.marca }}</td>
-                <td>{{ detalles.año }}</td>
+                <th>Auto</th>
+                <th>Modelo</th>
+                <th>Marca</th>
+                <th>Año</th>
+                <th>Vendedor</th>
+                <th>Estado</th>
             </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            {% for auto, detalles in autos.items %}
+                <tr>
+                    <td>{{ auto }}</td>
+                    <td>{{ detalles.modelo }}</td>
+                    <td>{{ detalles.marca }}</td>
+                    <td>{{ detalles.año }}</td>
+                    <td>{{ detalles.vendedor }}</td>
+                    <td>
+                        <select name="{{ auto }}" onchange="this.form.submit()" class="{{ detalles.estado }}">
+                            <option value="vendido" class="vendido" {% if detalles.estado == 'vendido' %}selected{% endif %}>Vendido</option>
+                            <option value="disponible" class="disponible" {% if detalles.estado == 'disponible' %}selected{% endif %}>Disponible</option>
+                            <option value="vendido_otros" class="vendido_otros" {% if detalles.estado == 'vendido_otros' %}selected{% endif %}>Vendido por otro medio</option>
+                        </select>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</form>
+<script>
+    document.querySelectorAll('select').forEach(function(select) {
+        select.className = select.options[select.selectedIndex].className; // Establece el color inicial
+        select.addEventListener('change', function() {
+            this.className = this.options[this.selectedIndex].className; // Cambia el color al seleccionar
+        });
+    });
+</script>
 {% endblock %}
