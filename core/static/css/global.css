@@ -139,7 +139,7 @@ body {
 .main-content {
     margin-left: var(--sidebar-width);
     padding-top: var(--navbar-height);
-    padding: calc(var(--navbar-height) + 1rem) 1rem 1rem;
+    padding: calc(var(--navbar-height) + 3vh) 10vh 10vh; /* maneja el margen del home */
     transition: margin-left 0.3s ease-in-out;
     min-height: 100vh;
     box-sizing: border-box;
@@ -270,4 +270,7 @@ body {
 .dropdown-menu-end {
     right: 0;
     left: auto;
+}
+.dropdown-menu {
+    z-index: 1050; /* Asegúrate de que sea mayor que otros elementos */
 }
