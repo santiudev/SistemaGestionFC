@@ -40,11 +40,14 @@ body {
     background-color: darken(var(--primary-color), 10%); /* Color al pasar el mouse */
 }
 
-/* Estilos para la tabla de movimientos */
+/* Estilos para la tabla de movimientos con diseño UX/UI */
 .table {
     width: 100%; /* Asegúrate de que la tabla ocupe todo el ancho disponible */
     margin-bottom: 1.5rem; /* Espaciado inferior */
     table-layout: auto; /* Permitir que la tabla ajuste automáticamente el ancho de las columnas */
+    border-collapse: separate; /* Separación entre las celdas */
+    border-spacing: 0 10px; /* Espaciado entre las filas */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
 }
 
 .table th, .table td {
@@ -55,24 +58,26 @@ body {
     overflow: hidden; /* Evitar que el contenido desborde */
     text-overflow: ellipsis; /* Mostrar puntos suspensivos si el texto es demasiado largo */
     white-space: nowrap; /* Evitar que el texto se divida en varias líneas */
+    border-radius: 4px; /* Bordes redondeados para las celdas */
 }
 
 .table th {
     background-color: var(--primary-color); /* Color de fondo para los encabezados */
     color: white; /* Color del texto en los encabezados */
     white-space: nowrap; /* Evitar que el texto se divida en varias líneas */
+    font-weight: bold; /* Negrita para los encabezados */
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
-    background-color: rgba(0, 0, 0, 0.05); /* Color de fondo para filas impares */
+    background-color: var(--bg-color); /* Color de fondo para filas impares */
 }
 
 .table-bordered {
-    border: 1px solid #dee2e6; /* Borde de la tabla */
+    border: 1px solid var(--primary-color); /* Borde de la tabla */
 }
 
 .table-bordered th, .table-bordered td {
-    border: 1px solid #dee2e6; /* Borde de las celdas */
+    border: 1px solid var(--primary-color); /* Borde de las celdas */
 }
 
 /* Estilos para la tabla sin bordes */

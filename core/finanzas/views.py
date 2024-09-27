@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404  # Añadir esta línea
 from django.contrib.auth.decorators import login_required
-from .models import Movimiento, Categoria
+from .models import Movimiento, Categoria, MedioPago
 from .forms import MovimientoForm, CategoriaForm
 
 def home_finanzas(request):
@@ -15,12 +15,39 @@ def crear_movimiento(request):
         form = MovimientoForm(request.POST, request.FILES)
         if form.is_valid():
             movimiento = form.save(commit=False)
-            movimiento.usuario = request.user
+            movimiento.usuario = request.user  # Asocia el movimiento al usuario actual
             movimiento.save()
-            return redirect('finanzas:lista_movimientos')
+            return redirect('finanzas:lista_movimientos')  # Redirige a la lista de movimientos
     else:
         form = MovimientoForm()
-    return render(request, 'finanzas/crear_movimiento.html', {'form': form})
+
+    # Agregar medios de pago y categorías al contexto
+    categorias = Categoria.objects.all()
+    medios_pago = MedioPago.objects.all()
+
+    return render(request, 'finanzas/crear_movimiento.html', {
+        'form': form,
+        'categorias': categorias,
+        'medios_pago': medios_pago
+    })
+
+def editar_movimiento(request, movimiento_id):
+    movimiento = get_object_or_404(Movimiento, id=movimiento_id)
+    if request.method == 'POST':
+        form = MovimientoForm(request.POST, instance=movimiento)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_movimientos')  # Redirige a la lista de movimientos
+    else:
+        form = MovimientoForm(instance=movimiento)
+    return render(request, 'finanzas/editar_movimiento.html', {'form': form})
+
+def eliminar_movimiento(request, movimiento_id):
+    movimiento = get_object_or_404(Movimiento, id=movimiento_id)
+    if request.method == 'POST':
+        movimiento.delete()
+        return redirect('lista_movimientos')  # Redirige a la lista de movimientos
+    return render(request, 'finanzas/eliminar_movimiento_confirm.html', {'movimiento': movimiento})
 
 def crear_categoria(request):
     if request.method == 'POST':

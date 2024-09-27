@@ -43,11 +43,8 @@
                     <td>{{ movimiento.numero_comprobante }}</td>
                     <td>{{ movimiento.estado }}</td>
                     <td>
-                        <a href="{% url 'finanzas:editar_movimiento' movimiento.id %}" class="btn btn-warning btn-sm">Editar</a>
-                        <form method="post" action="{% url 'finanzas:eliminar_movimiento' movimiento.id %}" style="display:inline;">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este movimiento?');">Eliminar</button>
-                        </form>
+                        <a href="" class="btn btn-warning btn-sm">Editar</a>  <!-- Enlace para editar -->
+                        <a href="" class="btn btn-danger btn-sm">Eliminar</a> 
                     </td>
                 </tr>
                 {% empty %}
