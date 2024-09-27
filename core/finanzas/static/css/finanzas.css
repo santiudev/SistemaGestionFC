@@ -100,6 +100,32 @@ body {
 }
 
 /* Espaciado adicional para el contenedor */
-.container {
+.containercrearmovimiento {
     padding: 20px; /* Aumentar el padding del contenedor */
+    margin: auto; /* Centrar el contenedor */
+}
+.form-label {
+    font-weight: bold;
+    color: var(--text-color); /* Asegurar que el color del texto esté bien */
+    text-align: center; /* Centrar el texto de las etiquetas */
+}
+
+.form-control {
+    border-radius: 0.25rem;
+    border: 1px solid #ced4da; /* Añadir un borde suave */
+}
+
+.containercrearmovimiento {
+    max-width: 80%; /* Reducir el ancho para una mejor presentación */
+    padding: 20px;
+    margin: auto; /* Centrar el contenedor */
+}
+
+h2.crearmov {
+    color: var(--primary-color); /* Color del título */
+    text-align: center; /* Centrar el título */
+    margin-bottom: 20px; /* Espaciado inferior */
+    margin: auto; /* Centrar el título */
+    font-weight: bold; /* Negrita para el título */
+    margin-bottom: 5vh; /* Espaciado inferior */
 }

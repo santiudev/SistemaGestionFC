@@ -31,23 +31,6 @@ def crear_movimiento(request):
         'medios_pago': medios_pago
     })
 
-def editar_movimiento(request, movimiento_id):
-    movimiento = get_object_or_404(Movimiento, id=movimiento_id)
-    if request.method == 'POST':
-        form = MovimientoForm(request.POST, instance=movimiento)
-        if form.is_valid():
-            form.save()
-            return redirect('lista_movimientos')  # Redirige a la lista de movimientos
-    else:
-        form = MovimientoForm(instance=movimiento)
-    return render(request, 'finanzas/editar_movimiento.html', {'form': form})
-
-def eliminar_movimiento(request, movimiento_id):
-    movimiento = get_object_or_404(Movimiento, id=movimiento_id)
-    if request.method == 'POST':
-        movimiento.delete()
-        return redirect('lista_movimientos')  # Redirige a la lista de movimientos
-    return render(request, 'finanzas/eliminar_movimiento_confirm.html', {'movimiento': movimiento})
 
 def crear_categoria(request):
     if request.method == 'POST':

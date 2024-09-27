@@ -8,74 +8,85 @@
     <link href="{% static 'css/finanzas.css' %}" rel="stylesheet">
 </head>
 <body>
-    <div class="container mt-4">
-        <h2>Crear Movimiento</h2>
+    <div class="containercrearmovimiento mt-4">
+        <h2 class="crearmov">Crear Movimiento</h2>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="mb-3">
-                <label for="fecha" class="form-label">Fecha</label>
-                <input type="date" class="form-control" id="fecha" name="fecha" required>
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Primera columna con 6 labels -->
+                    <div class="mb-3">
+                        <label for="fecha" class="form-label">Fecha</label>
+                        <input type="date" class="form-control" id="fecha" name="fecha" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tipo" class="form-label">Tipo</label>
+                        <select class="form-select" id="tipo" name="tipo" required>
+                            <option value="">Seleccione un tipo</option>
+                            <option value="INGRESO">Ingreso</option>
+                            <option value="SALIDA">Salida</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="categoria" class="form-label">Categoría</label>
+                        <select class="form-select" id="categoria" name="categoria" required>
+                            <option value="">Seleccione una categoría</option>
+                            {% for categoria in categorias %}
+                                <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="detalles" class="form-label">Detalles</label>
+                        <textarea class="form-control" id="detalles" name="detalles"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="monto" class="form-label">Monto</label>
+                        <input type="number" class="form-control" id="monto" name="monto" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="moneda" class="form-label">Moneda</label>
+                        <select class="form-select" id="moneda" name="moneda" required>
+                            <option value="">Seleccione una moneda</option>
+                            <option value="USD">Dólares</option>
+                            <option value="PESOS">Pesos</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <!-- Segunda columna con 5 labels -->
+                    <div class="mb-3">
+                        <label for="comentario" class="form-label">Comentario</label>
+                        <textarea class="form-control" id="comentario" name="comentario"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="patente" class="form-label">Patente</label>
+                        <input type="text" class="form-control" id="patente" name="patente">
+                    </div>
+                    <div class="mb-3">
+                        <label for="medio_pago" class="form-label">Medio de Pago</label>
+                        <select class="form-select" id="medio_pago" name="medio_pago" required>
+                            <option value="">Seleccione un medio de pago</option>
+                            {% for medio in medios_pago %}
+                                <option value="{{ medio.id }}">{{ medio.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="numero_comprobante" class="form-label">Número de Comprobante</label>
+                        <input type="text" class="form-control" id="numero_comprobante" name="numero_comprobante">
+                    </div>
+                    <div class="mb-3">
+                        <label for="documento_adjunto" class="form-label">Documento Adjunto</label>
+                        <input type="file" class="form-control" id="documento_adjunto" name="documento_adjunto">
+                    </div>
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="tipo" class="form-label">Tipo</label>
-                <select class="form-select" id="tipo" name="tipo" required>
-                    <option value="">Seleccione un tipo</option>
-                    <option value="INGRESO">Ingreso</option>
-                    <option value="SALIDA">Salida</option>
-                </select>
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary">Guardar Movimiento</button>
             </div>
-            <div class="mb-3">
-                <label for="categoria" class="form-label">Categoría</label>
-                <select class="form-select" id="categoria" name="categoria" required>
-                    <option value="">Seleccione una categoría</option>
-                    {% for categoria in categorias %}
-                        <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="detalles" class="form-label">Detalles</label>
-                <textarea class="form-control" id="detalles" name="detalles"></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="monto" class="form-label">Monto</label>
-                <input type="number" class="form-control" id="monto" name="monto" required>
-            </div>
-            <div class="mb-3">
-                <label for="moneda" class="form-label">Moneda</label>
-                <select class="form-select" id="moneda" name="moneda" required>
-                    <option value="">Seleccione una moneda</option>
-                    <option value="USD">Dólares</option>
-                    <option value="PESOS">Pesos</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="comentario" class="form-label">Comentario</label>
-                <textarea class="form-control" id="comentario" name="comentario"></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="patente" class="form-label">Patente</label>
-                <input type="text" class="form-control" id="patente" name="patente">
-            </div>
-            <div class="mb-3">
-                <label for="medio_pago" class="form-label">Medio de Pago</label>
-                <select class="form-select" id="medio_pago" name="medio_pago" required>
-                    <option value="">Seleccione un medio de pago</option>
-                    {% for medio in medios_pago %}
-                        <option value="{{ medio.id }}">{{ medio.nombre }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="numero_comprobante" class="form-label">Número de Comprobante</label>
-                <input type="text" class="form-control" id="numero_comprobante" name="numero_comprobante">
-            </div>
-            <div class="mb-3">
-                <label for="documento_adjunto" class="form-label">Documento Adjunto</label>
-                <input type="file" class="form-control" id="documento_adjunto" name="documento_adjunto">
-            </div>
-            <button type="submit" class="btn btn-primary">Guardar Movimiento</button>
         </form>
     </div>
+    
 </body>
 {% endblock %}
