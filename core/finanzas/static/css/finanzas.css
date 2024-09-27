@@ -75,6 +75,25 @@ body {
     border: 1px solid #dee2e6; /* Borde de las celdas */
 }
 
+/* Estilos para la tabla sin bordes */
+.table-borderless {
+    border: none; /* Sin borde para la tabla */
+}
+
+.table-borderless th,
+.table-borderless td {
+    border: none; /* Sin borde para las celdas */
+}
+
+.table-borderless th {
+    color: var(--text-color); /* Color del texto en los encabezados */
+    background-color: transparent; /* Fondo transparente para los encabezados */
+}
+
+.table-borderless tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Color de fondo al pasar el mouse sobre las filas */
+}
+
 /* Espaciado adicional para el contenedor */
 .container {
     padding: 20px; /* Aumentar el padding del contenedor */

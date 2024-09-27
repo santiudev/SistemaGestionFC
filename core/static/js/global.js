@@ -10,5 +10,9 @@ document.addEventListener('DOMContentLoaded', function() {
         mainContent.classList.toggle('main-content-collapsed');
     });
 
-    // Elimina la inicialización manual de los dropdowns y los eventos personalizados
+    // Inicializa los dropdowns de Bootstrap
+    var dropdowns = document.querySelectorAll('.dropdown-toggle');
+    dropdowns.forEach(function(dropdown) {
+        new bootstrap.Dropdown(dropdown);
+    });
 });

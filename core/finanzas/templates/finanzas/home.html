@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link href="{% static 'css/finanzas.css' %}" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>Bienvenido a Finanzas</h2>
+        <div class="mb-4">
+            <a href="{% url 'finanzas:crear_categoria' %}" class="btn btn-primary">Crear Categoría</a>
+            <a href="{% url 'finanzas:crear_movimiento' %}" class="btn btn-secondary">Crear Movimiento</a>
+            <a href="{% url 'finanzas:lista_movimientos' %}" class="btn btn-success">Lista de Movimientos</a>
+        </div>
+    </div>
+</body>
+{% endblock %}

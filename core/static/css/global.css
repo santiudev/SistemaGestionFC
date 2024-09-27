@@ -83,7 +83,7 @@ body {
     z-index: 900;
     background-color: var(--navbar-bg);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-    transition: left 0.3s ease-in-out;
+    transition: left 0.3s ease-in-out, width 0.3s ease-in-out; /* Añadir transición para el ancho */
     display: flex;
     align-items: center;
     padding: 0 1rem;
@@ -91,7 +91,8 @@ body {
 }
 
 .navbar-collapsed {
-    left: 0;
+    left: 0; /* Cambiar a 0 para que ocupe todo el ancho cuando el sidebar está colapsado */
+    width: 100%; /* Asegúrate de que el navbar ocupe todo el ancho */
 }
 
 .navbar-nav {
