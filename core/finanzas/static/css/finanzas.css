@@ -18,12 +18,9 @@ body {
 
 /* Estilos para el formulario de crear movimiento */
 .container {
-    max-width: 800px; /* Ancho máximo del contenedor */
-}
-
-h2 {
-    color: var(--primary-color); /* Color del título */
-    margin-bottom: 20px; /* Espaciado inferior */
+    max-width: 100%; /* Cambiar a 100% para evitar el desbordamiento */
+    padding: 20px; /* Aumentar el padding del contenedor */
+    margin: 0 auto; /* Centrar el contenedor */
 }
 
 .form-label {
@@ -41,4 +38,44 @@ h2 {
 
 .btn-primary:hover {
     background-color: darken(var(--primary-color), 10%); /* Color al pasar el mouse */
+}
+
+/* Estilos para la tabla de movimientos */
+.table {
+    width: 100%; /* Asegúrate de que la tabla ocupe todo el ancho disponible */
+    margin-bottom: 1.5rem; /* Espaciado inferior */
+    table-layout: auto; /* Permitir que la tabla ajuste automáticamente el ancho de las columnas */
+}
+
+.table th, .table td {
+    vertical-align: middle; /* Alineación vertical de las celdas */
+    padding: 1rem; /* Aumentar el espaciado interno de las celdas */
+    font-size: 0.9rem; /* Ajustar el tamaño de la fuente para evitar el desbordamiento */
+    text-align: center; /* Centrar el texto en las celdas */
+    overflow: hidden; /* Evitar que el contenido desborde */
+    text-overflow: ellipsis; /* Mostrar puntos suspensivos si el texto es demasiado largo */
+    white-space: nowrap; /* Evitar que el texto se divida en varias líneas */
+}
+
+.table th {
+    background-color: var(--primary-color); /* Color de fondo para los encabezados */
+    color: white; /* Color del texto en los encabezados */
+    white-space: nowrap; /* Evitar que el texto se divida en varias líneas */
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05); /* Color de fondo para filas impares */
+}
+
+.table-bordered {
+    border: 1px solid #dee2e6; /* Borde de la tabla */
+}
+
+.table-bordered th, .table-bordered td {
+    border: 1px solid #dee2e6; /* Borde de las celdas */
+}
+
+/* Espaciado adicional para el contenedor */
+.container {
+    padding: 20px; /* Aumentar el padding del contenedor */
 }
