@@ -69,11 +69,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'sistemaFC',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': 'defaultdb',
+        'USER': 'doadmin',
+        'PASSWORD': 'AVNS_O3BKSBcPpCCCa6v5S2P',
+        'HOST': 'dbtestfc-do-user-16285424-0.k.db.ondigitalocean.com',
+        'PORT': '25060',
     }
 }
 
