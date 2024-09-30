@@ -16,17 +16,23 @@
             {% csrf_token %}
             <div class="mb-3">
                 <label for="nuevo_mediodepago" class="form-label">Nombre del Nuevo Medio de Pago</label>
-                <input type="text" class="form-control" id="nuevo_mediodepago" name="nuevo_mediodepago" required>
+                   <input type="text" class="form-control" id="nombre" name="nombre" required>
             </div>
             <button type="submit" class="btn btn-secondary">Agregar Medio de Pago</button>
         </form>
 
-        <h3>Medios de Pago Existentes</h3>
-        <ul class="list-group">
+        <h3 class="text-center">Medios de Pago Existentes</h3>
+        <div class="list-group">
             {% for medio in medios_pago %}
-                <li class="list-group-item">{{ medio.nombre }}</li>
+                <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" style="width: 50%; margin: 0 auto;">
+                    {{ medio.nombre }}
+                    <form method="post" action="{% url 'finanzas:eliminar_medio_pago' medio.id %}" class="ms-2" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este medio de pago?');">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                    </form>
+                </div>
             {% endfor %}
-        </ul>
+        </div>
     </div>
 </body>
 {% endblock %}

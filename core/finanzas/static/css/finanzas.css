@@ -1,129 +1,116 @@
-:root {
-    --sidebar-width: 250px;
-    --navbar-height: 60px;
-    --primary-color: #3b7ddd;
-    --text-color: #495057;
-    --bg-color: #f5f7fb;
-}
-
+/* General Styles */
 body {
-    font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
-    font-size: 0.875rem;
-    line-height: 1.5;
-    color: var(--text-color);
-    background-color: var(--bg-color);
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
 }
 
-/* Estilos para el formulario de crear movimiento */
-.container {
-    max-width: 100%; /* Cambiar a 100% para evitar el desbordamiento */
-    padding: 20px; /* Aumentar el padding del contenedor */
-    margin: 0 auto; /* Centrar el contenedor */
+/* Container Adjustments */
+.container-fluid {
+    padding: 1.5rem;
 }
 
-.form-label {
-    font-weight: bold; /* Negrita para las etiquetas */
-}
-
-.form-control {
-    border-radius: 0.25rem; /* Bordes redondeados */
-}
-
-.btn-primary {
-    background-color: var(--primary-color); /* Color de fondo del botón */
-    border: none; /* Sin borde */
-}
-
-.btn-primary:hover {
-    background-color: #6aaf32; /* Color al pasar el mouse */
-}
-
-/* Estilos para la tabla de movimientos con diseño UX/UI */
+/* Table Styles */
 .table {
-    width: 100%; /* Asegúrate de que la tabla ocupe todo el ancho disponible */
-    margin-bottom: 1.5rem; /* Espaciado inferior */
-    table-layout: auto; /* Permitir que la tabla ajuste automáticamente el ancho de las columnas */
-    border-collapse: separate; /* Separación entre las celdas */
-    border-spacing: 0 10px; /* Espaciado entre las filas */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+    width: 100%;
+    margin-bottom: 1.5rem;
+    border-collapse: collapse;
+    background-color: #ffffff;
 }
 
 .table th, .table td {
-    vertical-align: middle; /* Alineación vertical de las celdas */
-    padding: 1rem; /* Aumentar el espaciado interno de las celdas */
-    font-size: 0.9rem; /* Ajustar el tamaño de la fuente para evitar el desbordamiento */
-    text-align: center; /* Centrar el texto en las celdas */
-    overflow: hidden; /* Evitar que el contenido desborde */
-    text-overflow: ellipsis; /* Mostrar puntos suspensivos si el texto es demasiado largo */
-    white-space: nowrap; /* Evitar que el texto se divida en varias líneas */
-    border-radius: 4px; /* Bordes redondeados para las celdas */
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    text-align: center;
+    border: 1px solid #dee2e6;
+    vertical-align: middle; /* Alinear verticalmente al centro */
+    text-overflow: ellipsis; /* Añadir puntos suspensivos si el contenido es demasiado largo */
+    white-space: normal; /* Permitir que el contenido se divida en varias líneas si es necesario */
 }
 
 .table th {
-    background-color: var(--primary-color); /* Color de fondo para los encabezados */
-    color: white; /* Color del texto en los encabezados */
-    white-space: nowrap; /* Evitar que el texto se divida en varias líneas */
-    font-weight: bold; /* Negrita para los encabezados */
-}
-
-.table-striped tbody tr:nth-of-type(odd) {
-    background-color: var(--bg-color); /* Color de fondo para filas impares */
-}
-
-.table-bordered {
-    border: 1px solid var(--primary-color); /* Borde de la tabla */
-}
-
-.table-bordered th, .table-bordered td {
-    border: 1px solid var(--primary-color); /* Borde de las celdas */
-}
-
-/* Estilos para la tabla sin bordes */
-.table-borderless {
-    border: none; /* Sin borde para la tabla */
-}
-
-.table-borderless th,
-.table-borderless td {
-    border: none; /* Sin borde para las celdas */
-}
-
-.table-borderless th {
-    color: var(--text-color); /* Color del texto en los encabezados */
-    background-color: transparent; /* Fondo transparente para los encabezados */
-}
-
-.table-borderless tbody tr:hover {
-    background-color: rgba(0, 0, 0, 0.1); /* Color de fondo al pasar el mouse sobre las filas */
-}
-
-/* Espaciado adicional para el contenedor */
-.containercrearmovimiento {
-    padding: 20px; /* Aumentar el padding del contenedor */
-    margin: auto; /* Centrar el contenedor */
-}
-.form-label {
+    background-color: #f8f9fa;
     font-weight: bold;
-    color: var(--text-color); /* Asegurar que el color del texto esté bien */
-    text-align: center; /* Centrar el texto de las etiquetas */
 }
 
-.form-control {
-    border-radius: 0.25rem;
-    border: 1px solid #ced4da; /* Añadir un borde suave */
+/* Ajustes para Columnas Específicas */
+.table th,
+.table td {
+    word-wrap: break-word; /* Romper palabras largas para evitar desbordamiento */
 }
 
-.containercrearmovimiento {
-    max-width: 80%; /* Reducir el ancho para una mejor presentación */
-    padding: 20px;
-    margin: auto; /* Centrar el contenedor */
+.tipo-ingreso {
+    color: #198754; /* Verde oscuro para ingresos */
+    font-weight: bold;
 }
 
-h2.crearmov {
-    color: var(--primary-color); /* Color del título */
-    text-align: center; /* Centrar el título */
-    margin-bottom: 20px; /* Espaciado inferior */
-    margin: auto; /* Centrar el título */
-    font-weight: bold; /* Negrita para el título */
-    margin-bottom: 5vh; /* Espaciado inferior */
+.tipo-salida {
+    color: #dc3545; /* Rojo para salidas */
+    font-weight: bold;
+}
+
+.estado-confirmado {
+    color: #198754; /* Verde oscuro para estado confirmado */
+    font-weight: bold;
+}
+
+.estado-pendiente {
+    color: #e6a300; /* Amarillo oscuro para estado pendiente */
+    font-weight: bold;
+}
+
+
+/* Botones de Acción */
+.btn {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.5rem;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    color: #ffffff;
+    border: none;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: #ffffff;
+    border: none;
+}
+
+.btn-sm {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.4rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 1280px) {
+    .table {
+        font-size: 0.75rem; /* Reducir tamaño de fuente en resoluciones más pequeñas */
+    }
+
+    .table th, .table td {
+        padding: 0.3rem; /* Reducir el padding para aprovechar mejor el espacio */
+    }
+
+    .btn {
+        padding: 0.2rem 0.3rem; /* Botones más pequeños en pantallas más pequeñas */
+    }
+}
+
+@media (max-width: 768px) {
+    .table-responsive {
+        overflow-x: auto; /* Permitir scroll horizontal solo en dispositivos pequeños */
+    }
+
+    .table {
+        font-size: 0.7rem; /* Reducir más el tamaño de fuente en dispositivos pequeños */
+    }
+
+    .btn {
+        padding: 0.2rem 0.3rem; /* Botones más pequeños para pantallas pequeñas */
+    }
 }
