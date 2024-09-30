@@ -9,11 +9,11 @@
 </head>
 <body>
     <div class="container mt-4">
-        <h2>Bienvenido a Finanzas</h2>
-        <div class="mb-4">
-            <a href="{% url 'finanzas:crear_categoria' %}" class="btn btn-primary">Crear Categoría</a>
-            <a href="{% url 'finanzas:crear_movimiento' %}" class="btn btn-secondary">Crear Movimiento</a>
-            <a href="{% url 'finanzas:lista_movimientos' %}" class="btn btn-success">Lista de Movimientos</a>
+        <h2 class="text-center">Bienvenido a Finanzas</h2>
+        <div class="mb-4 text-center">
+            <a href="{% url 'finanzas:crear_categoria' %}" class="btn btn-primary btn-lg mx-2">Crear Categoría</a>  
+            <a href="{% url 'finanzas:crear_movimiento' %}" class="btn btn-secondary btn-lg mx-2">Crear Movimiento</a>
+            <a href="{% url 'finanzas:lista_movimientos' %}" class="btn btn-success btn-lg mx-2">Lista de Movimientos</a>
         </div>
     </div>
 </body>

@@ -37,7 +37,7 @@ body {
 }
 
 .btn-primary:hover {
-    background-color: darken(var(--primary-color), 10%); /* Color al pasar el mouse */
+    background-color: #6aaf32; /* Color al pasar el mouse */
 }
 
 /* Estilos para la tabla de movimientos con diseño UX/UI */
