@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404  # Añadir esta línea
 from django.contrib.auth.decorators import login_required
 from .models import Movimiento, Categoria, MedioPago
-from .forms import MovimientoForm, CategoriaForm
+from .forms import MovimientoForm, CategoriaForm, MedioPagoForm
 
 def home_finanzas(request):
     return render(request, 'finanzas/home.html')
@@ -41,3 +41,14 @@ def crear_categoria(request):
     else:
         form = CategoriaForm()
     return render(request, 'finanzas/crear_categoria.html', {'form': form})
+
+
+def crear_mediopago(request):
+    if request.method == 'POST':
+        form = MedioPagoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('finanzas:home')
+    else:
+        form = CategoriaForm()
+    return render(request, 'finanzas/crear_mediodepago.html', {'form': form})
