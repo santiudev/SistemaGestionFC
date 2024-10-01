@@ -14,9 +14,9 @@
         </div>
         <div class="col-auto ms-auto text-end mt-n1">
             <a href="{% url 'finanzas:crear_categoria' %}" class="btn btn-primary btn-sm mx-1">Crear Categoría</a>  
-            <a href="{% url 'finanzas:crear_movimiento' %}" class="btn btn-white btn-sm mx-1">Crear Movimiento</a>
+            <a href="{% url 'finanzas:crear_movimiento' %}" class="btn btn-secondary btn-sm mx-1">Crear Movimiento</a>
             <a href="{% url 'finanzas:lista_movimientos' %}" class="btn btn-primary btn-sm mx-1">Lista de Movimientos</a>
-            <a href="{% url 'finanzas:crear_mediodepago' %}" class="btn btn-info btn-sm mx-1">Crear Medio de Pago</a>
+            <a href="{% url 'finanzas:crear_mediodepago' %}" class="btn btn-secondary btn-sm mx-1">Crear Medio de Pago</a>
         </div>
     </div> 
     <div class="row">
@@ -27,20 +27,19 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col mt-0 pruebadecolores">
-                                        <h5 class="pruebadecolores">Sales</h5>
+                                    <div class="col mt-0">
+                                        <h5 class="">Ingresos</h5>
                                     </div>
 
                                     <div class="col-auto">
                                         <div class="stat text-primary">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-truck align-middle"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up align-middle"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
                                         </div>
                                     </div>
                                 </div>
-                                <h1 class="mt-1 mb-3 pruebadecolores">2.382</h1>
+                                <h1 class="mt-1 mb-3">2.382</h1>
                                 <div class="mb-0">
-                                    <span class="badge badge-warning-light"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
-                                    <span class="text-muted">Since last week</span>
+                                    <span class="text-muted">Desde la última semana</span>
                                 </div>
                             </div>
                         </div>
@@ -48,19 +47,18 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col mt-0">
-                                        <h5 class="card-title">Visitors</h5>
+                                        <h5 class="card-title">Dólares</h5>
                                     </div>
 
                                     <div class="col-auto">
                                         <div class="stat text-primary">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users align-middle"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign align-middle"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
                                         </div>
                                     </div>
                                 </div>
                                 <h1 class="mt-1 mb-3">14.212</h1>
                                 <div class="mb-0">
-                                    <span class="badge badge-success-light"> <i class="mdi mdi-arrow-bottom-right"></i> 5.25% </span>
-                                    <span class="text-muted">Since last week</span>
+                                    <span class="text-muted">Desde la última semana</span>
                                 </div>
                             </div>
                         </div>
@@ -70,19 +68,18 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col mt-0">
-                                        <h5 class="card-title">Earnings</h5>
+                                        <h5 class="card-title">Salidas</h5>
                                     </div>
 
                                     <div class="col-auto">
                                         <div class="stat text-primary">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign align-middle"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-down align-middle"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
                                         </div>
                                     </div>
                                 </div>
                                 <h1 class="mt-1 mb-3">$21.300</h1>
                                 <div class="mb-0">
-                                    <span class="badge badge-success-light"> <i class="mdi mdi-arrow-bottom-right"></i> 6.65% </span>
-                                    <span class="text-muted">Since last week</span>
+                                    <span class="text-muted">Desde la última semana</span>
                                 </div>
                             </div>
                         </div>
@@ -90,19 +87,18 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col mt-0">
-                                        <h5 class="card-title">Orders</h5>
+                                        <h5 class="card-title">Pesos</h5>
                                     </div>
 
                                     <div class="col-auto">
                                         <div class="stat text-primary">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart align-middle"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calculator align-middle"><path d="M19 13H5v-2h14v2z"></path><path d="M3 3v18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2zm0 2h20v16H3V5zm2 4h16v10H5V7zm0 2h16v8H5V9zm0 2h16v8H5V11zm0 2h16v8H5V13zm0 2h16v8H5V15zm0 2h16v8H5V17zm0 2h16v8H5V19zm0 2h16v8H5V21zm0 2h16v8H5V23z"></path></svg>
                                         </div>
                                     </div>
                                 </div>
                                 <h1 class="mt-1 mb-3">64</h1>
                                 <div class="mb-0">
-                                    <span class="badge badge-danger-light"> <i class="mdi mdi-arrow-bottom-right"></i> -2.25% </span>
-                                    <span class="text-muted">Since last week</span>
+                                    <span class="text-muted">Desde la última semana</span>
                                 </div>
                             </div>
                         </div>

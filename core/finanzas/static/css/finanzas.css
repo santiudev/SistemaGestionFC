@@ -60,7 +60,6 @@ body {
     font-weight: bold;
 }
 
-
 /* Botones de Acción */
 .btn {
     font-size: 0.8rem;
@@ -113,4 +112,9 @@ body {
     .btn {
         padding: 0.2rem 0.3rem; /* Botones más pequeños para pantallas pequeñas */
     }
+}
+
+/* Card Styles */
+.card {
+    margin-bottom: 2.2vh; /* Añadir margen alrededor de cada card */
 }

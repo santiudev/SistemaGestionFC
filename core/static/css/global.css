@@ -45,6 +45,7 @@ body {
 .sidebar-item {
     position: relative; /* Para el efecto de hover */
     margin-bottom: 0.5rem; /* Espaciado entre los elementos del sidebar */
+    list-style: none; /* Asegúrate de que no haya marcadores */
 }
 
 /* Ajustar el margen del primer elemento del sidebar */
