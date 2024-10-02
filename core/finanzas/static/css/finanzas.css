@@ -42,7 +42,7 @@ body {
 }
 
 /* Estilo para el contenedor del estado */
-.estado-label, .tipo-label {
+.tipo-label {
     padding: 1vh 1vh; /* Espaciado interno */
     border-radius: 0.5rem; /* Bordes redondeados */
     font-size: 11px; /* Tamaño de fuente adecuado */
@@ -52,16 +52,6 @@ body {
     text-align: left;
     width: 95px; /* Ancho fijo para asegurar que todos sean iguales */
     height: 30px; /* Altura fija para asegurar que todos sean iguales */
-}
-
-/* Estilo para el estado confirmado */
-.estado-label.confirmado {
-    background-color: #2ebb4f; /* Verde para confirmado */
-}
-
-/* Estilo para el estado pendiente */
-.estado-label.pendiente {
-    background-color: #ffc107; /* Amarillo para pendiente */
 }
 
 /* Estilo para el tipo ingreso */

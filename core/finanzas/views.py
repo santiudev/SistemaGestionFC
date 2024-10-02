@@ -85,6 +85,7 @@ def eliminar_medio_pago(request, medio_pago_id):
     return redirect('finanzas:crear_mediodepago.html')  # Redirigir a la vista deseada
 
 
-def detalle_movimiento(request, movimiento_id):
-    movimiento = get_object_or_404(Movimiento, id=movimiento_id)
+
+def detalle_movimiento(request, id):
+    movimiento = get_object_or_404(Movimiento, id=id)
     return render(request, 'finanzas/detalle_movimiento.html', {'movimiento': movimiento})

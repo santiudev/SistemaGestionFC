@@ -25,7 +25,6 @@
                         <th style="width: 8%;">Patente <i class="fas fa-filter filter-icon"></i></th>
                         <th style="width: 10%;">Medio de Pago <i class="fas fa-filter filter-icon"></i></th>
                         <th style="width: 12%;">N° Comprobante <i class="fas fa-filter filter-icon"></i></th>
-                        <th style="width: 8%;">Estado <i class="fas fa-filter filter-icon"></i></th>
                         <th style="width: 10%;">Acciones</th>
                     </tr>                    
                 </thead>
@@ -42,11 +41,11 @@
                         <td>{{ movimiento.moneda }}</td>
                         <td>{{ movimiento.patente }}</td>
                         <td>{{ movimiento.medio_pago.nombre }}</td>
-                        <td>{{ movimiento.numero_comprobante }}</td>
-                        <td>
-                            <span class="estado-label {{ movimiento.estado|lower }}">{{ movimiento.estado }}</span>
-                        </td>                        
+                        <td>{{ movimiento.numero_comprobante }}</td>                 
                         <td class="text-center">
+                            <a href="{% url 'finanzas:detalle_movimiento' movimiento.id %}" class="icon-view mx-1">
+                                <i class="fas fa-eye text-primary"></i>
+                            </a>
                             <a href="#" class="icon-edit mx-1"><i class="fas fa-pencil-alt text-black"></i></a>
                             <a href="#" class="icon-delete mx-1"><i class="fas fa-trash-alt text-danger"></i></a>
                         </td>
