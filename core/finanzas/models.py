@@ -32,11 +32,6 @@ class Movimiento(models.Model):
         ('PESOS', 'Pesos'),
     ]
 
-    ESTADO_CHOICES = [
-        ('PENDIENTE', 'Pendiente'),
-        ('CONFIRMADO', 'Confirmado'),
-        ('ANULADO', 'Anulado'),
-    ]
 
     fecha = models.DateField(default=date.today)
 
@@ -50,8 +45,7 @@ class Movimiento(models.Model):
     medio_pago = models.ForeignKey(MedioPago, on_delete=models.CASCADE)
     numero_comprobante = models.CharField(max_length=50, blank=True, null=True)
     usuario = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    estado = models.CharField(max_length=10, choices=ESTADO_CHOICES, default='PENDIENTE')
-    documento_adjunto = models.FileField(upload_to='movimientos/', blank=True, null=True)
+    documento_adjunto = models.FileField(upload_to='finanzas/movimientos/', blank=True, null=True)
 
     def __str__(self):
         return f"{self.tipo} - {self.categoria.nombre} - {self.monto} {self.moneda}"

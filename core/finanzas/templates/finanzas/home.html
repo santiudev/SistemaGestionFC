@@ -132,19 +132,19 @@
                                     <th>Monto</th>
                                     <th>Moneda</th>
                                     <th>Medio de Pago</th>
-                                    <th>Estado</th>
+
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for movimiento in recent_movements %}
                                 <tr>
-                                    <td>{{ movimiento.fecha }}</td>
+                                    <td>{{ movimiento.fecha|date:"j/n/Y" }}</td>
                                     <td>{{ movimiento.get_tipo_display }}</td>
                                     <td>{{ movimiento.categoria.nombre }}</td>
                                     <td>{{ movimiento.monto }}</td>
                                     <td>{{ movimiento.get_moneda_display }}</td>
                                     <td>{{ movimiento.medio_pago.nombre }}</td>
-                                    <td>{{ movimiento.get_estado_display }}</td>
+
                                 </tr>
                                 {% empty %}
                                 <tr>
