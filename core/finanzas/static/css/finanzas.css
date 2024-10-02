@@ -48,13 +48,12 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.3rem 0.6rem; /* Espaciado interno */
     border-radius: 0.5rem; /* Bordes redondeados */
     font-size: 0.85rem; /* Tamaño de fuente adecuado */
     font-weight: bold; /* Texto en negrita */
     color: #fff; /* Texto blanco para resaltar */
-    min-width: 100px; /* Ancho mínimo */
-    height: 40px; /* Altura fija */
+    min-width: 80px; /* Ancho mínimo */
+    height: 30px; /* Altura fija */
 }
 
 /* Estilo para el tipo ingreso */
@@ -103,6 +102,19 @@ body {
     padding: 0.2rem 0.4rem;
 }
 
+.btn-white-custom {
+    background-color: #ffffff;
+    color: #000000; /* Texto en color negro */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.btn-white-custom:hover {
+    background-color: #f8f9fa; /* Fondo ligeramente gris al pasar el cursor */
+    color: #000000; /* Texto en color negro */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al hacer hover */
+}
+
+
 /* Estilo para los íconos de filtro */
 .filter-icon {
     font-size: 0.85rem; /* Ajuste del tamaño del ícono */
@@ -115,6 +127,45 @@ body {
 .filter-icon:hover {
     color: #007bff; /* Cambiar a azul al pasar el ratón para indicar que es clickeable */
     transition: color 0.2s ease-in-out; /* Suavizar el cambio de color */
+}
+.filter-popup {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 200px; /* Ajusta el ancho según sea necesario */
+    padding: 10px;
+    background: #ffffff;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    transition: opacity 0.2s ease-in-out;
+}
+.filter-btn i {
+    color: #6c757d; /* Color secundario para que sea visible sin ser dominante */
+    transition: color 0.2s ease-in-out;
+}
+
+.filter-btn:hover i {
+    color: #007bff; /* Cambia el color al pasar el cursor */
+}
+/* General Styles for Filter Icon */
+.filter-btn i {
+    color: #6c757d; /* Color gris inicial para el ícono */
+    transition: color 0.2s ease-in-out;
+}
+
+.filter-btn.active i {
+    color: #000000; /* Negro oscuro si hay filtro activo */
+}
+
+/* Efecto de hover */
+.filter-btn:hover i {
+    color: #007bff;
+}
+
+
+.d-none {
+    display: none;
 }
 
 /* Responsive Styles */

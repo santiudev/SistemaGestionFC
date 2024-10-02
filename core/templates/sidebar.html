@@ -1,9 +1,11 @@
+{% load static %}
 <!-- Inicio del Sidebar -->
 <div class="sidebar">
     <div class="sidebar-content js-simplebar">
         <a class="sidebar-brand" href="{% url 'home' %}">
-            <img src="https://flipp.vendomiauto.com/static/logo%20blanco.png" alt="Logo Flipping Cars" style="width: 80%; height: auto;">
+            <img src="{% static 'images/logoblanco.png' %}" alt="Logo Flipping Cars" style="width: 80%; height: auto;">
         </a>
+        
         <li class="sidebar-item" style="margin-top: 2rem;">
             <a data-bs-target="#finanzas-dropdown" data-bs-toggle="collapse" class="sidebar-link collapsed" aria-expanded="false">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-wallet align-middle"><path d="M3 4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4zm5 2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6zm0 5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v2zm0 5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v2z"></path></svg> 

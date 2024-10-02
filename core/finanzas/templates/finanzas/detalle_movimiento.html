@@ -27,14 +27,14 @@
                     <p><strong>Patente:</strong> <span class="detalle-info">{{ movimiento.patente }}</span></p>
                     <p><strong>Medio de Pago:</strong> <span class="detalle-info">{{ movimiento.medio_pago.nombre }}</span></p>
                     <p><strong>Número de Comprobante:</strong> <span class="detalle-info">{{ movimiento.numero_comprobante }}</span></p>
+                    {% if movimiento.documento_adjunto %}
+                    <div class="mb-3r">
+                        <p><strong>Documento Adjunto:</strong></p>
+                        <a href="{{ movimiento.documento_adjunto.url }}" class="btn btn-outline-primary" target="_blank">Ver Documento</a>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
-            {% if movimiento.documento_adjunto %}
-            <div class="mb-3 text-center">
-                <p><strong>Documento Adjunto:</strong></p>
-                <a href="{{ movimiento.documento_adjunto.url }}" class="btn btn-outline-primary" target="_blank">Ver Documento</a>
-            </div>
-            {% endif %}
         </div>
     </div>
 </body>

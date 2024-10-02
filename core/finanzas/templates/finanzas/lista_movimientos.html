@@ -7,31 +7,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Movimientos</title>
     <link href="{% static 'css/finanzas.css' %}" rel="stylesheet">
+    <script src="{% static 'js/finanzas.js' %}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
 </head>
 <body>
-    <div class="tablamovimientos container-fluid mt-4">
+    <div class="container-fluid mt-4">
         <h2 class="text-center">Lista de Movimientos</h2>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <!-- Botón para exportar a Excel -->
+            <div class="text-end mb-3">
+                <button id="exportarExcel" class="btn btn-success btn-sm">Exportar a Excel</button>
+            </div>
+            <div class="input-group w-25">
+                <input type="text" id="filtroTabla" class="form-control" placeholder="Buscar" onkeyup="filtrarTabla()">
+                <button class="btn  " type="button" id="clearButton" onclick="limpiarBusqueda()">
+                    <i class="fas fa-times"></i> <!-- Ícono de Bootstrap para "clear" -->
+                </button>
+            </div>
+            
+        </div>
+        
+
         <div class="table-responsive">
-            <table class="table table-hover my-0 w-100 custom-table">
+            <table id="tablaMovimientos" class="table table-hover my-0 w-100 custom-table">
                 <thead class="table-light">
                     <tr>
-                        <th style="width: 8%;">Fecha <i class="fas fa-filter filter-icon"></i></th>
-                        <th style="width: 8%;">Tipo <i class="fas fa-filter filter-icon"></i></th>
-                        <th style="width: 12%;">Categoría <i class="fas fa-filter filter-icon"></i></th>
-                        <th style="width: 15%;">Detalles <i class="fas fa-filter filter-icon"></i></th>
-                        <th style="width: 8%;">Monto <i class="fas fa-filter filter-icon"></i></th>
-                        <th style="width: 8%;">Moneda <i class="fas fa-filter filter-icon"></i></th>
-                        <th style="width: 8%;">Patente <i class="fas fa-filter filter-icon"></i></th>
-                        <th style="width: 10%;">Medio de Pago <i class="fas fa-filter filter-icon"></i></th>
-                        <th style="width: 12%;">N° Comprobante <i class="fas fa-filter filter-icon"></i></th>
-                        <th style="width: 10%;">Acciones</th>
-                    </tr>                    
+                        <th style="width: 8%; position: relative;">
+                            Fecha
+                            <button class="btn btn-sm filter-btn" onclick="mostrarFiltroPopup(event, 'filtroFecha')" style="border: none;" data-column="fecha">
+                                <i class="fas fa-filter text-secondary"></i>
+                            </button>
+                            <div id="filtroFecha" class="filter-popup d-none">
+                                <input type="text" class="form-control" placeholder="Buscar Fecha" onkeyup="filtrarPorColumna('fecha', this.value)">
+                            </div>
+                        </th>
+                        <th style="width: 8%; position: relative;">
+                            Tipo
+                            <button class="btn btn-sm filter-btn" onclick="mostrarFiltroPopup(event, 'filtroTipo')" style="border: none;" data-column="tipo">
+                                <i class="fas fa-filter text-secondary"></i>
+                            </button>
+                            <div id="filtroTipo" class="filter-popup d-none">
+                                <input type="text" class="form-control" placeholder="Buscar Tipo" onkeyup="filtrarPorColumna('tipo', this.value)">
+                            </div>
+                        </th>
+                        <th style="width: 12%; position: relative;">
+                            Categoría
+                            <button class="btn btn-sm filter-btn" onclick="mostrarFiltroPopup(event, 'filtroCategoria')" style="border: none;" data-column="categoria">
+                                <i class="fas fa-filter text-secondary"></i>
+                            </button>
+                            <div id="filtroCategoria" class="filter-popup d-none">
+                                <input type="text" class="form-control" placeholder="Buscar Categoría" onkeyup="filtrarPorColumna('categoria', this.value)">
+                            </div>
+                        </th>
+                        <th style="width: 15%; position: relative;">
+                            Detalles
+                            <button class="btn btn-sm filter-btn" onclick="mostrarFiltroPopup(event, 'filtroDetalles')" style="border: none;" data-column="detalles">
+                                <i class="fas fa-filter text-secondary"></i>
+                            </button>
+                            <div id="filtroDetalles" class="filter-popup d-none">
+                                <input type="text" class="form-control" placeholder="Buscar Detalles" onkeyup="filtrarPorColumna('detalles', this.value)">
+                            </div>
+                        </th>
+                        <th style="width: 8%; position: relative;">
+                            Monto
+                            <button class="btn btn-sm filter-btn" onclick="mostrarFiltroPopup(event, 'filtroMonto')" style="border: none;" data-column="monto">
+                                <i class="fas fa-filter text-secondary"></i>
+                            </button>
+                            <div id="filtroMonto" class="filter-popup d-none">
+                                <input type="text" class="form-control" placeholder="Buscar Monto" onkeyup="filtrarPorColumna('monto', this.value)">
+                            </div>
+                        </th>
+                        <th style="width: 8%; position: relative;">
+                            Moneda
+                            <button class="btn btn-sm filter-btn" onclick="mostrarFiltroPopup(event, 'filtroMoneda')" style="border: none;" data-column="moneda">
+                                <i class="fas fa-filter text-secondary"></i>
+                            </button>
+                            <div id="filtroMoneda" class="filter-popup d-none">
+                                <input type="text" class="form-control" placeholder="Buscar Moneda" onkeyup="filtrarPorColumna('moneda', this.value)">
+                            </div>
+                        </th>
+                        <th style="width: 8%; position: relative;">
+                            Patente
+                            <button class="btn btn-sm filter-btn" onclick="mostrarFiltroPopup(event, 'filtroPatente')" style="border: none;" data-column="patente">
+                                <i class="fas fa-filter text-secondary"></i>
+                            </button>
+                            <div id="filtroPatente" class="filter-popup d-none">
+                                <input type="text" class="form-control" placeholder="Buscar Patente" onkeyup="filtrarPorColumna('patente', this.value)">
+                            </div>
+                        </th>
+                        <th style="width: 12%; position: relative;">
+                            Medio de Pago
+                            <button class="btn btn-sm filter-btn" onclick="mostrarFiltroPopup(event, 'filtroMedioPago')" style="border: none;" data-column="medio_pago">
+                                <i class="fas fa-filter text-secondary"></i>
+                            </button>
+                            <div id="filtroMedioPago" class="filter-popup d-none">
+                                <input type="text" class="form-control" placeholder="Buscar Medio de Pago" onkeyup="filtrarPorColumna('medio_pago', this.value)">
+                            </div>
+                        </th>
+                        <th style="width: 12%; position: relative;">
+                            N° Comprobante
+                            <button class="btn btn-sm filter-btn" onclick="mostrarFiltroPopup(event, 'filtroComprobante')" style="border: none;" data-column="comprobante">
+                                <i class="fas fa-filter text-secondary"></i>
+                            </button>
+                            <div id="filtroComprobante" class="filter-popup d-none">
+                                <input type="text" class="form-control" placeholder="Buscar Comprobante" onkeyup="filtrarPorColumna('comprobante', this.value)">
+                            </div>
+                        </th>
+                        <th style="width: 10%;">
+                            Acciones
+                        </th>
+                    </tr>
                 </thead>
+                
+                
                 <tbody>
                     {% for movimiento in movimientos %}
                     <tr>
                         <td>{{ movimiento.fecha|date:"j/n/Y"}}</td>
-                        <td >
+                        <td>
                             <span class="tipo-label {{ movimiento.tipo|lower }}">{{ movimiento.tipo }}</span>
                         </td>                        
                         <td>{{ movimiento.categoria.nombre }}</td>
@@ -50,13 +143,14 @@
                         </td>
                     </tr>
                     {% empty %}
-                    <tr>
-                        <td colspan="12" class="text-center">No hay movimientos registrados.</td>
+                    <tr id="noResultRow">
+                        <td colspan="10" class="text-center">No hay elementos disponibles.</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
+
 </body>
 {% endblock %}
