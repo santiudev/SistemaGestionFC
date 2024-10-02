@@ -11,4 +11,6 @@ urlpatterns = [
     path('categorias/crear/', views.crear_categoria, name='crear_categoria'),
     path('mediosdepago/crear/', views.crear_mediopago, name='crear_mediodepago'),
     path('mediopago/eliminar/<int:medio_pago_id>/', eliminar_medio_pago, name='eliminar_medio_pago'),
+    path('movimiento/<int:movimiento_id>/', views.detalle_movimiento, name='detalle_movimiento'),
+
 ]
