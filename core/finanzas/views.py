@@ -3,9 +3,29 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages  # Agregar esta línea para importar messages
 from .models import Movimiento, Categoria, MedioPago
 from .forms import MovimientoForm, CategoriaForm, MedioPagoForm
+from django.db.models import Sum  # Add this line to import Sum
+
 
 def home_finanzas(request):
-    return render(request, 'finanzas/home.html')
+    # Obtener los últimos 5 movimientos ordenados por fecha descendente
+    recent_movements = Movimiento.objects.order_by('-fecha')[:5]
+
+    # Calcular totales
+    total_ingresos = Movimiento.objects.filter(tipo='INGRESO').aggregate(total=Sum('monto'))['total'] or 0
+    total_salidas = Movimiento.objects.filter(tipo='SALIDA').aggregate(total=Sum('monto'))['total'] or 0
+    total_dolares = Movimiento.objects.filter(moneda='USD').aggregate(total=Sum('monto'))['total'] or 0
+    total_pesos = Movimiento.objects.filter(moneda='PESOS').aggregate(total=Sum('monto'))['total'] or 0
+
+    context = {
+        'recent_movements': recent_movements,
+        'total_ingresos': total_ingresos,
+        'total_salidas': total_salidas,
+        'total_dolares': total_dolares,
+        'total_pesos': total_pesos,
+    }
+
+    return render(request, 'finanzas/home.html', context)
+
 
 def lista_movimientos(request):
     movimientos = Movimiento.objects.all()
@@ -63,3 +83,4 @@ def eliminar_medio_pago(request, medio_pago_id):
     medio_pago.delete()  # Eliminar el medio de pago
     messages.success(request, 'Medio de pago eliminado con éxito.')  # Mensaje de éxito
     return redirect('finanzas:crear_mediodepago.html')  # Redirigir a la vista deseada
+
