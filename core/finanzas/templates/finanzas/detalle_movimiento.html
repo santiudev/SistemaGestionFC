@@ -9,32 +9,32 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h2 class="text-center">Detalle del Movimiento</h2>
-        <div class="card p-4 shadow-sm">
+        <h2 class="text-center mb-4">Detalle del Movimiento</h2>
+        <div class="card p-4 shadow-sm detalle-movimiento-card">
             <div class="row mb-3">
-                <div class="col-md-6">
-                    <p><strong>Fecha:</strong> {{ movimiento.fecha|date:"j/n/Y" }}</p>
+                <!-- Primera columna de información -->
+                <div class="col-md-6 detalle-col">
+                    <p><strong>Fecha:</strong> <span class="detalle-info">{{ movimiento.fecha|date:"j/n/Y" }}</span></p>
                     <p><strong>Tipo:</strong> <span class="tipo-label {{ movimiento.tipo|lower }}">{{ movimiento.tipo }}</span></p>
-                    <p><strong>Categoría:</strong> {{ movimiento.categoria.nombre }}</p>
-                    <p><strong>Detalles:</strong> {{ movimiento.detalles }}</p>
-                    <p><strong>Monto:</strong> {{ movimiento.monto }}</p>
-                    <p><strong>Moneda:</strong> {{ movimiento.moneda }}</p>
+                    <p><strong>Categoría:</strong> <span class="detalle-info">{{ movimiento.categoria.nombre }}</span></p>
+                    <p><strong>Detalles:</strong> <span class="detalle-info">{{ movimiento.detalles }}</span></p>
+                    <p><strong>Monto:</strong> <span class="detalle-info">{{ movimiento.monto }}</span></p>
+                    <p><strong>Moneda:</strong> <span class="detalle-info">{{ movimiento.moneda }}</span></p>
                 </div>
-                <div class="col-md-6">
-                    <p><strong>Comentario:</strong> {{ movimiento.comentario }}</p>
-                    <p><strong>Patente:</strong> {{ movimiento.patente }}</p>
-                    <p><strong>Medio de Pago:</strong> {{ movimiento.medio_pago.nombre }}</p>
-                    <p><strong>Número de Comprobante:</strong> {{ movimiento.numero_comprobante }}</p>
-                    <p><strong>Estado:</strong> <span class="estado-label {{ movimiento.estado|lower }}">{{ movimiento.estado }}</span></p>
+                <!-- Segunda columna de información -->
+                <div class="col-md-6 detalle-col">
+                    <p><strong>Comentario:</strong> <span class="detalle-info">{{ movimiento.comentario }}</span></p>
+                    <p><strong>Patente:</strong> <span class="detalle-info">{{ movimiento.patente }}</span></p>
+                    <p><strong>Medio de Pago:</strong> <span class="detalle-info">{{ movimiento.medio_pago.nombre }}</span></p>
+                    <p><strong>Número de Comprobante:</strong> <span class="detalle-info">{{ movimiento.numero_comprobante }}</span></p>
                 </div>
             </div>
             {% if movimiento.documento_adjunto %}
-            <div class="mb-3">
+            <div class="mb-3 text-center">
                 <p><strong>Documento Adjunto:</strong></p>
                 <a href="{{ movimiento.documento_adjunto.url }}" class="btn btn-outline-primary" target="_blank">Ver Documento</a>
             </div>
             {% endif %}
-
         </div>
     </div>
 </body>

@@ -20,12 +20,13 @@ body {
     margin-bottom: 1.5rem;
     border-collapse: collapse;
     background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); /* Sombra ligera para dar relieve */
+    border-radius: 0.5rem; /* Bordes redondeados */
 }
-
 
 .table th, .table td {
     padding: 0.5rem;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     text-align: center;
     vertical-align: middle; /* Alinear verticalmente al centro */
     text-overflow: ellipsis; /* Añadir puntos suspensivos si el contenido es demasiado largo */
@@ -42,16 +43,18 @@ body {
 }
 
 /* Estilo para el contenedor del estado */
+.estado-label,
 .tipo-label {
-    padding: 1vh 1vh; /* Espaciado interno */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.3rem 0.6rem; /* Espaciado interno */
     border-radius: 0.5rem; /* Bordes redondeados */
-    font-size: 11px; /* Tamaño de fuente adecuado */
+    font-size: 0.85rem; /* Tamaño de fuente adecuado */
     font-weight: bold; /* Texto en negrita */
     color: #fff; /* Texto blanco para resaltar */
-    margin: 0;
-    text-align: left;
-    width: 95px; /* Ancho fijo para asegurar que todos sean iguales */
-    height: 30px; /* Altura fija para asegurar que todos sean iguales */
+    min-width: 100px; /* Ancho mínimo */
+    height: 40px; /* Altura fija */
 }
 
 /* Estilo para el tipo ingreso */
@@ -64,6 +67,16 @@ body {
     background-color: #dc3545; /* Rojo para salida */
 }
 
+/* Estilo para el estado confirmado */
+.estado-label.confirmado {
+    background-color: #28a745; /* Verde para confirmado */
+}
+
+/* Estilo para el estado pendiente */
+.estado-label.pendiente {
+    background-color: #ffc107; /* Amarillo para pendiente */
+    border: 1px solid #e0a800; /* Borde amarillo oscuro */
+}
 
 /* Botones de Acción */
 .btn {
@@ -136,4 +149,38 @@ body {
 /* Card Styles */
 .card {
     margin-bottom: 2.2vh; /* Añadir margen alrededor de cada card */
+    padding: 1.5rem; /* Espaciado interno para el card */
+    background-color: #ffffff; /* Fondo blanco */
+    border-radius: 0.5rem; /* Bordes redondeados */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera para el card */
+}
+
+/* Estilo del botón para documento adjunto */
+.btn-outline-primary {
+    transition: all 0.3s ease; /* Animación suave en hover */
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    color: #ffffff;
+    border-color: #007bff;
+}
+
+/* Estilo para el contenedor de documentos adjuntos */
+.documento-adjunto {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.documento-adjunto a {
+    font-weight: bold;
+    color: #007bff;
+    transition: color 0.3s ease;
+}
+
+.documento-adjunto a:hover {
+    color: #0056b3;
+}
+.no-underline {
+    text-decoration: none;
 }
