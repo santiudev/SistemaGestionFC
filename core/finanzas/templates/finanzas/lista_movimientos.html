@@ -7,45 +7,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Movimientos</title>
     <link href="{% static 'css/finanzas.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="container-fluid mt-4">
+    <div class="tablamovimientos container-fluid mt-4">
         <h2 class="text-center">Lista de Movimientos</h2>
         <div class="table-responsive">
-            <table class="table table-striped table-hover table-bordered my-0 w-100">
+            <table class="table table-hover my-0 w-100 custom-table">
                 <thead class="table-light">
                     <tr>
-                        <th style="width: 8%;">Fecha</th>
-                        <th style="width: 8%;">Tipo</th>
-                        <th style="width: 12%;">Categoría</th>
-                        <th style="width: 15%;">Detalles</th>
-                        <th style="width: 8%;">Monto</th>
-                        <th style="width: 8%;">Moneda</th>
-                        <th style="width: 15%;">Comentario</th>
-                        <th style="width: 8%;">Patente</th>
-                        <th style="width: 10%;">Medio de Pago</th>
-                        <th style="width: 10%;">N° Comprobante</th>
-                        <th style="width: 8%;">Estado</th>
+                        <th style="width: 8%;">Fecha <i class="fas fa-filter filter-icon"></i></th>
+                        <th style="width: 8%;">Tipo <i class="fas fa-filter filter-icon"></i></th>
+                        <th style="width: 12%;">Categoría <i class="fas fa-filter filter-icon"></i></th>
+                        <th style="width: 15%;">Detalles <i class="fas fa-filter filter-icon"></i></th>
+                        <th style="width: 8%;">Monto <i class="fas fa-filter filter-icon"></i></th>
+                        <th style="width: 8%;">Moneda <i class="fas fa-filter filter-icon"></i></th>
+                        <th style="width: 8%;">Patente <i class="fas fa-filter filter-icon"></i></th>
+                        <th style="width: 10%;">Medio de Pago <i class="fas fa-filter filter-icon"></i></th>
+                        <th style="width: 12%;">N° Comprobante <i class="fas fa-filter filter-icon"></i></th>
+                        <th style="width: 8%;">Estado <i class="fas fa-filter filter-icon"></i></th>
                         <th style="width: 10%;">Acciones</th>
-                    </tr>
+                    </tr>                    
                 </thead>
                 <tbody>
                     {% for movimiento in movimientos %}
                     <tr>
-                        <td>{{ movimiento.fecha }}</td>
-                        <td class="{% if movimiento.tipo == 'ingreso' %}tipo-ingreso{% else %}tipo-salida{% endif %}">{{ movimiento.tipo }}</td>
+                        <td>{{ movimiento.fecha|date:"j/n/Y"}}</td>
+                        <td >
+                            <span class="tipo-label {{ movimiento.tipo|lower }}">{{ movimiento.tipo }}</span>
+                        </td>                        
                         <td>{{ movimiento.categoria.nombre }}</td>
                         <td>{{ movimiento.detalles }}</td>
                         <td>{{ movimiento.monto }}</td>
                         <td>{{ movimiento.moneda }}</td>
-                        <td>{{ movimiento.comentario }}</td>
                         <td>{{ movimiento.patente }}</td>
                         <td>{{ movimiento.medio_pago.nombre }}</td>
                         <td>{{ movimiento.numero_comprobante }}</td>
-                        <td class="{% if movimiento.estado == 'confirmado' %}estado-confirmado{% else %}estado-pendiente{% endif %}">{{ movimiento.estado }}</td>
                         <td>
-                            <a href="" class="btn btn-warning btn-sm">Editar</a>
-                            <a href="" class="btn btn-danger btn-sm">Eliminar</a> 
+                            <span class="estado-label {{ movimiento.estado|lower }}">{{ movimiento.estado }}</span>
+                        </td>                        
+                        <td class="text-center">
+                            <a href="#" class="icon-edit mx-1"><i class="fas fa-pencil-alt text-black"></i></a>
+                            <a href="#" class="icon-delete mx-1"><i class="fas fa-trash-alt text-danger"></i></a>
                         </td>
                     </tr>
                     {% empty %}

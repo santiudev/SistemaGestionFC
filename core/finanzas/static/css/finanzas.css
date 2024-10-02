@@ -7,6 +7,9 @@ body {
 }
 
 /* Container Adjustments */
+.tablamovimientos {
+    margin-top: 0;
+}
 .container-fluid {
     padding: 1.5rem;
 }
@@ -19,19 +22,17 @@ body {
     background-color: #ffffff;
 }
 
+
 .table th, .table td {
     padding: 0.5rem;
     font-size: 0.8rem;
     text-align: center;
-    border: 1px solid #dee2e6;
     vertical-align: middle; /* Alinear verticalmente al centro */
     text-overflow: ellipsis; /* Añadir puntos suspensivos si el contenido es demasiado largo */
     white-space: normal; /* Permitir que el contenido se divida en varias líneas si es necesario */
-}
-
-.table th {
-    background-color: #f8f9fa;
-    font-weight: bold;
+    background-color: #ffffff; /* Fondo blanco para todas las celdas */
+    height: 50px; /* Asegurar que todas las celdas tengan la misma altura mínima */
+    border: 1px solid #e0e0e0; /* Bordes grises claros */
 }
 
 /* Ajustes para Columnas Específicas */
@@ -40,25 +41,39 @@ body {
     word-wrap: break-word; /* Romper palabras largas para evitar desbordamiento */
 }
 
-.tipo-ingreso {
-    color: #198754; /* Verde oscuro para ingresos */
-    font-weight: bold;
+/* Estilo para el contenedor del estado */
+.estado-label, .tipo-label {
+    padding: 1vh 1vh; /* Espaciado interno */
+    border-radius: 0.5rem; /* Bordes redondeados */
+    font-size: 11px; /* Tamaño de fuente adecuado */
+    font-weight: bold; /* Texto en negrita */
+    color: #fff; /* Texto blanco para resaltar */
+    margin: 0;
+    text-align: left;
+    width: 95px; /* Ancho fijo para asegurar que todos sean iguales */
+    height: 30px; /* Altura fija para asegurar que todos sean iguales */
 }
 
-.tipo-salida {
-    color: #dc3545; /* Rojo para salidas */
-    font-weight: bold;
+/* Estilo para el estado confirmado */
+.estado-label.confirmado {
+    background-color: #2ebb4f; /* Verde para confirmado */
 }
 
-.estado-confirmado {
-    color: #198754; /* Verde oscuro para estado confirmado */
-    font-weight: bold;
+/* Estilo para el estado pendiente */
+.estado-label.pendiente {
+    background-color: #ffc107; /* Amarillo para pendiente */
 }
 
-.estado-pendiente {
-    color: #e6a300; /* Amarillo oscuro para estado pendiente */
-    font-weight: bold;
+/* Estilo para el tipo ingreso */
+.tipo-label.ingreso {
+    background-color: #2cb44c; /* Verde para ingreso */
 }
+
+/* Estilo para el tipo salida */
+.tipo-label.salida {
+    background-color: #dc3545; /* Rojo para salida */
+}
+
 
 /* Botones de Acción */
 .btn {
@@ -83,6 +98,20 @@ body {
 .btn-sm {
     font-size: 0.75rem;
     padding: 0.2rem 0.4rem;
+}
+
+/* Estilo para los íconos de filtro */
+.filter-icon {
+    font-size: 0.85rem; /* Ajuste del tamaño del ícono */
+    margin-left: 0.3rem; /* Espacio entre el texto del encabezado y el ícono */
+    color: #6c757d; /* Color gris para el ícono */
+    cursor: pointer; /* Cursor en forma de mano para indicar interactividad */
+}
+
+/* Efecto hover para los íconos de filtro */
+.filter-icon:hover {
+    color: #007bff; /* Cambiar a azul al pasar el ratón para indicar que es clickeable */
+    transition: color 0.2s ease-in-out; /* Suavizar el cambio de color */
 }
 
 /* Responsive Styles */
