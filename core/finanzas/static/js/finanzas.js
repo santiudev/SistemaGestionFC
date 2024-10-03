@@ -15,6 +15,12 @@ function aplicarFiltros() {
     // Limpiar mensaje de "No hay resultados" antes de aplicar filtros
     limpiarMensajeNoHayResultados();
 
+    // Obtener fechas de los filtros
+    var fechaInicio = document.getElementById('fechaInicio').value;
+    var fechaFin = document.getElementById('fechaFin').value;
+    var fechaInicioDate = fechaInicio ? new Date(fechaInicio) : null;
+    var fechaFinDate = fechaFin ? new Date(fechaFin) : null;
+
     for (var i = 1; i < rows.length; i++) {
         var cells = rows[i].getElementsByTagName('td');
         var mostrar = true;
@@ -53,6 +59,15 @@ function aplicarFiltros() {
             mostrar = false;
         }
 
+        // Verificar el rango de fechas
+        var fechaCell = convertirFecha(cells[0].innerText);
+        if (fechaInicioDate && fechaCell < fechaInicioDate) {
+            mostrar = false;
+        }
+        if (fechaFinDate && fechaCell > fechaFinDate) {
+            mostrar = false;
+        }
+
         if (mostrar) {
             rows[i].style.display = '';
             hayResultados = true; // Se encontró al menos un resultado
@@ -64,6 +79,14 @@ function aplicarFiltros() {
     // Mostrar mensaje si no se encuentra ningún elemento
     if (!hayResultados) {
         mostrarMensajeNoHayResultados();
+    }
+
+    // Cambiar el estado del ícono de filtro de fecha
+    var filterBtnFecha = document.querySelector('.filter-btn[data-column="fecha"]');
+    if (fechaInicio || fechaFin) {
+        filterBtnFecha.classList.add('active'); // Agregar clase activa si hay un valor
+    } else {
+        filterBtnFecha.classList.remove('active'); // Remover clase activa si no hay valor
     }
 }
 
@@ -235,3 +258,60 @@ document.querySelectorAll('.filter-popup').forEach(popup => {
         event.stopPropagation();
     });
 });
+function filtrarPorRangoFechas() {
+    var fechaInicio = document.getElementById('fechaInicio').value;
+    var fechaFin = document.getElementById('fechaFin').value;
+
+    // Convertir las fechas a objetos Date
+    var fechaInicioDate = fechaInicio ? new Date(fechaInicio) : null;
+    var fechaFinDate = fechaFin ? new Date(fechaFin) : null;
+
+    // Verificar si la fecha de fin es anterior a la fecha de inicio
+    if (fechaInicioDate && fechaFinDate && fechaFinDate < fechaInicioDate) {
+        alert("La fecha de fin no puede ser anterior a la fecha de inicio."); // Mensaje de error
+        return; // Salir de la función si la condición se cumple
+    }
+
+    var table = document.getElementById('tablaMovimientos');
+    var rows = table.getElementsByTagName('tr');
+    var hayResultados = false;
+
+    // Limpiar el mensaje de "No hay resultados" antes de aplicar el filtro
+    limpiarMensajeNoHayResultados();
+
+    for (var i = 1; i < rows.length; i++) {
+        var cells = rows[i].getElementsByTagName('td');
+        var mostrar = true;
+
+        // Obtener la fecha de la celda
+        var fechaCell = convertirFecha(cells[0].innerText);
+
+        // Verificar si la fecha está dentro del rango
+        if (fechaInicioDate && fechaCell < fechaInicioDate) {
+            mostrar = false;
+        }
+        if (fechaFinDate && fechaCell > fechaFinDate) {
+            mostrar = false;
+        }
+
+        if (mostrar) {
+            rows[i].style.display = '';
+            hayResultados = true;
+        } else {
+            rows[i].style.display = 'none';
+        }
+    }
+
+    // Mostrar mensaje si no se encuentra ningún elemento
+    if (!hayResultados) {
+        mostrarMensajeNoHayResultados();
+    }
+
+    // Ocultar el popup de fechas después de aplicar el filtro
+    document.getElementById('filtroFecha').classList.add('d-none');
+}
+// Función para convertir una fecha en formato "j/n/Y" a un objeto Date
+function convertirFecha(fechaStr) {
+    var partes = fechaStr.split('/'); // Separar por '/'
+    return new Date(partes[2], partes[1] - 1, partes[0]); // año, mes (0-11), día
+}

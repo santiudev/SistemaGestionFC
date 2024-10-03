@@ -23,7 +23,10 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); /* Sombra ligera para dar relieve */
     border-radius: 0.5rem; /* Bordes redondeados */
 }
-
+.table-responsive {
+    min-height: 300px; /* Ajusta este valor según sea necesario */
+    overflow-y: auto; /* Permitir scroll vertical si es necesario */
+}
 .table th, .table td {
     padding: 0.5rem;
     font-size: 0.9rem;

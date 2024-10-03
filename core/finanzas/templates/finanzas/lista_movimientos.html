@@ -35,11 +35,12 @@
                         <th style="width: 7%; position: relative;">
                             Fecha
                             <button class="btn btn-sm filter-btn" onclick="mostrarFiltroPopup(event, 'filtroFecha')" style="border: none;" data-column="fecha">
-                                <i class="fas fa-filter text-secondary"></i>
+                                <i class="fas fa-filter text-secondary"></i> <!-- Cambiar a negro cuando esté activo -->
                             </button>
                             <div id="filtroFecha" class="filter-popup d-none">
-                                <input type="date" class="form-control" id="fechaInicio" placeholder="Desde" onkeyup="filtrarPorRangoFechas()">
-                                <input type="date" class="form-control mt-2" id="fechaFin" placeholder="Hasta" onkeyup="filtrarPorRangoFechas()">
+                                <input type="date" class="form-control" id="fechaInicio" placeholder="Desde">
+                                <input type="date" class="form-control mt-2" id="fechaFin" placeholder="Hasta">
+                                <button class="btn btn-primary mt-2" onclick="filtrarPorRangoFechas()">Buscar</button> <!-- Botón de búsqueda -->
                             </div>
                         </th>
                         <th style="width: 8%; position: relative;">
