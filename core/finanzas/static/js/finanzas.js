@@ -12,6 +12,9 @@ function aplicarFiltros() {
     var input = document.getElementById('filtroTabla');
     var filter = input.value.toLowerCase(); // Obtener el valor del campo de búsqueda
 
+    // Limpiar mensaje de "No hay resultados" antes de aplicar filtros
+    limpiarMensajeNoHayResultados();
+
     for (var i = 1; i < rows.length; i++) {
         var cells = rows[i].getElementsByTagName('td');
         var mostrar = true;
@@ -164,9 +167,9 @@ document.getElementById('exportarExcel').addEventListener('click', function () {
 });
 
 
-// Función para limpiar el input de búsqueda
 function limpiarBusqueda() {
     document.getElementById('filtroTabla').value = '';
+    limpiarMensajeNoHayResultados(); // Eliminar la fila "No hay resultados"
     filtrarTabla(); // Llama a la función de filtrado para mostrar todas las filas nuevamente
 }
 
