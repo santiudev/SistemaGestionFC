@@ -1,9 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from datetime import date
-
-
+from django.conf import settings
 class Categoria(models.Model):
     nombre = models.CharField(max_length=100)
     requiere_patente = models.BooleanField(default=False)
@@ -44,7 +42,7 @@ class Movimiento(models.Model):
     patente = models.CharField(max_length=10, blank=True, null=True)
     medio_pago = models.ForeignKey(MedioPago, on_delete=models.CASCADE)
     numero_comprobante = models.CharField(max_length=50, blank=True, null=True)
-    usuario = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     documento_adjunto = models.FileField(upload_to='finanzas/movimientos/', blank=True, null=True)
 
     def __str__(self):

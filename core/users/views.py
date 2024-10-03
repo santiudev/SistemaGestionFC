@@ -1,16 +1,17 @@
 from django.shortcuts import render
+from django.contrib.auth.views import LoginView, LogoutView
+from django.urls import reverse_lazy
 
 def home(request):
-    autos = {
-        'Auto1': {'modelo': 'Modelo1', 'marca': 'Marca1', 'año': 2020, 'vendedor': 'Vendedor1', 'estado': 'vendido'},  # Agregado estado
-        'Auto2': {'modelo': 'Modelo2', 'marca': 'Marca2', 'año': 2021, 'vendedor': 'Vendedor2', 'estado': 'disponible'},  # Agregado estado
-        # ... más autos ...
-    }
+    return render(request, 'users/home.html')
 
-    if request.method == 'POST':
-        for auto in autos.keys():
-            estado = request.POST.get(auto)
-            if estado:
-                autos[auto]['estado'] = estado  # Actualiza el estado del auto
+class CustomLoginView(LoginView):
+    template_name = 'users/login.html'
+    redirect_authenticated_user = True  # Redirige si el usuario ya está autenticado
 
-    return render(request, 'users/home.html', {'autos': autos})
+    def get_success_url(self):
+        return reverse_lazy('home')  # Reemplaza 'home' con la URL a la que quieras redirigir
+
+class CustomLogoutView(LogoutView):
+    next_page = reverse_lazy('login')  # Redirige a la página de login después de cerrar sesión
+    template_name = 'users/logged_out.html'  # Asegúrate de tener esta plantilla

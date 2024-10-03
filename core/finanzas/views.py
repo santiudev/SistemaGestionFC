@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404  # Añadir esta línea
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages  # Agregar esta línea para importar messages
 from .models import Movimiento, Categoria, MedioPago
 from .forms import MovimientoForm, CategoriaForm, MedioPagoForm
 from django.db.models import Sum  # Add this line to import Sum
 
-
+@login_required
+@permission_required('finanzas.view_movimiento', raise_exception=True)
 def home_finanzas(request):
     # Obtener los últimos 5 movimientos ordenados por fecha descendente
     recent_movements = Movimiento.objects.order_by('-fecha')[:5]
@@ -26,11 +27,14 @@ def home_finanzas(request):
 
     return render(request, 'finanzas/home.html', context)
 
-
+@login_required
+@permission_required('finanzas.view_movimiento', raise_exception=True)
 def lista_movimientos(request):
     movimientos = Movimiento.objects.all()
     return render(request, 'finanzas/lista_movimientos.html', {'movimientos': movimientos})
 
+@login_required
+@permission_required('finanzas.add_movimiento', raise_exception=True)
 def crear_movimiento(request):
     if request.method == 'POST':
         form = MovimientoForm(request.POST, request.FILES)
@@ -52,7 +56,8 @@ def crear_movimiento(request):
         'medios_pago': medios_pago
     })
 
-
+@login_required
+@permission_required('finanzas.add_movimiento', raise_exception=True)
 def crear_categoria(request):
     if request.method == 'POST':
         form = CategoriaForm(request.POST)
@@ -64,6 +69,9 @@ def crear_categoria(request):
     categorias = Categoria.objects.all()
     return render(request, 'finanzas/crear_categoria.html', {'form': form, 'categorias': categorias})
 
+
+@login_required
+@permission_required('finanzas.add_movimiento', raise_exception=True)
 def crear_mediopago(request):
        if request.method == 'POST':
            form = MedioPagoForm(request.POST)
@@ -78,6 +86,9 @@ def crear_mediopago(request):
        medios_pago = MedioPago.objects.all()
        return render(request, 'finanzas/crear_mediodepago.html', {'form': form, 'medios_pago': medios_pago})
 
+
+@login_required
+@permission_required('finanzas.delete_mediopago', raise_exception=True)
 def eliminar_medio_pago(request, medio_pago_id):
     medio_pago = get_object_or_404(MedioPago, id=medio_pago_id)  # Obtener el medio de pago
     medio_pago.delete()  # Eliminar el medio de pago
@@ -85,7 +96,8 @@ def eliminar_medio_pago(request, medio_pago_id):
     return redirect('finanzas:crear_mediodepago.html')  # Redirigir a la vista deseada
 
 
-
+@login_required
+@permission_required('finanzas.view_movimiento', raise_exception=True)
 def detalle_movimiento(request, id):
     movimiento = get_object_or_404(Movimiento, id=id)
     return render(request, 'finanzas/detalle_movimiento.html', {'movimiento': movimiento})
