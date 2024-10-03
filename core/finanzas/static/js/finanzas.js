@@ -1,33 +1,90 @@
 // Función para filtrar la tabla según el texto introducido en el campo de búsqueda
 function filtrarTabla() {
-    var input = document.getElementById('filtroTabla');
-    var filter = input.value.toLowerCase();
+    // Llama a aplicarFiltros para que se apliquen todos los filtros
+    aplicarFiltros();
+}
+
+// Función para aplicar todos los filtros
+function aplicarFiltros() {
     var table = document.getElementById('tablaMovimientos');
     var rows = table.getElementsByTagName('tr');
-    var encontrado = false;
+    var hayResultados = false; // Variable para verificar si hay resultados
+    var input = document.getElementById('filtroTabla');
+    var filter = input.value.toLowerCase(); // Obtener el valor del campo de búsqueda
 
     for (var i = 1; i < rows.length; i++) {
         var cells = rows[i].getElementsByTagName('td');
-        var match = false;
+        var mostrar = true;
 
-        for (var j = 0; j < cells.length; j++) {
-            var cellValue = cells[j].textContent || cells[j].innerText;
-            if (cellValue.toLowerCase().indexOf(filter) > -1) {
-                match = true;
-                break;
-            }
+        // Verificar filtros individuales
+        if (filtros['fecha'] && !cells[0].innerText.toLowerCase().includes(filtros['fecha'])) {
+            mostrar = false;
+        }
+        if (filtros['tipo'] && !cells[1].innerText.toLowerCase().includes(filtros['tipo'])) {
+            mostrar = false;
+        }
+        if (filtros['categoria'] && !cells[2].innerText.toLowerCase().includes(filtros['categoria'])) {
+            mostrar = false;
+        }
+        if (filtros['detalles'] && !cells[3].innerText.toLowerCase().includes(filtros['detalles'])) {
+            mostrar = false;
+        }
+        if (filtros['monto'] && !cells[4].innerText.toLowerCase().includes(filtros['monto'])) {
+            mostrar = false;
+        }
+        if (filtros['moneda'] && !cells[5].innerText.toLowerCase().includes(filtros['moneda'])) {
+            mostrar = false;
+        }
+        if (filtros['patente'] && !cells[6].innerText.toLowerCase().includes(filtros['patente'])) {
+            mostrar = false;
+        }
+        if (filtros['medio_pago'] && !cells[7].innerText.toLowerCase().includes(filtros['medio_pago'])) {
+            mostrar = false;
+        }
+        if (filtros['comprobante'] && !cells[8].innerText.toLowerCase().includes(filtros['comprobante'])) {
+            mostrar = false;
         }
 
-        if (match) {
+        // Verificar el campo de búsqueda
+        if (filter && !Array.from(cells).some(cell => cell.innerText.toLowerCase().includes(filter))) {
+            mostrar = false;
+        }
+
+        if (mostrar) {
             rows[i].style.display = '';
-            encontrado = true;
+            hayResultados = true; // Se encontró al menos un resultado
         } else {
             rows[i].style.display = 'none';
         }
     }
 
     // Mostrar mensaje si no se encuentra ningún elemento
-    mostrarMensajeNoHayResultados(!encontrado);
+    if (!hayResultados) {
+        mostrarMensajeNoHayResultados();
+    }
+}
+
+// Función para mostrar el mensaje de "No hay resultados"
+function mostrarMensajeNoHayResultados() {
+    var table = document.getElementById('tablaMovimientos');
+    var noResultadosRow = table.insertRow(1); // Insertar en la segunda posición
+    var noResultadosCell = noResultadosRow.insertCell(0);
+    noResultadosCell.colSpan = 10; // Ajustar según el número de columnas
+    noResultadosCell.textContent = 'No hay resultados';
+    noResultadosCell.style.textAlign = 'center'; // Centrar el texto
+    noResultadosRow.style.display = ''; // Asegurarse de que la fila sea visible
+}
+
+// Función para limpiar el mensaje de "No hay resultados"
+function limpiarMensajeNoHayResultados() {
+    var table = document.getElementById('tablaMovimientos');
+    var rows = table.getElementsByTagName('tr');
+    for (var i = 1; i < rows.length; i++) {
+        if (rows[i].cells[0] && rows[i].cells[0].textContent === 'No hay resultados') {
+            table.deleteRow(i);
+            break; // Salir del bucle después de eliminar la fila
+        }
+    }
 }
 
 // Función para exportar la tabla a un archivo Excel con estilos usando ExcelJS
@@ -132,51 +189,16 @@ var filtros = {
 function filtrarPorColumna(columna, valor) {
     filtros[columna] = valor.toLowerCase();
     aplicarFiltros();
-}
 
-function aplicarFiltros() {
-    var table = document.getElementById('tablaMovimientos');
-    var rows = table.getElementsByTagName('tr');
-
-    for (var i = 1; i < rows.length; i++) {
-        var cells = rows[i].getElementsByTagName('td');
-        var mostrar = true;
-
-        if (filtros['fecha'] && !cells[0].innerText.toLowerCase().includes(filtros['fecha'])) {
-            mostrar = false;
-        }
-        if (filtros['tipo'] && !cells[1].innerText.toLowerCase().includes(filtros['tipo'])) {
-            mostrar = false;
-        }
-        if (filtros['categoria'] && !cells[2].innerText.toLowerCase().includes(filtros['categoria'])) {
-            mostrar = false;
-        }
-        if (filtros['detalles'] && !cells[3].innerText.toLowerCase().includes(filtros['detalles'])) {
-            mostrar = false;
-        }
-        if (filtros['monto'] && !cells[4].innerText.toLowerCase().includes(filtros['monto'])) {
-            mostrar = false;
-        }
-        if (filtros['moneda'] && !cells[5].innerText.toLowerCase().includes(filtros['moneda'])) {
-            mostrar = false;
-        }
-        if (filtros['patente'] && !cells[6].innerText.toLowerCase().includes(filtros['patente'])) {
-            mostrar = false;
-        }
-        if (filtros['medio_pago'] && !cells[7].innerText.toLowerCase().includes(filtros['medio_pago'])) {
-            mostrar = false;
-        }
-        if (filtros['comprobante'] && !cells[8].innerText.toLowerCase().includes(filtros['comprobante'])) {
-            mostrar = false;
-        }
-
-        if (mostrar) {
-            rows[i].style.display = '';
-        } else {
-            rows[i].style.display = 'none';
-        }
+    // Cambiar el estado del ícono de filtro
+    var filterBtn = document.querySelector(`.filter-btn[data-column="${columna}"]`);
+    if (valor) {
+        filterBtn.classList.add('active'); // Agregar clase activa si hay un valor
+    } else {
+        filterBtn.classList.remove('active'); // Remover clase activa si no hay valor
     }
 }
+
 function mostrarFiltroPopup(event, filtroId) {
     // Oculta todos los demás popups primero
     document.querySelectorAll('.filter-popup').forEach(popup => {

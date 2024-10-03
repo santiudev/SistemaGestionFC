@@ -128,6 +128,10 @@ body {
     color: #007bff; /* Cambiar a azul al pasar el ratón para indicar que es clickeable */
     transition: color 0.2s ease-in-out; /* Suavizar el cambio de color */
 }
+/* Estilo para el ícono de filtro activo */
+.filter-btn.active i {
+    color: #000000 !important; /* Negro oscuro si hay filtro activo */
+}
 .filter-popup {
     position: absolute;
     top: 100%;
