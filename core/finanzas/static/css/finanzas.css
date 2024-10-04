@@ -206,7 +206,7 @@ body {
 
 /* Card Styles */
 .card {
-    margin-bottom: 2.2vh; /* Añadir margen alrededor de cada card */
+    margin-bottom: 3.1vh; /* Añadir margen alrededor de cada card */
     padding: 1.5rem; /* Espaciado interno para el card */
     background-color: #ffffff; /* Fondo blanco */
     border-radius: 0.5rem; /* Bordes redondeados */

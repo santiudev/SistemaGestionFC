@@ -11,7 +11,7 @@
     <div class="row mb-2 mb-xl-3 align-items-center">
         <div class="col-auto d-flex align-items-center">
             <h3 class="mb-0 me-3"><strong>FINANZAS</strong></h3>
-            <a href="{% url 'finanzas:lista_movimientos' %}" class="btn btn-white-custom btn-sm">Lista de Movimientos</a>
+            <a href="{% url 'finanzas:lista_movimientos' %}" class="btn btn-primary btn-sm">Lista de Movimientos</a>
         </div>
         <div class="col-auto ms-auto text-end">
             <a href="{% url 'finanzas:crear_categoria' %}" class="btn btn-white-custom btn-sm">Crear Categoría</a>  
@@ -41,7 +41,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <h1 class="mt-1 mb-3">{{ total_ingresos|floatformat:2 }}</h1>
+                                <h1 class="mt-1 mb-3" style="font-size: xx-large;">{{ total_ingresos|floatformat:2 }}</h1>
                                 <div class="mb-0">
                                     <span class="text-muted">Total de ingresos</span>
                                 </div>
@@ -61,7 +61,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <h1 class="mt-1 mb-3">{{ total_dolares|floatformat:2 }}</h1>
+                                <h1 class="mt-1 mb-3" style="font-size: xx-large;">{{ total_dolares|floatformat:2 }}</h1>
                                 <div class="mb-0">
                                     <span class="text-muted">Total en dólares</span>
                                 </div>
@@ -84,7 +84,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <h1 class="mt-1 mb-3">{{ total_salidas|floatformat:2 }}</h1>
+                                <h1 class="mt-1 mb-3" style="font-size: xx-large;">{{ total_salidas|floatformat:2 }}</h1>
                                 <div class="mb-0">
                                     <span class="text-muted">Total de salidas</span>
                                 </div>
@@ -104,7 +104,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <h1 class="mt-1 mb-3">{{ total_pesos|floatformat:2 }}</h1>
+                                <h1 class="mt-1 mb-3" style="font-size: xx-large;">{{ total_pesos|floatformat:2 }}</h1>
                                 <div class="mb-0">
                                     <span class="text-muted">Total en pesos</span>
                                 </div>

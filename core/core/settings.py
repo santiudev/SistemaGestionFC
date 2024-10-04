@@ -42,6 +42,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 ROOT_URLCONF = 'core.urls'
 
 TEMPLATES = [
@@ -71,8 +72,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'defaultdb',
         'USER': 'doadmin',
-        'PASSWORD': 'AVNS_O3BKSBcPpCCCa6v5S2P',
-        'HOST': 'dbtestfc-do-user-16285424-0.k.db.ondigitalocean.com',
+        'PASSWORD': 'AVNS_OBbYu5umakZ4BogqemE',
+        'HOST': 'testfc-do-user-16285424-0.m.db.ondigitalocean.com',
         'PORT': '25060',
     }
 }
