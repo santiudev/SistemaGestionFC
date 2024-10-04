@@ -49,7 +49,11 @@
                                 <i class="fas fa-filter text-secondary"></i>
                             </button>
                             <div id="filtroTipo" class="filter-popup d-none">
-                                <input type="text" class="form-control" placeholder="Buscar Tipo" onkeyup="filtrarPorColumna('tipo', this.value)">
+                                <select class="form-control" onchange="filtrarPorColumna('tipo', this.value)">
+                                    <option value="">Todos</option>
+                                    <option value="ingreso">Ingreso</option>
+                                    <option value="salida">Salida</option>
+                                </select>
                             </div>
                         </th>
                         <th style="width: 12%; position: relative;">
@@ -85,7 +89,11 @@
                                 <i class="fas fa-filter text-secondary"></i>
                             </button>
                             <div id="filtroMoneda" class="filter-popup d-none">
-                                <input type="text" class="form-control" placeholder="Buscar Moneda" onkeyup="filtrarPorColumna('moneda', this.value)">
+                                <select class="form-control" onchange="filtrarPorColumna('moneda', this.value)">
+                                    <option value="">Todos</option>
+                                    <option value="USD">USD</option>
+                                    <option value="Pesos">Pesos</option>
+                                </select>
                             </div>
                         </th>
                         <th style="width: 10%; position: relative;">
