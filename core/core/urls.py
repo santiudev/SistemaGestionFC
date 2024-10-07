@@ -7,7 +7,6 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', lambda request: redirect('/accounts/test/')),  # Redirige la raíz al nuevo destino
     path('accounts/', include('users.urls')),
     path('finanzas/', include('finanzas.urls')),
 ]

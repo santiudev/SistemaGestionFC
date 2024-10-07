@@ -4,25 +4,32 @@ from django.contrib import messages  # Agregar esta línea para importar message
 from .models import Movimiento, Categoria, MedioPago
 from .forms import MovimientoForm, CategoriaForm, MedioPagoForm
 from django.db.models import Sum  # Add this line to import Sum
+from .utils import filtrar_movimientos_por_fecha, calcular_totales, calcular_totales_por_medio_pago
 
 @login_required
 @permission_required('finanzas.view_movimiento', raise_exception=True)
 def home_finanzas(request):
-    # Obtener los últimos 5 movimientos ordenados por fecha descendente
-    recent_movements = Movimiento.objects.order_by('-fecha')[:5]
+    # Filtrar los movimientos según el rango de fechas
+    movimientos, start_date_str, end_date_str = filtrar_movimientos_por_fecha(request)
+    
+    # Obtener los últimos 5 movimientos ordenados por fecha descendente (sin filtrar)
+    recent_movements = Movimiento.objects.all().order_by('-fecha')[:5]
 
-    # Calcular totales
-    total_ingresos = Movimiento.objects.filter(tipo='INGRESO').aggregate(total=Sum('monto'))['total'] or 0
-    total_salidas = Movimiento.objects.filter(tipo='SALIDA').aggregate(total=Sum('monto'))['total'] or 0
-    total_dolares = Movimiento.objects.filter(moneda='USD').aggregate(total=Sum('monto'))['total'] or 0
-    total_pesos = Movimiento.objects.filter(moneda='PESOS').aggregate(total=Sum('monto'))['total'] or 0
+    # Calcular totales sin decimales dentro del filtro
+    totales = calcular_totales(movimientos)
+
+    # Calcular totales por medio de pago dentro del filtro
+    totales_medio_pago = calcular_totales_por_medio_pago(movimientos)
 
     context = {
         'recent_movements': recent_movements,
-        'total_ingresos': total_ingresos,
-        'total_salidas': total_salidas,
-        'total_dolares': total_dolares,
-        'total_pesos': total_pesos,
+        'total_ingresos_pesos': totales['total_ingresos_pesos'],
+        'total_salidas_pesos': totales['total_salidas_pesos'],
+        'total_ingresos_dolares': totales['total_ingresos_dolares'],
+        'total_salidas_dolares': totales['total_salidas_dolares'],
+        'start_date': start_date_str if start_date_str else '',
+        'end_date': end_date_str if end_date_str else '',
+        'totales_medio_pago': totales_medio_pago,
     }
 
     return render(request, 'finanzas/home.html', context)

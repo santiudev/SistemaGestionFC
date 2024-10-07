@@ -149,9 +149,9 @@
                         <td>{{ movimiento.categoria.nombre }}</td>
                         <td>{{ movimiento.monto }}</td>
                         <td>{{ movimiento.moneda }}</td>
-                        <td>{{ movimiento.patente }}</td>
+                        <td>{{ movimiento.patente|default:"-" }}</td>
                         <td>{{ movimiento.medio_pago.nombre }}</td>
-                        <td>{{ movimiento.numero_comprobante }}</td>                 
+                        <td>{{ movimiento.numero_comprobante|default:"-" }}</td>                 
                         <td class="text-center">
                             <a href="{% url 'finanzas:detalle_movimiento' movimiento.id %}" class="icon-view mx-1 no-underline">
                                 <i class="fas fa-eye text-primary"></i>
