@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Movimiento</title>
     <link href="{% static 'css/finanzas.css' %}" rel="stylesheet">
+    <script src="{% static 'js/finanzas.js' %}" defer></script>
 </head>
 <body>
     <div class="containercrearmovimiento mt-4">
@@ -32,7 +33,7 @@
                         <select class="form-select" id="categoria" name="categoria" required>
                             <option value="">Seleccione una categoría</option>
                             {% for categoria in categorias %}
-                                <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
+                                <option value="{{ categoria.id }}" data-requiere-patente="{{ categoria.requiere_patente|yesno:'true,false' }}">{{ categoria.nombre }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -59,7 +60,7 @@
                         <label for="comentario" class="form-label">Comentario</label>
                         <textarea class="form-control" id="comentario" name="comentario"></textarea>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3" style="display: none;">
                         <label for="patente" class="form-label">Patente</label>
                         <input type="text" class="form-control" id="patente" name="patente">
                     </div>
@@ -87,6 +88,24 @@
             </div>
         </form>
     </div>
-    
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoriaSelect = document.getElementById('categoria');
+            const patenteInput = document.getElementById('patente');
+
+            function togglePatenteInput() {
+                const selectedOption = categoriaSelect.options[categoriaSelect.selectedIndex];
+                const requierePatente = selectedOption.getAttribute('data-requiere-patente') === 'true';
+                console.log('Categoría seleccionada:', selectedOption.text);
+                console.log('Requiere patente:', requierePatente);
+                patenteInput.closest('.mb-3').style.display = requierePatente ? 'block' : 'none';
+            }
+
+            categoriaSelect.addEventListener('change', togglePatenteInput);
+            togglePatenteInput(); // Llamar al inicio para establecer el estado correcto
+        });
+    </script>
 </body>
 {% endblock %}

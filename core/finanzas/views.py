@@ -30,7 +30,7 @@ def home_finanzas(request):
 @login_required
 @permission_required('finanzas.view_movimiento', raise_exception=True)
 def lista_movimientos(request):
-    movimientos = Movimiento.objects.all()
+    movimientos = Movimiento.objects.all().order_by('-fecha')
     return render(request, 'finanzas/lista_movimientos.html', {'movimientos': movimientos})
 
 @login_required
