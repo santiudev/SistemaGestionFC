@@ -122,3 +122,26 @@ def eliminar_categoria(request, id):
     messages.success(request, 'Categoría eliminada con éxito.')  # Mensaje de éxito
     return redirect('finanzas:crear_categoria')  # Redirigir a la vista deseada
 
+@login_required
+@permission_required('finanzas.view_movimiento', raise_exception=True)
+def detalle_medio_pago(request, medio_pago_id):
+    # Obtener el medio de pago o devolver 404 si no existe
+    medio_pago = get_object_or_404(MedioPago, id=medio_pago_id)
+    
+    # Obtener todos los movimientos asociados a este medio de pago, ordenados por fecha descendente
+    movimientos = Movimiento.objects.filter(medio_pago=medio_pago).select_related('categoria').order_by('-fecha')
+    
+    # Calcular totales para mostrar en la plantilla
+    total_ingresos = movimientos.filter(tipo='INGRESO').aggregate(total=Sum('monto'))['total'] or 0
+    total_salidas = movimientos.filter(tipo='SALIDA').aggregate(total=Sum('monto'))['total'] or 0
+    total_neto = int(total_ingresos) - int(total_salidas)
+    
+    context = {
+        'medio_pago': medio_pago,
+        'movimientos': movimientos,
+        'total_ingresos': total_ingresos,
+        'total_salidas': total_salidas,
+        'total_neto': total_neto,
+    }
+    
+    return render(request, 'finanzas/detalle_medio_pago.html', context)

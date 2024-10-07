@@ -46,6 +46,8 @@ def calcular_totales(movimientos):
         'total_salidas_dolares': int(total_salidas_dolares),
     }
 
+# finanzas/utils.py
+
 def calcular_totales_por_medio_pago(movimientos):
     """
     Calcula los totales de ingresos y salidas por cada medio de pago.
@@ -60,6 +62,7 @@ def calcular_totales_por_medio_pago(movimientos):
         neto = int(ingresos) - int(salidas)
         
         totales_medio_pago.append({
+            'id': medio.id,  # Añadido el ID
             'medio_pago': medio.nombre,
             'ingresos': int(ingresos),
             'salidas': int(salidas),

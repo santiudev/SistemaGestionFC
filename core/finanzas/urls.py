@@ -13,4 +13,6 @@ urlpatterns = [
     path('mediopago/eliminar/<int:medio_pago_id>/', eliminar_medio_pago, name='eliminar_medio_pago'),
     path('categorias/eliminar/<int:id>/', eliminar_categoria, name='eliminar_categoria'), 
     path('movimientos/detalle/<int:id>/', views.detalle_movimiento, name='detalle_movimiento'),
+    path('mediopagos/detalle/<int:medio_pago_id>/', views.detalle_medio_pago, name='detalle_medio_pago'),
+
 ]

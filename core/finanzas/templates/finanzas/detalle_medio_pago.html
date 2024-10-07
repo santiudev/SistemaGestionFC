@@ -1,0 +1,90 @@
+<!-- finanzas/templates/finanzas/detalle_medio_pago.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de Medio de Pago - {{ medio_pago.nombre }}</title>
+    <link href="{% static 'css/finanzas.css' %}" rel="stylesheet">
+    <!-- FontAwesome para los íconos -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="row mb-2 mb-xl-3 align-items-center">
+        <div class="col-auto d-flex align-items-center">
+            <h3 class="mb-0 me-3"><strong>Detalle de Medio de Pago</strong></h3>
+            <a href="{% url 'finanzas:home' %}" class="btn btn-primary btn-sm">Inicio</a>
+        </div>
+        <div class="col-auto ms-auto text-end">
+            <a href="{% url 'finanzas:lista_movimientos' %}" class="btn btn-white-custom btn-sm">Lista de Movimientos</a>  
+            <a href="{% url 'finanzas:crear_movimiento' %}" class="btn btn-white-custom btn-sm">Crear Movimiento</a>
+            <a href="{% url 'finanzas:crear_mediodepago' %}" class="btn btn-white-custom btn-sm">Crear Medio de Pago</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Información del Medio de Pago y Totales -->
+        <div class="col-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">{{ medio_pago.nombre }}</h4>
+                    <p class="card-text">
+                        <strong>Total Ingresos:</strong> {{ total_ingresos }}<br>
+                        <strong>Total Salidas:</strong> {{ total_salidas }}<br>
+                        {% if total_neto > 0 %}
+                            <strong>Total Neto:</strong> <span class="text-success">{{ total_neto }}</span>
+                        {% elif total_neto < 0 %}
+                            <strong>Total Neto:</strong> <span class="text-danger">{{ total_neto }}</span>
+                        {% else %}
+                            <strong>Total Neto:</strong> <span class="text-secondary">{{ total_neto }}</span>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla de Movimientos del Medio de Pago -->
+        <div class="col-12">
+            <div class="card flex-fill w-100">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Movimientos de {{ medio_pago.nombre }}</h5>
+                </div>
+                <div class="card-body pt-2 pb-3">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover table-bordered my-0 w-100">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Tipo</th>
+                                    <th>Categoría</th>
+                                    <th>Monto</th>
+                                    <th>Moneda</th>
+                                    <th>Patente</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for movimiento in movimientos %}
+                                <tr>
+                                    <td>{{ movimiento.fecha|date:"j/n/Y" }}</td>
+                                    <td>{{ movimiento.get_tipo_display }}</td>
+                                    <td>{{ movimiento.categoria.nombre }}</td>
+                                    <td>{{ movimiento.monto }}</td>
+                                    <td>{{ movimiento.get_moneda_display }}</td>
+                                    <td>{{ movimiento.patente|default:"-" }}</td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="6" class="text-center">No hay movimientos para este medio de pago.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}

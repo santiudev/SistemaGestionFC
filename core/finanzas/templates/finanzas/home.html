@@ -197,12 +197,22 @@
                         <span class="text-danger"><i class="fas fa-arrow-down"></i> Salidas: {{ medio.salidas }}</span>
                     </p>
                     <hr>
-                    {% if medio.neto >= 0 %}
+                    {% if medio.neto > 0 %}
                         <h4 class="text-success">Total Neto: {{ medio.neto }}</h4>
-                    {% else %}
+                    {% elif medio.neto < 0 %}
                         <h4 class="text-danger">Total Neto: {{ medio.neto }}</h4>
+                    {% else %}
+                        <h4 class="text-secondary">Total Neto: {{ medio.neto }}</h4>
                     {% endif %}
+                    <!-- Botón de Detalle -->
+                    <a href="{% url 'finanzas:detalle_medio_pago' medio_pago_id=medio.id %}" class="btn btn-primary mt-3">Detalle</a>
                 </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info" role="alert">
+                No hay medios de pago disponibles.
             </div>
         </div>
         {% endfor %}
