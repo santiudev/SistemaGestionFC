@@ -213,7 +213,8 @@ var filtros = {
 };
 
 function filtrarPorColumna(columna, valor) {
-    filtros[columna] = valor.toLowerCase();
+    filtros[columna] = valor.toLowerCase(); // Asegúrate de que el valor se convierta a minúsculas
+    console.log(`Filtrando por ${columna}: ${valor}`); // Agrega un log para depuración
     aplicarFiltros();
 
     // Cambiar el estado del ícono de filtro

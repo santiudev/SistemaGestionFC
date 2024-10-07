@@ -57,31 +57,20 @@
                             </div>
                         </th>
                         <th style="width: 12%; position: relative;">
-
                             Categoría
                             <button class="btn btn-sm filter-btn" onclick="mostrarFiltroPopup(event, 'filtroCategoria')" style="border: none;" data-column="categoria">
                                 <i class="fas fa-filter text-secondary"></i>
-
                             </button>
-
                             <div id="filtroCategoria" class="filter-popup d-none">
-
                                 <form method="GET" action="{% url 'finanzas:lista_movimientos' %}">
-                                    <select class="form-control" name="categoria" onchange="this.form.submit()">
-
+                                    <select class="form-control" name="categoria" onchange="filtrarPorColumna('categoria', this.value)">
                                         <option value="">Todas</option>
-
                                         {% for categoria in categorias %}
-
                                             <option value="{{ categoria.id }}" {% if categoria.id == request.GET.categoria %}selected{% endif %}>{{ categoria.nombre }}</option>
                                         {% endfor %}
-
                                     </select>
-
                                 </form>
-
                             </div>
-
                         </th>
                         <th style="width: 8%; position: relative;">
                             Monto
