@@ -10,7 +10,7 @@
 <body>
     <div class="container mt-5">
         <h2 class="text-center mb-4">Detalle del Movimiento</h2>
-        <div class="card p-4 shadow-sm detalle-movimiento-card">
+        <div class="card p-4 shadow-sm detalle-movimiento-card" id="movimiento-detalle">
             <div class="row mb-3">
                 <!-- Primera columna de información -->
                 <div class="col-md-6 detalle-col">
@@ -35,7 +35,28 @@
                     {% endif %}
                 </div>
             </div>
+            <button id="download-pdf" class="btn btn-primary">Descargar PDF</button>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        document.getElementById('download-pdf').addEventListener('click', function() {
+            const element = document.getElementById('movimiento-detalle');
+            const button = document.getElementById('download-pdf');
+            button.style.display = 'none'; // Ocultar el botón antes de generar el PDF
+            html2pdf()
+                .from(element)
+                .set({
+                    margin: 1,
+                    filename: 'comprobante_pago.pdf',
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                })
+                .save()
+                .then(() => {
+                    button.style.display = 'block'; // Mostrar el botón nuevamente después de la descarga
+                });
+        });
+    </script>
 </body>
 {% endblock %}

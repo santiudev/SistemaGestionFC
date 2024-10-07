@@ -57,22 +57,31 @@
                             </div>
                         </th>
                         <th style="width: 12%; position: relative;">
+
                             Categoría
                             <button class="btn btn-sm filter-btn" onclick="mostrarFiltroPopup(event, 'filtroCategoria')" style="border: none;" data-column="categoria">
                                 <i class="fas fa-filter text-secondary"></i>
+
                             </button>
+
                             <div id="filtroCategoria" class="filter-popup d-none">
-                                <input type="text" class="form-control" placeholder="Buscar Categoría" onkeyup="filtrarPorColumna('categoria', this.value)">
+
+                                <form method="GET" action="{% url 'finanzas:lista_movimientos' %}">
+                                    <select class="form-control" name="categoria" onchange="this.form.submit()">
+
+                                        <option value="">Todas</option>
+
+                                        {% for categoria in categorias %}
+
+                                            <option value="{{ categoria.id }}" {% if categoria.id == request.GET.categoria %}selected{% endif %}>{{ categoria.nombre }}</option>
+                                        {% endfor %}
+
+                                    </select>
+
+                                </form>
+
                             </div>
-                        </th>
-                        <th style="width: 15%; position: relative;">
-                            Detalles
-                            <button class="btn btn-sm filter-btn" onclick="mostrarFiltroPopup(event, 'filtroDetalles')" style="border: none;" data-column="detalles">
-                                <i class="fas fa-filter text-secondary"></i>
-                            </button>
-                            <div id="filtroDetalles" class="filter-popup d-none">
-                                <input type="text" class="form-control" placeholder="Buscar Detalles" onkeyup="filtrarPorColumna('detalles', this.value)">
-                            </div>
+
                         </th>
                         <th style="width: 8%; position: relative;">
                             Monto
@@ -123,7 +132,7 @@
                                 <input type="text" class="form-control" placeholder="Buscar Comprobante" onkeyup="filtrarPorColumna('comprobante', this.value)">
                             </div>
                         </th>
-                        <th style="width: 15%;">
+                        <th style="width: 12%;">
                             Acciones
                         </th>
                     </tr>
@@ -138,7 +147,6 @@
                             <span class="tipo-label {{ movimiento.tipo|lower }}">{{ movimiento.tipo }}</span>
                         </td>                        
                         <td>{{ movimiento.categoria.nombre }}</td>
-                        <td>{{ movimiento.detalles }}</td>
                         <td>{{ movimiento.monto }}</td>
                         <td>{{ movimiento.moneda }}</td>
                         <td>{{ movimiento.patente }}</td>

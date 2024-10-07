@@ -30,8 +30,14 @@ def home_finanzas(request):
 @login_required
 @permission_required('finanzas.view_movimiento', raise_exception=True)
 def lista_movimientos(request):
-    movimientos = Movimiento.objects.all().order_by('-fecha')
-    return render(request, 'finanzas/lista_movimientos.html', {'movimientos': movimientos})
+    categoria_id = request.GET.get('categoria')  # Obtener el ID de la categoría del query string
+    if categoria_id:
+        movimientos = Movimiento.objects.filter(categoria_id=categoria_id).order_by('-fecha')  # Filtrar por categoría
+    else:
+        movimientos = Movimiento.objects.all().order_by('-fecha')
+
+    categorias = Categoria.objects.all()  # Asegúrate de obtener las categorías para el contexto
+    return render(request, 'finanzas/lista_movimientos.html', {'movimientos': movimientos, 'categorias': categorias})
 
 @login_required
 @permission_required('finanzas.add_movimiento', raise_exception=True)
