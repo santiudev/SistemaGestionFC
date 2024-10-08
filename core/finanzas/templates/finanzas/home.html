@@ -14,19 +14,6 @@
 <body>
     <div class="row mb-2 mb-xl-3 align-items-center">
         <div class="col-auto d-flex align-items-center">
-            <h3 class="mb-0 me-3"><strong>FINANZAS</strong></h3>
-            <a href="{% url 'finanzas:lista_movimientos' %}" class="btn btn-primary btn-sm">Lista de Movimientos</a>
-        </div>
-        <div class="col-auto ms-auto text-end">
-            <a href="{% url 'finanzas:crear_categoria' %}" class="btn btn-white-custom btn-sm">Crear Categoría</a>  
-            <a href="{% url 'finanzas:crear_movimiento' %}" class="btn btn-white-custom btn-sm">Crear Movimiento</a>
-            <a href="{% url 'finanzas:crear_mediodepago' %}" class="btn btn-white-custom btn-sm">Crear Medio de Pago</a>
-        </div>
-    </div>
-
-    <!-- Formulario de Filtro por Fechas -->
-    <div class="row mb-4">
-        <div class="col-md-6">
             <form method="GET" action="{% url 'finanzas:home' %}" class="d-flex align-items-center">
                 <div class="me-2">
                     <label for="start_date" class="form-label">Desde:</label>
@@ -36,10 +23,17 @@
                     <label for="end_date" class="form-label">Hasta:</label>
                     <input type="date" id="end_date" name="end_date" class="form-control" value="{{ end_date }}">
                 </div>
-                <div class="align-self-end">
+                <div class="align-self-center">
                     <button type="submit" class="btn btn-primary mt-4">Aplicar Filtro</button>
+                    <button type="button" class="btn btn-danger mt-4" ><i class="fas fa-redo-alt"></i></button>
                 </div>
             </form>
+        </div>
+        <div class="col-auto ms-auto text-end">
+            <a href="{% url 'finanzas:lista_movimientos' %}" class="btn btn-primary btn-sm">Lista de Movimientos</a>
+            <a href="{% url 'finanzas:crear_categoria' %}" class="btn btn-white-custom btn-sm">Crear Categoría</a>  
+            <a href="{% url 'finanzas:crear_movimiento' %}" class="btn btn-white-custom btn-sm">Crear Movimiento</a>
+            <a href="{% url 'finanzas:crear_mediodepago' %}" class="btn btn-white-custom btn-sm">Crear Medio de Pago</a>
         </div>
     </div>
 
@@ -47,9 +41,9 @@
         <!-- Sección de Tarjetas Principales -->
         <div class="col-xl-6 col-xxl-5 d-flex">
             <div class="w-100">
-                <div class="row">
+                <div class="row justify-content-center"> <!-- Centrar tarjetas -->
                     <!-- Primera Fila de Tarjetas: Ingresos y Salidas en Pesos -->
-                    <div class="col-sm-6 mb-3">
+                    <div class="col-sm-6 mb-3 d-flex justify-content-center"> <!-- Centrar tarjeta -->
                         <!-- Tarjeta de Ingresos en Pesos -->
                         <div class="card">
                             <div class="card-body">
@@ -71,7 +65,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 mb-3">
+                    <div class="col-sm-6 mb-3 d-flex justify-content-center"> <!-- Centrar tarjeta -->
                         <!-- Tarjeta de Salidas en Pesos -->
                         <div class="card">
                             <div class="card-body">
@@ -95,9 +89,9 @@
                     </div>
 
                     <!-- Segunda Fila de Tarjetas: Ingresos y Salidas en Dólares -->
-                    <div class="col-sm-6 mb-3">
+                    <div class="col-sm-6 mb-3 d-flex justify-content-center"> <!-- Centrar tarjeta -->
                         <!-- Tarjeta de Ingresos en Dólares -->
-                        <div class="card">
+                        <div class="card carta-home">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col mt-0">
@@ -117,9 +111,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 mb-3">
+                    <div class="col-sm-6 mb-3 d-flex justify-content-center"> <!-- Centrar tarjeta -->
                         <!-- Tarjeta de Salidas en Dólares -->
-                        <div class="card">
+                        <div class="card carta-home">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col mt-0">
@@ -147,11 +141,11 @@
         <div class="col-xl-6 col-xxl-7">
             <div class="card flex-fill w-100">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Últimos Movimientos</h5>
+                    <h5 class="card-title mb-0 text-center">Últimos Movimientos</h5>
                 </div>
                 <div class="card-body pt-2 pb-3">
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover table-bordered my-0 w-100">
+                        <table class="table table-hover table-bordered my-0 w-100">
                             <thead class="table-light">
                                 <tr>
                                     <th>Fecha</th>

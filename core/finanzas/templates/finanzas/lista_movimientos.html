@@ -23,6 +23,9 @@
                 <button class="btn  " type="button" id="clearButton" onclick="limpiarBusqueda()">
                     <i class="fas fa-times"></i> <!-- Ícono de Bootstrap para "clear" -->
                 </button>
+                <button class="btn btn-danger" type="button" id="resetFiltersButton" onclick="reiniciarFiltros()">
+                    <i class="fas fa-sync-alt"></i> <!-- Ícono de Bootstrap para reiniciar -->
+                </button>
             </div>
             
         </div>
@@ -35,12 +38,12 @@
                         <th style="width: 7%; position: relative;">
                             Fecha
                             <button class="btn btn-sm filter-btn" onclick="mostrarFiltroPopup(event, 'filtroFecha')" style="border: none;" data-column="fecha">
-                                <i class="fas fa-filter text-secondary"></i> <!-- Cambiar a negro cuando esté activo -->
+                                <i class="fas fa-filter text-secondary"></i>
                             </button>
                             <div id="filtroFecha" class="filter-popup d-none">
-                                <input type="date" class="form-control" id="fechaInicio" placeholder="Desde">
-                                <input type="date" class="form-control mt-2" id="fechaFin" placeholder="Hasta">
-                                <button class="btn btn-primary mt-2" onclick="filtrarPorRangoFechas()">Buscar</button> <!-- Botón de búsqueda -->
+                                <input type="date" id="fechaInicio" class="form-control" placeholder="Fecha de inicio">
+                                <input type="date" id="fechaFin" class="form-control" placeholder="Fecha de fin">
+                                <button class="btn btn-primary mt-2" onclick="filtrarPorRangoFechas()">Buscar</button>
                             </div>
                         </th>
                         <th style="width: 8%; position: relative;">
@@ -62,14 +65,12 @@
                                 <i class="fas fa-filter text-secondary"></i>
                             </button>
                             <div id="filtroCategoria" class="filter-popup d-none">
-                                <form method="GET" action="{% url 'finanzas:lista_movimientos' %}">
-                                    <select class="form-control" name="categoria" onchange="filtrarPorColumna('categoria', this.value)">
-                                        <option value="">Todas</option>
-                                        {% for categoria in categorias %}
-                                            <option value="{{ categoria.id }}" {% if categoria.id == request.GET.categoria %}selected{% endif %}>{{ categoria.nombre }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </form>
+                                <select class="form-control" onchange="filtrarPorColumna('categoria', this.value)">
+                                    <option value="" style="background-color: #cecece;">Todas</option>
+                                    {% for categoria in categorias %}
+                                        <option value="{{ categoria.nombre }}" {% if categoria.id == request.GET.categoria %}selected{% endif %}>{{ categoria.nombre }}</option> <!-- Cambiado a categoria.nombre -->
+                                    {% endfor %}
+                                </select>
                             </div>
                         </th>
                         <th style="width: 8%; position: relative;">
@@ -78,7 +79,9 @@
                                 <i class="fas fa-filter text-secondary"></i>
                             </button>
                             <div id="filtroMonto" class="filter-popup d-none">
-                                <input type="text" class="form-control" placeholder="Buscar Monto" onkeyup="filtrarPorColumna('monto', this.value)">
+                                <input type="number" class="form-control mb-2" id="montoDesde" placeholder="Desde" onkeyup="filtrarPorRangoMonto()">
+                                <input type="number" class="form-control" id="montoHasta" placeholder="Hasta" onkeyup="filtrarPorRangoMonto()">
+                                <button class="btn btn-primary mt-2" onclick="filtrarPorRangoMonto()">Buscar</button>
                             </div>
                         </th>
                         <th style="width: 8%; position: relative;">
@@ -88,7 +91,7 @@
                             </button>
                             <div id="filtroMoneda" class="filter-popup d-none">
                                 <select class="form-control" onchange="filtrarPorColumna('moneda', this.value)">
-                                    <option value="">Todos</option>
+                                    <option value="todos">Todos</option>
                                     <option value="USD">USD</option>
                                     <option value="Pesos">Pesos</option>
                                 </select>
@@ -105,21 +108,26 @@
                         </th>
                         <th style="width: 13%; position: relative;">
                             Medio de Pago
-                            <button class="btn btn-sm filter-btn" onclick="mostrarFiltroPopup(event, 'filtroMedioPago')" style="border: none;" data-column="medio_pago">
+                            <button class="btn btn-sm filter-btn" onclick="mostrarFiltroPopup(event, 'filtroMedioPago')" data-column="medio_pago">
                                 <i class="fas fa-filter text-secondary"></i>
                             </button>
                             <div id="filtroMedioPago" class="filter-popup d-none">
-                                <input type="text" class="form-control" placeholder="Buscar Medio de Pago" onkeyup="filtrarPorColumna('medio_pago', this.value)">
+                                <select class="form-control" onchange="filtrarPorColumna('medio_pago', this.value)">
+                                    <option value="todos">Todos</option>
+                                    {% for medio_pago in medios_pago %}
+                                        <option value="{{ medio_pago.nombre }}" {% if medio_pago.id == request.GET.medio_pago %}selected{% endif %}>{{ medio_pago.nombre }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
                         </th>
                         <th style="width: 12%; position: relative;">
                             Comprobante
-                            <button class="btn btn-sm filter-btn" onclick="mostrarFiltroPopup(event, 'filtroComprobante')" style="border: none;" data-column="comprobante">
+                            <!-- <button class="btn btn-sm filter-btn" onclick="mostrarFiltroPopup(event, 'filtroComprobante')" style="border: none;" data-column="comprobante">
                                 <i class="fas fa-filter text-secondary"></i>
                             </button>
                             <div id="filtroComprobante" class="filter-popup d-none">
                                 <input type="text" class="form-control" placeholder="Buscar Comprobante" onkeyup="filtrarPorColumna('comprobante', this.value)">
-                            </div>
+                            </div> -->
                         </th>
                         <th style="width: 12%;">
                             Acciones

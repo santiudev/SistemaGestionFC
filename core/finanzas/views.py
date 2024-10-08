@@ -38,14 +38,24 @@ def home_finanzas(request):
 @permission_required('finanzas.view_movimiento', raise_exception=True)
 def lista_movimientos(request):
     categoria_id = request.GET.get('categoria')  # Obtener el ID de la categoría del query string
-    if categoria_id:
+    fecha_inicio = request.GET.get('fecha_inicio')  # Obtener la fecha de inicio del query string
+    fecha_fin = request.GET.get('fecha_fin')  # Obtener la fecha de fin del query string
+
+    # Filtrar por fechas si están presentes
+    if fecha_inicio and fecha_fin:
+        movimientos = Movimiento.objects.filter(fecha__range=[fecha_inicio, fecha_fin]).order_by('-fecha')
+    elif categoria_id:
         movimientos = Movimiento.objects.filter(categoria_id=categoria_id).order_by('-fecha')  # Filtrar por categoría
     else:
         movimientos = Movimiento.objects.all().order_by('-fecha')
-
-    categorias = Categoria.objects.all()  # Asegúrate de obtener las categorías para el contexto
-    return render(request, 'finanzas/lista_movimientos.html', {'movimientos': movimientos, 'categorias': categorias})
-
+        
+    categorias = Categoria.objects.all()  # Obtener las categorías para el contexto
+    medios_pago = MedioPago.objects.all()  # Obtener los medios de pago para el contexto
+    return render(request, 'finanzas/lista_movimientos.html', {
+        'movimientos': movimientos,
+        'categorias': categorias,
+        'medios_pago': medios_pago  # Asegúrate de pasar los medios de pago
+    })
 @login_required
 @permission_required('finanzas.add_movimiento', raise_exception=True)
 def crear_movimiento(request):
