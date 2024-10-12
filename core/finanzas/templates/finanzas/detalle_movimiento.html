@@ -20,6 +20,11 @@
                     <p><strong>Detalles:</strong> <span class="detalle-info">{{ movimiento.detalles }}</span></p>
                     <p><strong>Monto:</strong> <span class="detalle-info">{{ movimiento.monto }}</span></p>
                     <p><strong>Moneda:</strong> <span class="detalle-info">{{ movimiento.moneda }}</span></p>
+                    {% if movimiento.moneda == 'USD' %}
+                    <p><strong>Precio en Pesos:</strong> <span class="detalle-info">{{ movimiento.precio_peso }}</span></p>
+                    {% elif movimiento.moneda == 'PESOS' %}
+                    <p><strong>Precio en Dólares:</strong> <span class="detalle-info">{{ movimiento.precio_dolar }}</span></p>
+                    {% endif %}
                 </div>
                 <!-- Segunda columna de información -->
                 <div class="col-md-6 detalle-col">

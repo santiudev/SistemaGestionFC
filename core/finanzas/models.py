@@ -44,6 +44,8 @@ class Movimiento(models.Model):
     numero_comprobante = models.CharField(max_length=50, blank=True, null=True)
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     documento_adjunto = models.FileField(upload_to='finanzas/movimientos/', blank=True, null=True)
+    precio_dolar = models.DecimalField(max_digits=12, decimal_places=2, editable=False)
+    precio_peso = models.DecimalField(max_digits=12, decimal_places=2, editable=False)
 
     def __str__(self):
         return f"{self.tipo} - {self.categoria.nombre} - {self.monto} {self.moneda}"
@@ -52,3 +54,29 @@ class Movimiento(models.Model):
         super().clean()
         if self.categoria.requiere_patente and not self.patente:
             raise ValidationError({'patente': 'Este campo es obligatorio para la categoría seleccionada.'})
+        
+    def save(self, *args, **kwargs):
+        # Obtener la cotización del dólar para el día
+        try:
+            cotizacion = CotizacionDolar.objects.get(fecha=date.today()).valor_cotizacion
+        except CotizacionDolar.DoesNotExist:
+            raise ValidationError('No hay una cotización del dólar para el día de hoy.')
+
+        # Calcular el precio en dólares y en pesos
+        if self.moneda == 'USD':
+            self.precio_dolar = self.monto
+            self.precio_peso = self.monto * cotizacion
+        elif self.moneda == 'PESOS':
+            self.precio_peso = self.monto
+            self.precio_dolar = self.monto / cotizacion
+
+        super().save(*args, **kwargs)
+
+
+
+class CotizacionDolar(models.Model):
+    fecha = models.DateField(unique=True, default=date.today)
+    valor_cotizacion = models.PositiveIntegerField()
+
+    def __str__(self):
+        return f'Cotización del {self.fecha}: {self.valor_cotizacion}'
