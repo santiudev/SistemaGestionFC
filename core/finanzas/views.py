@@ -1,8 +1,9 @@
+from datetime import datetime
 from django.shortcuts import render, redirect, get_object_or_404  # Añadir esta línea
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages  # Agregar esta línea para importar messages
-from .models import Movimiento, Categoria, MedioPago
-from .forms import MovimientoForm, CategoriaForm, MedioPagoForm
+from .models import Movimiento, Categoria, MedioPago, CotizacionDolar
+from .forms import MovimientoForm, CategoriaForm, MedioPagoForm, CotizacionDolarForm
 from django.db.models import Sum  # Add this line to import Sum
 from .utils import filtrar_movimientos_por_fecha, calcular_totales, calcular_totales_por_medio_pago
 
@@ -155,3 +156,29 @@ def detalle_medio_pago(request, medio_pago_id):
     }
     
     return render(request, 'finanzas/detalle_medio_pago.html', context)
+
+def actualizar_cotizacion(request):
+    if request.method == 'POST':
+        # Crear una nueva instancia de CotizacionDolar con la fecha y hora actual
+        nueva_cotizacion = CotizacionDolar(fecha=datetime.now(), valor_cotizacion=request.POST.get('valor_cotizacion'))
+
+        # Crear el formulario con la nueva instancia
+        form = CotizacionDolarForm(request.POST, instance=nueva_cotizacion)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Cotización actualizada exitosamente.')
+        else:
+            messages.error(request, 'Formulario no válido. Por favor ingrese un valor válido.')
+
+        return redirect(request.META.get('HTTP_REFERER', '/'))  # Redirige a la misma ruta
+    return redirect(request.META.get('HTTP_REFERER', '/'))  # Redirige a la misma ruta si no es POST
+
+
+@login_required
+@permission_required('finanzas.delete_movimiento', raise_exception=True)
+def eliminar_movimiento(request, movimiento_id):
+    movimiento = get_object_or_404(Movimiento, id=movimiento_id)
+    movimiento.delete()
+    messages.success(request, 'Movimiento eliminado exitosamente.')
+    return redirect('finanzas:lista_movimientos')

@@ -54,15 +54,17 @@ class Movimiento(models.Model):
         super().clean()
         if self.categoria.requiere_patente and not self.patente:
             raise ValidationError({'patente': 'Este campo es obligatorio para la categoría seleccionada.'})
-        
-    def save(self, *args, **kwargs):
-        # Obtener la cotización del dólar para el día
-        try:
-            cotizacion = CotizacionDolar.objects.get(fecha=date.today()).valor_cotizacion
-        except CotizacionDolar.DoesNotExist:
-            raise ValidationError('No hay una cotización del dólar para el día de hoy.')
 
-        # Calcular el precio en dólares y en pesos
+    def save(self, *args, **kwargs):
+        # Obtener la última cotización del dólar disponible
+        from .models import CotizacionDolar  # Importación interna para evitar problemas de dependencia circular
+        try:
+            ultima_cotizacion = CotizacionDolar.objects.latest('fecha')
+            cotizacion = ultima_cotizacion.valor_cotizacion
+        except CotizacionDolar.DoesNotExist:
+            raise ValidationError('No hay una cotización del dólar disponible.')
+
+        # Calcular el precio en dólares y en pesos según la moneda seleccionada
         if self.moneda == 'USD':
             self.precio_dolar = self.monto
             self.precio_peso = self.monto * cotizacion
@@ -75,7 +77,7 @@ class Movimiento(models.Model):
 
 
 class CotizacionDolar(models.Model):
-    fecha = models.DateField(unique=True, default=date.today)
+    fecha = models.DateTimeField(unique=True, auto_now_add=True)
     valor_cotizacion = models.PositiveIntegerField()
 
     def __str__(self):
