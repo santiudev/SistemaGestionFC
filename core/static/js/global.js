@@ -69,3 +69,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+document.getElementById('edit-button').addEventListener('click', function() {
+    var input = document.querySelector('input[name="valor_cotizacion"]');
+    input.removeAttribute('readonly');  // Habilitar el campo de entrada
+    input.focus();  // Enfocar el campo de entrada
+    document.getElementById('submit-button').style.display = 'inline-block';  // Mostrar el botón de actualizar
+    this.style.display = 'none';  // Ocultar el botón de editar
+});

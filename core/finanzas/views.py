@@ -22,6 +22,13 @@ def home_finanzas(request):
     # Calcular totales por medio de pago dentro del filtro
     totales_medio_pago = calcular_totales_por_medio_pago(movimientos)
 
+    # Obtener la última cotización del dólar
+    try:
+        ultima_cotizacion = CotizacionDolar.objects.latest('fecha')
+        cotizacion_actual = ultima_cotizacion.valor_cotizacion
+    except CotizacionDolar.DoesNotExist:
+        cotizacion_actual = 0  # O un valor por defecto
+
     context = {
         'recent_movements': recent_movements,
         'total_ingresos_pesos': totales['total_ingresos_pesos'],
@@ -31,6 +38,7 @@ def home_finanzas(request):
         'start_date': start_date_str if start_date_str else '',
         'end_date': end_date_str if end_date_str else '',
         'totales_medio_pago': totales_medio_pago,
+        'cotizacion_actual': cotizacion_actual,  # Asegúrate de pasar esto al contexto
     }
 
     return render(request, 'finanzas/home.html', context)

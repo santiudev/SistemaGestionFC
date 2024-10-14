@@ -14,8 +14,12 @@ class Categoria(models.Model):
         return self.nombre
 
 class MedioPago(models.Model):
+    MONEDA_CHOICES = [
+        ('USD', 'Dólares'),
+        ('PESOS', 'Pesos'),
+    ]
     nombre = models.CharField(max_length=100)
-
+    moneda = models.CharField(max_length=10, choices=MONEDA_CHOICES)
     def __str__(self):
         return self.nombre
 
