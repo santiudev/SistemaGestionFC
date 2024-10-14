@@ -42,14 +42,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Alternar el dropdown actual
             if (dropdown) {
-                dropdown.classList.toggle('show'); // Alternar el dropdown actual
+                dropdown.classList.add('show'); // Asegurarse de que el dropdown actual esté abierto
                 const arrow = link.querySelector('.arrow');
                 if (arrow) {
-                    arrow.classList.toggle('rotated'); // Alternar la rotación de la flecha
+                    arrow.classList.add('rotated'); // Asegurarse de que la flecha esté girada
                 }
             }
         });
 
+        // Mantener el dropdown abierto si la URL coincide
         if (link.href === currentUrl) {
             const dropdown = link.closest('.sidebar-dropdown');
             if (dropdown) {
