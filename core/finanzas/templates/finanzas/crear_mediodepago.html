@@ -20,8 +20,16 @@
             </div>
             <div class="mb-3">
                 <label for="moneda" class="form-label">Moneda</label>
-                {{ form.moneda }}  <!-- Agregar el campo de moneda aquí -->
+                <select class="form-select" id="moneda" name="moneda" required>
+                    <option value="">Seleccione una moneda</option>
+                    {% for opcion_moneda in form.fields.moneda.choices %}
+                        <option value="{{ opcion_moneda.0 }}" {% if form.moneda.value == opcion_moneda.0 %}selected{% endif %}>
+                            {{ opcion_moneda.1 }}
+                        </option>
+                    {% endfor %}
+                </select>
             </div>
+            
             <div class="text-center">
                 <button type="submit" class="btn btn-primary">Agregar Medio de Pago</button>
             </div>

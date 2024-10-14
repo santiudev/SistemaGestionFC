@@ -110,8 +110,12 @@
         medioPagoSelect.addEventListener('change', function() {
             const selectedOption = medioPagoSelect.options[medioPagoSelect.selectedIndex];
             const moneda = selectedOption.getAttribute('data-moneda');
-            monedaInput.value = moneda; // Actualiza el campo de moneda
+            monedaInput.value = moneda ? (moneda === 'None' ? '-' : moneda) : '-'; // Actualiza el campo de moneda, si es null, muestra un guion
         });
+        // Establecer el valor predeterminado de la moneda
+        const defaultOption = medioPagoSelect.options[0];
+        const defaultMoneda = defaultOption.getAttribute('data-moneda');
+        monedaInput.value = defaultMoneda ? (defaultMoneda === 'None' ? '-' : defaultMoneda) : '-';
         });
     </script>
 </body>
