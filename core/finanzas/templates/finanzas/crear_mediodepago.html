@@ -21,11 +21,13 @@
             <div class="mb-3">
                 <label for="moneda" class="form-label">Moneda</label>
                 <select class="form-select" id="moneda" name="moneda" required>
-                    <option value="">Seleccione una moneda</option>
+                    <option value="" disabled selected>Seleccione una moneda</option>
                     {% for opcion_moneda in form.fields.moneda.choices %}
-                        <option value="{{ opcion_moneda.0 }}" {% if form.moneda.value == opcion_moneda.0 %}selected{% endif %}>
-                            {{ opcion_moneda.1 }}
-                        </option>
+                        {% if opcion_moneda.0 != "" %}  <!-- Asegúrate de que no sea una opción vacía -->
+                            <option value="{{ opcion_moneda.0 }}" {% if form.moneda.value == opcion_moneda.0 %}selected{% endif %}>
+                                {{ opcion_moneda.1 }}
+                            </option>
+                        {% endif %}
                     {% endfor %}
                 </select>
             </div>

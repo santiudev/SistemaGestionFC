@@ -300,3 +300,13 @@ body {
 .sidebar.collapsed {
     transform: translateX(-100%); /* Ocultar el sidebar */
 }
+
+/* Mejora de la responsividad */
+.row {
+    flex-wrap: wrap; /* Permitir que las filas se envuelvan */
+}
+
+.card {
+    margin: 1rem; /* Añadir margen a las tarjetas para mejor espaciado */
+    flex: 1 1 300px; /* Permitir que las tarjetas se expandan y se contraigan */
+}
