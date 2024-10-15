@@ -203,6 +203,31 @@ body {
     .btn {
         padding: 0.2rem 0.3rem; /* Botones más pequeños para pantallas pequeñas */
     }
+
+    .btn-group {
+        width: 100%; /* Asegura que el grupo de botones ocupe el ancho completo */
+        margin-bottom: 0.5rem; /* Espacio entre el grupo de botones y otros elementos */
+    }
+
+    .card {
+        flex: 1; /* Asegura que todas las tarjetas ocupen el mismo espacio */
+        margin: 0.5rem; /* Espacio entre tarjetas */
+    }
+
+    .btn-group .dropdown-menu {
+        position: static; /* Asegura que el menú desplegable se muestre correctamente */
+        float: none; /* Evita que el menú se desplace */
+    }
+}
+
+@media (min-width: 769px) {
+    .btn-group {
+        display: none; /* Oculta el grupo de botones en pantallas grandes */
+    }
+
+    .btn {
+        margin: 0 0.5rem; /* Espacio entre botones en pantallas grandes */
+    }
 }
 
 /* Card Styles */
