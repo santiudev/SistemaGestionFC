@@ -14,5 +14,7 @@ urlpatterns = [
     path('categorias/eliminar/<int:id>/', eliminar_categoria, name='eliminar_categoria'), 
     path('movimientos/detalle/<int:id>/', views.detalle_movimiento, name='detalle_movimiento'),
     path('mediopagos/detalle/<int:medio_pago_id>/', views.detalle_medio_pago, name='detalle_medio_pago'),
+    path('actualizar-cotizacion/', views.actualizar_cotizacion, name='actualizar_cotizacion'),
+    path('eliminar-movimiento/<int:movimiento_id>/', views.eliminar_movimiento, name='eliminar_movimiento'),
 
 ]

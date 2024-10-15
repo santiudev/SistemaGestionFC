@@ -37,30 +37,7 @@
                             {% endfor %}
                         </select>
                     </div>
-                    <div class="mb-3">
-                        <label for="detalles" class="form-label">Detalles</label>
-                        <textarea class="form-control" id="detalles" name="detalles"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="monto" class="form-label">Monto</label>
-                        <input type="number" class="form-control" id="monto" name="monto" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="moneda" class="form-label">Moneda</label>
-                        <select class="form-select" id="moneda" name="moneda" required>
-                            <option value="">Seleccione una moneda</option>
-                            <option value="USD">Dólares</option>
-                            <option value="PESOS">Pesos</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <!-- Segunda columna con 5 labels -->
-                    <div class="mb-3">
-                        <label for="comentario" class="form-label">Comentario</label>
-                        <textarea class="form-control" id="comentario" name="comentario"></textarea>
-                    </div>
-                    <div class="mb-3" style="display: none;">
+                    <div class="mb-3 style="display: none;">
                         <label for="patente" class="form-label">Patente</label>
                         <input type="text" class="form-control" id="patente" name="patente">
                     </div>
@@ -69,9 +46,29 @@
                         <select class="form-select" id="medio_pago" name="medio_pago" required>
                             <option value="">Seleccione un medio de pago</option>
                             {% for medio in medios_pago %}
-                                <option value="{{ medio.id }}">{{ medio.nombre }}</option>
+                                <option value="{{ medio.id }}" data-moneda="{{ medio.moneda }}">{{ medio.nombre }}</option>
                             {% endfor %}
                         </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="moneda" class="form-label">Moneda</label>
+                        <input type="text" class="form-control" id="moneda" name="moneda" value="{{ form.moneda.value }}" readonly>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <!-- Segunda columna con 5 labels -->
+                    <div class="mb-3">
+                        <label for="monto" class="form-label">Monto</label>
+                        <input type="number" class="form-control" id="monto" name="monto" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="comentario" class="form-label">Comentario</label>
+                        <textarea class="form-control" id="comentario" name="comentario"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        
+                        <label for="detalles" class="form-label">Detalles</label>
+                        <textarea class="form-control" id="detalles" name="detalles"></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="numero_comprobante" class="form-label">Número de Comprobante</label>
@@ -105,6 +102,20 @@
 
             categoriaSelect.addEventListener('change', togglePatenteInput);
             togglePatenteInput(); // Llamar al inicio para establecer el estado correcto
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+        const medioPagoSelect = document.getElementById('medio_pago');
+        const monedaInput = document.getElementById('moneda');
+
+        medioPagoSelect.addEventListener('change', function() {
+            const selectedOption = medioPagoSelect.options[medioPagoSelect.selectedIndex];
+            const moneda = selectedOption.getAttribute('data-moneda');
+            monedaInput.value = moneda ? (moneda === 'None' ? '-' : moneda) : '-'; // Actualiza el campo de moneda, si es null, muestra un guion
+        });
+        // Establecer el valor predeterminado de la moneda
+        const defaultOption = medioPagoSelect.options[0];
+        const defaultMoneda = defaultOption.getAttribute('data-moneda');
+        monedaInput.value = defaultMoneda ? (defaultMoneda === 'None' ? '-' : defaultMoneda) : '-';
         });
     </script>
 </body>

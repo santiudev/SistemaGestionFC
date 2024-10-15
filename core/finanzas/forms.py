@@ -1,5 +1,5 @@
 from django import forms
-from .models import Movimiento, Categoria, MedioPago
+from .models import Movimiento, Categoria, MedioPago, CotizacionDolar
 
 class MovimientoForm(forms.ModelForm):
     class Meta:
@@ -11,7 +11,7 @@ class MovimientoForm(forms.ModelForm):
         self.fields['patente'].required = False
         self.fields['fecha'].widget = forms.DateInput(attrs={'type': 'date'})
         self.fields['fecha'].required = True
-
+        self.fields['medio_pago'].queryset = MedioPago.objects.all()  # Asegúrate de que el queryset esté disponible
 
     def clean(self):
         cleaned_data = super().clean()
@@ -29,4 +29,14 @@ class CategoriaForm(forms.ModelForm):
 class MedioPagoForm(forms.ModelForm):
     class Meta:
         model = MedioPago
-        fields = ['nombre']
+        fields = ['nombre', 'moneda']
+        
+        
+class CotizacionDolarForm(forms.ModelForm):
+    class Meta:
+        model = CotizacionDolar
+        fields = ['valor_cotizacion']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['valor_cotizacion'].label = "Cotización del Dólar"

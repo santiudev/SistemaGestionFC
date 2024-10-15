@@ -14,6 +14,7 @@
 <body>
     <div class="row mb-2 mb-xl-3 align-items-center">
         <div class="col-auto d-flex align-items-center">
+<<<<<<< HEAD
             <form method="GET" action="{% url 'finanzas:home' %}" class="d-flex align-items-center flex-column flex-sm-row">
                 <div class="me-2">
                     <label for="start_date" class="form-label">Desde:</label>
@@ -204,7 +205,6 @@
                     {% else %}
                         <h4 class="text-secondary">Total Neto: {{ medio.neto }}</h4>
                     {% endif %}
-                    <!-- Botón de Detalle -->
                     <a href="{% url 'finanzas:detalle_medio_pago' medio_pago_id=medio.id %}" class="btn btn-primary mt-3">Detalle</a>
                 </div>
             </div>

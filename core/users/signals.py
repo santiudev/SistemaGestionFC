@@ -43,3 +43,7 @@ def update_user_role(sender, instance, action, **kwargs):
         else:
             instance.rol = ''
         instance.save()
+
+
+def is_administrador(user):
+    return user.groups.filter(name='Administrador').exists()

@@ -2,8 +2,25 @@
     <a class="sidebar-toggle js-sidebar-toggle">
         <i class="hamburger align-self-center"></i>
     </a>
-
+    {% if request.resolver_match.namespace == 'finanzas' %}
+        <li class="nav-item d-flex align-items-left ms-4">
+            <span class="text-muted small me-2">Cotización Dólar:</span>  <!-- Mostrar el último precio -->
+            <form method="post" action="{% url 'finanzas:actualizar_cotizacion' %}" class="form-inline d-flex">
+                {% csrf_token %}
+                <input type="number" name="valor_cotizacion" value="{{ cotizacion_actual }}" class="form-control form-control-sm me-2" required style="width: 80px;" readonly>
+                <button type="button" class="btn btn-sm btn-secondary me-2" id="edit-button">
+                    <i class="fas fa-pencil-alt"></i>  <!-- Ícono de lápiz para editar -->
+                </button>
+                <button type="submit" class="btn btn-sm btn-primary" id="submit-button" style="display: none;">
+                    Actualizar
+                </button>
+            </form>
+        </li>
+    {% endif %}
+    
     <div class="navbar-collapse collapse">
+        <ul class="navbar-nav me-auto">
+        </ul>
         <ul class="navbar-nav navbar-align">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
@@ -20,7 +37,6 @@
                         {% csrf_token %}
                         <button type="submit" class="dropdown-item">Cerrar sesión</button>
                     </form>
-                   
                 </div>
             </li>
         </ul>
