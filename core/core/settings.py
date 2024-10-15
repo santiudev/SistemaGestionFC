@@ -1,4 +1,5 @@
 from pathlib import Path
+from django.contrib.messages import constants as messages
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -31,7 +32,13 @@ INSTALLED_APPS = [
     # Aplicaciones
     'finanzas',
 ]
-
+MESSAGE_TAGS = {
+    messages.DEBUG: 'debug',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'danger',  # Bootstrap utiliza 'danger' para los errores
+}
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -40,6 +47,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'finanzas.message_middleware.GlobalMessageMiddleware',
 ]
 
 

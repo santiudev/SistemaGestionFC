@@ -76,3 +76,10 @@ document.getElementById('edit-button').addEventListener('click', function() {
     document.getElementById('submit-button').style.display = 'inline-block';  // Mostrar el botón de actualizar
     this.style.display = 'none';  // Ocultar el botón de editar
 });
+document.addEventListener("DOMContentLoaded", function () {
+    var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+    var toastList = toastElList.map(function (toastEl) {
+        return new bootstrap.Toast(toastEl, { autohide: true, delay: 5000 });
+    });
+    toastList.forEach(toast => toast.show());
+});
