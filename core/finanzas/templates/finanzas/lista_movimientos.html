@@ -20,9 +20,11 @@
                 <button class="btn  " type="button" id="clearButton" onclick="limpiarBusqueda()">
                     <i class="fas fa-times"></i> <!-- Ícono de Bootstrap para "clear" -->
                 </button>
-                <button class="btn btn-danger" type="button" id="resetFiltersButton" onclick="reiniciarFiltros()">
-                    <i class="fas fa-sync-alt"></i> Limpiar Filtros <!-- Ícono de Bootstrap para reiniciar -->
-                </button>
+                <div class="input-group w-25">
+                    <button class="btn btn-danger" type="button" id="resetFiltersButton" onclick="reiniciarFiltros()">
+                        <i class="fas fa-redo-alt"></i>
+                    </button>
+                </div>
             </div>
             <div class="text-end mb-0">
                 <button id="exportarExcel" class="btn btn-success" style="width: 150px; height: 4vh;">
