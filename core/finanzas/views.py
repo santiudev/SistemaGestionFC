@@ -6,6 +6,8 @@ from .models import Movimiento, Categoria, MedioPago, CotizacionDolar
 from .forms import MovimientoForm, CategoriaForm, MedioPagoForm, CotizacionDolarForm
 from django.db.models import Sum  # Add this line to import Sum
 from .utils import filtrar_movimientos_por_fecha, calcular_totales, calcular_totales_por_medio_pago
+from django.utils import timezone
+
 
 @login_required
 @permission_required('finanzas.view_movimiento', raise_exception=True)
@@ -65,9 +67,14 @@ def lista_movimientos(request):
         'categorias': categorias,
         'medios_pago': medios_pago  # Asegúrate de pasar los medios de pago
     })
+
 @login_required
 @permission_required('finanzas.add_movimiento', raise_exception=True)
 def crear_movimiento(request):
+    # Verificar si se ha actualizado la cotización del dólar hoy
+    today = timezone.now().date()
+    cotizacion_actualizada_hoy = CotizacionDolar.objects.filter(fecha__date=today).exists()
+
     if request.method == 'POST':
         form = MovimientoForm(request.POST, request.FILES)
         if form.is_valid():
@@ -82,11 +89,15 @@ def crear_movimiento(request):
     categorias = Categoria.objects.all()
     medios_pago = MedioPago.objects.all()
 
-    return render(request, 'finanzas/crear_movimiento.html', {
+    context = {
         'form': form,
         'categorias': categorias,
-        'medios_pago': medios_pago
-    })
+        'medios_pago': medios_pago,
+        'cotizacion_actualizada_hoy': cotizacion_actualizada_hoy
+    }
+
+    return render(request, 'finanzas/crear_movimiento.html', context)
+
 
 @login_required
 @permission_required('finanzas.add_movimiento', raise_exception=True)
@@ -133,6 +144,7 @@ def detalle_movimiento(request, id):
     movimiento = get_object_or_404(Movimiento, id=id)
     return render(request, 'finanzas/detalle_movimiento.html', {'movimiento': movimiento})
 
+
 @login_required
 @permission_required('finanzas.delete_categoria', raise_exception=True)  # Asegúrate de tener el permiso correcto
 def eliminar_categoria(request, id):
@@ -140,6 +152,7 @@ def eliminar_categoria(request, id):
     categoria.delete()  # Eliminar la categoría
     messages.success(request, 'Categoría eliminada con éxito.')  # Mensaje de éxito
     return redirect('finanzas:crear_categoria')  # Redirigir a la vista deseada
+
 
 @login_required
 @permission_required('finanzas.view_movimiento', raise_exception=True)
@@ -165,6 +178,9 @@ def detalle_medio_pago(request, medio_pago_id):
     
     return render(request, 'finanzas/detalle_medio_pago.html', context)
 
+
+@login_required
+@permission_required('finanzas.add_movimiento', raise_exception=True)
 def actualizar_cotizacion(request):
     if request.method == 'POST':
         # Crear una nueva instancia de CotizacionDolar con la fecha y hora actual

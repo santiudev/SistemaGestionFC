@@ -11,7 +11,7 @@
 <body>
     <div class="containercrearmovimiento mt-4">
         <h2 class="crearmov">Crear Movimiento</h2>
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" id="crearMovimientoForm">
             {% csrf_token %}
             <div class="row">
                 <div class="col-md-6">
@@ -37,7 +37,7 @@
                             {% endfor %}
                         </select>
                     </div>
-                    <div class="mb-3 style="display: none;">
+                    <div class="mb-3" style="display: none;">
                         <label for="patente" class="form-label">Patente</label>
                         <input type="text" class="form-control" id="patente" name="patente">
                     </div>
@@ -66,7 +66,6 @@
                         <textarea class="form-control" id="comentario" name="comentario"></textarea>
                     </div>
                     <div class="mb-3">
-                        
                         <label for="detalles" class="form-label">Detalles</label>
                         <textarea class="form-control" id="detalles" name="detalles"></textarea>
                     </div>
@@ -81,11 +80,25 @@
                 </div>
             </div>
             <div class="text-center mt-4">
-                <button type="submit" class="btn btn-primary">Guardar Movimiento</button>
+                <button type="submit" class="btn btn-primary" id="guardarMovimientoBtn">Guardar Movimiento</button>
             </div>
         </form>
     </div>
 
+    <!-- Popup script for missing cotizacion update -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cotizacionActualizadaHoy = {{ cotizacion_actualizada_hoy|yesno:"true,false" }};
+            const form = document.getElementById('crearMovimientoForm');
+
+            form.addEventListener('submit', function(event) {
+                if (!cotizacionActualizadaHoy) {
+                    event.preventDefault();
+                    alert('Atención: La cotización del dólar no ha sido actualizada en el día de hoy. Por favor actualice la cotización antes de guardar el movimiento.');
+                }
+            });
+        });
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -104,18 +117,18 @@
             togglePatenteInput(); // Llamar al inicio para establecer el estado correcto
         });
         document.addEventListener('DOMContentLoaded', function() {
-        const medioPagoSelect = document.getElementById('medio_pago');
-        const monedaInput = document.getElementById('moneda');
+            const medioPagoSelect = document.getElementById('medio_pago');
+            const monedaInput = document.getElementById('moneda');
 
-        medioPagoSelect.addEventListener('change', function() {
-            const selectedOption = medioPagoSelect.options[medioPagoSelect.selectedIndex];
-            const moneda = selectedOption.getAttribute('data-moneda');
-            monedaInput.value = moneda ? (moneda === 'None' ? '-' : moneda) : '-'; // Actualiza el campo de moneda, si es null, muestra un guion
-        });
-        // Establecer el valor predeterminado de la moneda
-        const defaultOption = medioPagoSelect.options[0];
-        const defaultMoneda = defaultOption.getAttribute('data-moneda');
-        monedaInput.value = defaultMoneda ? (defaultMoneda === 'None' ? '-' : defaultMoneda) : '-';
+            medioPagoSelect.addEventListener('change', function() {
+                const selectedOption = medioPagoSelect.options[medioPagoSelect.selectedIndex];
+                const moneda = selectedOption.getAttribute('data-moneda');
+                monedaInput.value = moneda ? (moneda === 'None' ? '-' : moneda) : '-'; // Actualiza el campo de moneda, si es null, muestra un guion
+            });
+            // Establecer el valor predeterminado de la moneda
+            const defaultOption = medioPagoSelect.options[0];
+            const defaultMoneda = defaultOption.getAttribute('data-moneda');
+            monedaInput.value = defaultMoneda ? (defaultMoneda === 'None' ? '-' : defaultMoneda) : '-';
         });
     </script>
 </body>
