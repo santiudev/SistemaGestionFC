@@ -320,3 +320,60 @@ margin-top: 2vh;
 .no-underline {
     text-decoration: none;
 }
+
+
+/* POP UP CREAR MOVIMIENTO */
+/* POP UP CREAR MOVIMIENTO */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo más oscuro y suave */
+}
+
+.modal-content {
+    background-color: #ffffff; /* Fondo blanco para el contenido */
+    margin: 10% auto; 
+    padding: 30px;
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Sombra más suave */
+    width: 90%; 
+    max-width: 400px; /* Ancho máximo más pequeño */
+    text-align: center;
+    animation: fadeIn 0.3s; /* Animación de entrada */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.close {
+    color: #ff4d4d; /* Color rojo para el botón de cerrar */
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #ff1a1a; /* Color más oscuro al pasar el ratón */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modalOkBtn {
+    background-color: #007bff; /* Color de fondo del botón */
+    color: #ffffff; /* Color del texto del botón */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px 20px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de fuente */
+    cursor: pointer; /* Cursor de mano */
+    transition: background-color 0.3s; /* Transición suave */
+}

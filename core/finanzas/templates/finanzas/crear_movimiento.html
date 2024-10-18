@@ -7,6 +7,8 @@
     <title>Crear Movimiento</title>
     <link href="{% static 'css/finanzas.css' %}" rel="stylesheet">
     <script src="{% static 'js/finanzas.js' %}" defer></script>
+    <!-- Agregar Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="containercrearmovimiento mt-4">
@@ -84,19 +86,40 @@
             </div>
         </form>
     </div>
+        <!-- Modal para la alerta de cotización -->
+        <div id="cotizacionModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <i class="fas fa-exclamation-circle" style="color: #28a745; font-size: 1.5rem;"></i>
+                <h2> Atención</h2>
+                <p>La cotización del dólar no ha sido actualizada en el día de hoy. Por favor actualice la cotización antes de guardar el movimiento.</p>
+                <button id="modalOkBtn">Aceptar</button>
+            </div>
+        </div>
 
     <!-- Popup script for missing cotizacion update -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const cotizacionActualizadaHoy = {{ cotizacion_actualizada_hoy|yesno:"true,false" }};
             const form = document.getElementById('crearMovimientoForm');
+            const modal = document.getElementById('cotizacionModal');
+            const modalOkBtn = document.getElementById('modalOkBtn');
 
             form.addEventListener('submit', function(event) {
                 if (!cotizacionActualizadaHoy) {
                     event.preventDefault();
-                    alert('Atención: La cotización del dólar no ha sido actualizada en el día de hoy. Por favor actualice la cotización antes de guardar el movimiento.');
+                    modal.style.display = "block"; // Muestra el modal
                 }
             });
+
+            modalOkBtn.onclick = function() {
+                modal.style.display = "none"; // Cierra el modal
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none"; // Cierra el modal si se hace clic fuera de él
+                }
+            }
         });
     </script>
 

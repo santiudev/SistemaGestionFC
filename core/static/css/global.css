@@ -308,7 +308,9 @@ body {
 
 /* Mejora de la responsividad */
 .row {
-    flex-wrap: wrap; /* Permitir que las filas se envuelvan */
+    margin-right: 0; /* Eliminar margen derecho */
+    margin-left: 0; /* Eliminar margen izquierdo */
+    padding: 0; /* Asegurarse de que no haya padding */
 }
 
 .card {

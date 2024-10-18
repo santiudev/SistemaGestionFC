@@ -12,20 +12,21 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="row mb-2 mb-xl-3 align-items-center">
+    <div class="row mb-2 mb-xl-3 align-items-center g-0"> <!-- Añadido g-0 para eliminar el espaciado -->
         <div class="col-auto d-flex align-items-center">
-            <form method="GET" action="{% url 'finanzas:home' %}" class="d-flex align-items-center flex-column flex-sm-row">
-                <div class="me-2">
-                    <label for="start_date" class="form-label">Desde:</label>
-                    <input type="date" id="start_date" name="start_date" class="form-control" value="{{ start_date }}">
+            <form method="GET" action="{% url 'finanzas:home' %}" class="d-flex flex-column flex-sm-row align-items-center">
+                <div class="d-flex flex-row align-items-center mb-3">
+                    <div class="me-2">
+                        <label for="start_date" class="form-label">Desde:</label>
+                        <input type="date" id="start_date" name="start_date" class="form-control" value="{{ start_date }}">
+                    </div>
+                    <div class="me-2">
+                        <label for="end_date" class="form-label">Hasta:</label>
+                        <input type="date" id="end_date" name="end_date" class="form-control" value="{{ end_date }}">
+                    </div>
                 </div>
-                <div class="me-2">
-                    <label for="end_date" class="form-label">Hasta:</label>
-                    <input type="date" id="end_date" name="end_date" class="form-control" value="{{ end_date }}">
-                </div>
-                <div class="align-self-center">
-                    <button type="submit" class="btn btn-primary mt-4">Aplicar Filtro</button>
-                    <button type="button" class="btn btn-danger mt-4"><i class="fas fa-redo-alt"></i></button>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary mt-2">Aplicar Filtro</button>
                 </div>
             </form>
         </div>
@@ -36,16 +37,19 @@
                 <a href="{% url 'finanzas:crear_movimiento' %}" class="btn btn-white-custom btn-sm">Crear Movimiento</a>
                 <a href="{% url 'finanzas:crear_mediodepago' %}" class="btn btn-white-custom btn-sm">Crear Medio de Pago</a>
             </div>
-            <div class="btn-group d-md-none"> <!-- Mostrar solo en móviles y tablets -->
-                <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Acciones
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'finanzas:lista_movimientos' %}">Lista de Movimientos</a></li>
-                    <li><a class="dropdown-item" href="{% url 'finanzas:crear_categoria' %}">Crear Categoría</a></li>
-                    <li><a class="dropdown-item" href="{% url 'finanzas:crear_movimiento' %}">Crear Movimiento</a></li>
-                    <li><a class="dropdown-item" href="{% url 'finanzas:crear_mediodepago' %}">Crear Medio de Pago</a></li>
-                </ul>
+            <!-- Dropdown de acciones centrado -->
+            <div class="col-auto text-center mt-3">
+                <div class="btn-group">
+                    <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Acciones
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'finanzas:lista_movimientos' %}">Lista de Movimientos</a></li>
+                        <li><a class="dropdown-item" href="{% url 'finanzas:crear_categoria' %}">Crear Categoría</a></li>
+                        <li><a class="dropdown-item" href="{% url 'finanzas:crear_movimiento' %}">Crear Movimiento</a></li>
+                        <li><a class="dropdown-item" href="{% url 'finanzas:crear_mediodepago' %}">Crear Medio de Pago</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -145,11 +149,11 @@
 
         <!-- Tabla de Últimos Movimientos -->
         <div class="col-xl-6 col-xxl-7">
-            <div class="card flex-fill w-100">
+            <div class="card flex-fill w-100"  style="padding: 0 !important;">
                 <div class="card-header">
                     <h5 class="card-title mb-0 text-center">Últimos Movimientos</h5>
                 </div>
-                <div class="card-body pt-2 pb-3">
+                <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-hover table-bordered my-0 w-100">
                             <thead class="table-light">
