@@ -308,6 +308,7 @@ body {
 
 /* Mejora de la responsividad */
 .row {
+    --bs-gutter-x: 0rem;
     margin-right: 0; /* Eliminar margen derecho */
     margin-left: 0; /* Eliminar margen izquierdo */
     padding: 0; /* Asegurarse de que no haya padding */
@@ -316,4 +317,20 @@ body {
 .card {
     margin: 1rem; /* Añadir margen a las tarjetas para mejor espaciado */
     flex: 1 1 300px; /* Permitir que las tarjetas se expandan y se contraigan */
+}
+
+.table {
+    width: 100%; /* Asegúrate de que la tabla ocupe el 100% del ancho */
+    border-collapse: collapse; /* Asegura que no haya espacios entre las celdas */
+}
+
+.table th, .table td {
+    padding: 0.5rem; /* Espaciado interno */
+    text-align: center; /* Centrar texto */
+    vertical-align: middle; /* Alinear verticalmente al centro */
+    border: 1px solid #e0e0e0; /* Bordes grises claros */
+}
+
+.table-responsive {
+    overflow-x: auto; /* Permitir scroll horizontal si es necesario */
 }
