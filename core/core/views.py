@@ -7,5 +7,5 @@ def error_403_view(request, exception):
 
 @login_required
 def home(request):
-    return render(request, 'users/home.html')
+    return render(request, 'finanzas/home.html')
 
