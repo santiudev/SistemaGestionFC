@@ -11,6 +11,13 @@ body {
 .container-fluid {
     padding: 1.5rem;
 }
+.text-dark {
+    color: black; /* O el color que desees para el ícono activo */
+}
+
+.text-secondary {
+    color: gray; /* O el color que desees para el ícono inactivo */
+}
 
 /* Table Styles */
 .table {

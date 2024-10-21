@@ -30,9 +30,10 @@ function aplicarFiltros() {
         var mostrar = true;
 
         // Filtrar por fecha
-        if (filtros['fecha']) {
+        if (filtros['fecha'] || filtros['fechaFin']) {
             var fechaCell = convertirFecha(cells[0].innerText.trim());
-            if ((fechaInicioDate && fechaCell < fechaInicioDate) || (fechaFinDate && fechaCell > fechaFinDate)) {
+            if ((filtros['fecha'] && fechaCell < convertirFecha(filtros['fecha'])) || 
+                (filtros['fechaFin'] && fechaCell > convertirFecha(filtros['fechaFin']))) {
                 mostrar = false;
             }
         }
@@ -270,8 +271,13 @@ var filtros = {
 };
 
 function filtrarPorColumna(columna, valor) {
-    filtros[columna] = valor.toLowerCase();
-    aplicarFiltros();
+    // Si el valor es vacío, eliminamos el filtro
+    if (valor === '') {
+        delete filtros[columna]; // Eliminar el filtro si no hay valor
+    } else {
+        filtros[columna] = valor.toLowerCase(); // Mantener el filtro existente
+    }
+    aplicarFiltros(); // Aplicar todos los filtros
 
     // Cambiar el estado del ícono de filtro
     var filterBtn = document.querySelector(`.filter-btn[data-column="${columna}"]`);
@@ -427,3 +433,4 @@ function reiniciarFiltros() {
     // Volver a mostrar todas las filas de la tabla
     aplicarFiltros();
 }
+
