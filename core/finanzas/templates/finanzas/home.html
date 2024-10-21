@@ -12,47 +12,46 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="row mb-2 mb-xl-3 align-items-center g-0"> <!-- Añadido g-0 para eliminar el espaciado -->
-        <div class="col-auto d-flex align-items-center">
-            <form method="GET" action="{% url 'finanzas:home' %}" class="d-flex flex-column flex-sm-row align-items-center">
-                <div class="d-flex flex-row align-items-center mb-3">
-                    <div class="me-2">
-                        <label for="start_date" class="form-label">Desde:</label>
-                        <input type="date" id="start_date" name="start_date" class="form-control" value="{{ start_date }}">
-                    </div>
-                    <div class="me-2">
-                        <label for="end_date" class="form-label">Hasta:</label>
-                        <input type="date" id="end_date" name="end_date" class="form-control" value="{{ end_date }}">
-                    </div>
+    <div class="row mb-2 mb-xl-3 align-items-center g-0">
+        <div class="col-12 col-md-auto d-flex align-items-center justify-content-between flex-wrap mb-3">
+            <!-- Formulario de Fechas -->
+            <form method="GET" action="{% url 'finanzas:home' %}" class="d-flex flex-column flex-sm-row align-items-center gap-2 w-100">
+                <div class="d-flex flex-row align-items-center me-2 gap-2">
+                    <label for="start_date" class="form-label">Desde:</label>
+                    <label for="end_date" class="form-label">Hasta:</label>
                 </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary mt-2">Aplicar Filtro</button>
+                <div class="d-flex flex-row align-items-center me-2 gap-2">
+                    <input type="date" id="start_date" name="start_date" class="form-control" value="{{ start_date }}">
+                    <input type="date" id="end_date" name="end_date" class="form-control" value="{{ end_date }}">
                 </div>
+                <button type="submit" class="btn btn-primary mt-2 mt-sm-0">Aplicar Filtro</button>
             </form>
         </div>
-        <div class="col-auto ms-auto text-end">
-            <div class="btn-group d-none d-md-block"> <!-- Mostrar solo en pantallas grandes -->
+        <div class="col-12 col-md-auto ms-md-auto text-center text-md-end">
+            <!-- Grupo de Botones para pantallas grandes -->
+            <div class="btn-group d-none d-md-flex">
                 <a href="{% url 'finanzas:lista_movimientos' %}" class="btn btn-primary btn-sm">Lista de Movimientos</a>
-                <a href="{% url 'finanzas:crear_categoria' %}" class="btn btn-white-custom btn-sm">Crear Categoría</a>  
+                <a href="{% url 'finanzas:crear_categoria' %}" class="btn btn-white-custom btn-sm">Crear Categoría</a>
                 <a href="{% url 'finanzas:crear_movimiento' %}" class="btn btn-white-custom btn-sm">Crear Movimiento</a>
                 <a href="{% url 'finanzas:crear_mediodepago' %}" class="btn btn-white-custom btn-sm">Crear Medio de Pago</a>
             </div>
-            <!-- Dropdown de acciones centrado -->
-            <div class="col-auto text-center mt-3">
-                <div class="btn-group">
-                    <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <!-- Dropdown de acciones para pantallas pequeñas -->
+            <div class="d-md-none mt-3">
+                <div class="btn-group w-100">
+                    <button class="btn btn-primary btn-sm dropdown-toggle btn-acciones-mobile" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Acciones
                     </button>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu w-100">
                         <li><a class="dropdown-item" href="{% url 'finanzas:lista_movimientos' %}">Lista de Movimientos</a></li>
                         <li><a class="dropdown-item" href="{% url 'finanzas:crear_categoria' %}">Crear Categoría</a></li>
                         <li><a class="dropdown-item" href="{% url 'finanzas:crear_movimiento' %}">Crear Movimiento</a></li>
                         <li><a class="dropdown-item" href="{% url 'finanzas:crear_mediodepago' %}">Crear Medio de Pago</a></li>
                     </ul>
                 </div>
-            </div>
+            </div>            
         </div>
     </div>
+    
 
     <div class="row">
         <!-- Sección de Tarjetas Principales -->
@@ -68,8 +67,8 @@
                                         <h5>Ingresos en Pesos</h5>
                                     </div>
                                     <div class="col-auto">
-                                        <div class="stat text-success">
-                                            <i class="fas fa-arrow-up"></i>
+                                        <div class="stat-icon rounded-icon bg-success"> <!-- Nueva clase para el fondo y el borde -->
+                                            <i class="fas fa-arrow-up text-white"></i> <!-- Cambiado a blanco -->
                                         </div>
                                     </div>
                                 </div>
@@ -89,8 +88,8 @@
                                         <h5>Salidas en Pesos</h5>
                                     </div>
                                     <div class="col-auto">
-                                        <div class="stat text-danger">
-                                            <i class="fas fa-arrow-down"></i>
+                                        <div class="stat-icon rounded-icon bg-danger"> <!-- Nueva clase para el fondo y el borde -->
+                                            <i class="fas fa-arrow-down text-white"></i> <!-- Cambiado a blanco -->
                                         </div>
                                     </div>
                                 </div>
@@ -110,8 +109,8 @@
                                         <h5>Ingresos en Dólares</h5>
                                     </div>
                                     <div class="col-auto">
-                                        <div class="stat text-success">
-                                            <i class="fas fa-arrow-up"></i>
+                                        <div class="stat-icon rounded-icon bg-success"> <!-- Nueva clase para el fondo y el borde -->
+                                            <i class="fas fa-arrow-up text-white"></i> <!-- Cambiado a blanco -->
                                         </div>
                                     </div>
                                 </div>
@@ -131,8 +130,8 @@
                                         <h5>Salidas en Dólares</h5>
                                     </div>
                                     <div class="col-auto">
-                                        <div class="stat text-danger">
-                                            <i class="fas fa-arrow-down"></i>
+                                        <div class="stat-icon rounded-icon bg-danger"> <!-- Nueva clase para el fondo y el borde -->
+                                            <i class="fas fa-arrow-down text-white"></i> <!-- Cambiado a blanco -->
                                         </div>
                                     </div>
                                 </div>
@@ -147,53 +146,53 @@
             </div>
         </div>
 
-        <!-- Tabla de Últimos Movimientos -->
-        <div class="col-xl-6 col-xxl-7">
-            <div class="card flex-fill w-100"  style="padding: 0 !important;">
-                <div class="card-header">
-                    <h5 class="card-title mb-0 text-center">Últimos Movimientos</h5>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover table-bordered my-0 w-100">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Fecha</th>
-                                    <th>Tipo</th>
-                                    <th>Categoría</th>
-                                    <th>Monto</th>
-                                    <th>Moneda</th>
-                                    <th>Medio de Pago</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for movimiento in recent_movements %}
-                                <tr>
-                                    <td>{{ movimiento.fecha|date:"j/n/Y" }}</td>
-                                    <td>{{ movimiento.get_tipo_display }}</td>
-                                    <td>{{ movimiento.categoria.nombre }}</td>
-                                    <td>{{ movimiento.monto }}</td>
-                                    <td>{{ movimiento.get_moneda_display }}</td>
-                                    <td>{{ movimiento.medio_pago.nombre }}</td>
-                                </tr>
-                                {% empty %}
-                                <tr>
-                                    <td colspan="6" class="text-center">No hay movimientos recientes.</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+<!-- Tabla de Últimos Movimientos -->
+<div class="col-xl-6 col-xxl-7">
+    <div class="card flex-fill w-90" style="padding: 0 !important;">
+        <div class="card-header">
+            <h5 class="card-title mb-0 text-center">Últimos Movimientos</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered my-0 w-100 home-table">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Tipo</th>
+                            <th>Categoría</th>
+                            <th>Monto</th>
+                            <th>Moneda</th>
+                            <th>Medio de Pago</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for movimiento in recent_movements %}
+                        <tr>
+                            <td>{{ movimiento.fecha|date:"j/n/Y" }}</td>
+                            <td>{{ movimiento.get_tipo_display }}</td>
+                            <td>{{ movimiento.categoria.nombre }}</td>
+                            <td>{{ movimiento.monto }}</td>
+                            <td>{{ movimiento.get_moneda_display }}</td>
+                            <td>{{ movimiento.medio_pago.nombre }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center">No hay movimientos recientes.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+</div>
+
 
     <!-- Nueva Sección: Tarjetas por Medio de Pago -->
     <div class="row mt-4">
         {% for medio in totales_medio_pago %}
-        <div class="col-md-4 mb-3">
-            <div class="card">
+        <div class="col-md-3 mb-3">
+            <div class="card" style="width: 90%; height: 90%;">
                 <div class="card-body">
                     <h5 class="card-title">{{ medio.medio_pago }}</h5>
                     <p class="card-text">
