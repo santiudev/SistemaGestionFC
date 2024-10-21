@@ -16,13 +16,15 @@
         <div class="col-12 col-md-auto d-flex align-items-center justify-content-between flex-wrap mb-3">
             <!-- Formulario de Fechas -->
             <form method="GET" action="{% url 'finanzas:home' %}" class="d-flex flex-column flex-sm-row align-items-center gap-2 w-100">
-                <div class="d-flex flex-row align-items-center me-2 gap-2">
-                    <label for="start_date" class="form-label">Desde:</label>
-                    <label for="end_date" class="form-label">Hasta:</label>
-                </div>
-                <div class="d-flex flex-row align-items-center me-2 gap-2">
-                    <input type="date" id="start_date" name="start_date" class="form-control" value="{{ start_date }}">
-                    <input type="date" id="end_date" name="end_date" class="form-control" value="{{ end_date }}">
+                <div class="d-flex flex-row align-items-center gap-2">
+                    <div class="d-flex flex-column">
+                        <label for="start_date" class="form-label">Desde:</label>
+                        <input type="date" id="start_date" name="start_date" class="form-control" value="{{ start_date }}">
+                    </div>
+                    <div class="d-flex flex-column">
+                        <label for="end_date" class="form-label">Hasta:</label>
+                        <input type="date" id="end_date" name="end_date" class="form-control" value="{{ end_date }}">
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary mt-2 mt-sm-0">Aplicar Filtro</button>
             </form>
@@ -37,7 +39,7 @@
             </div>
             <!-- Dropdown de acciones para pantallas pequeñas -->
             <div class="d-md-none mt-3">
-                <div class="btn-group w-100">
+                <div class="btn-group w-50">
                     <button class="btn btn-primary btn-sm dropdown-toggle btn-acciones-mobile" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Acciones
                     </button>
