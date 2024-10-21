@@ -485,3 +485,11 @@ margin-top: 2vh;
 .bg-danger {
     background-color: #dc3545 !important; /* Color rojo */
 }
+
+/* Estilo específico para el espaciado entre columnas del formulario crear_movimiento */
+.containercrearmovimiento .row.g-4 .col-md-6 {
+    padding-right: 1rem; /* Añadir padding para separar visualmente las columnas */
+    padding-left: 1rem;
+}
+
+

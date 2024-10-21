@@ -4,14 +4,14 @@
     </a>
     {% if request.resolver_match.namespace == 'finanzas' %}
         <li class="nav-item d-flex align-items-left ms-4">
-            <span class="text-muted small me-2">Cotización Dólar:</span>  <!-- Mostrar el último precio -->
+            <span class="text-success small me-2">Cotización Dólar:</span>  <!-- Mostrar el último precio -->
             <form method="post" action="{% url 'finanzas:actualizar_cotizacion' %}" class="form-inline d-flex">
                 {% csrf_token %}
                 <input type="number" name="valor_cotizacion" value="{{ cotizacion_actual }}" class="form-control form-control-sm me-2" required style="width: 80px;" readonly>
-                <button type="button" class="btn btn-sm btn-secondary me-2" id="edit-button">
+                <button type="button" class="btn btn-sm btn-orange me-2" id="edit-button">
                     <i class="fas fa-pencil-alt"></i>  <!-- Ícono de lápiz para editar -->
                 </button>
-                <button type="submit" class="btn btn-sm btn-primary" id="submit-button" style="display: none;">
+                <button type="submit" class="btn btn-sm btn-success" id="submit-button" style="display: none;">
                     Actualizar
                 </button>
             </form>
