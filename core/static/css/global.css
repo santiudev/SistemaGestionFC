@@ -54,7 +54,7 @@ body {
 }
 
 .sidebar-item.active {
-    background: linear-gradient(to right, blue 2%, rgba(255, 255, 255, 0.178) 2%, transparent); /* Fondo degradado de izquierda a derecha azul, blanco y transparente */
+    background: linear-gradient(to right, rgb(9, 255, 0) 2%, rgba(79, 247, 36, 0.178) 2%, transparent); /* Fondo degradado de izquierda a derecha azul, blanco y transparente */
     list-style-type: none; /* Eliminar el marcador del elemento activo */
 }
 
@@ -74,7 +74,7 @@ body {
 }
 
 .sidebar-link:hover {
-    background: var(--primary-color); /* Fondo al pasar el mouse */
+    background: rgba(9, 255, 0, 0.712); /* Fondo al pasar el mouse */
     color: #fff; /* Cambiar color de texto */
 }
 
@@ -306,31 +306,3 @@ body {
     transform: translateX(-100%); /* Ocultar el sidebar */
 }
 
-/* Mejora de la responsividad */
-.row {
-    --bs-gutter-x: 0rem;
-    margin-right: 0; /* Eliminar margen derecho */
-    margin-left: 0; /* Eliminar margen izquierdo */
-    padding: 0; /* Asegurarse de que no haya padding */
-}
-
-.card {
-    margin: 1rem; /* Añadir margen a las tarjetas para mejor espaciado */
-    flex: 1 1 300px; /* Permitir que las tarjetas se expandan y se contraigan */
-}
-
-.table {
-    width: 100%; /* Asegúrate de que la tabla ocupe el 100% del ancho */
-    border-collapse: collapse; /* Asegura que no haya espacios entre las celdas */
-}
-
-.table th, .table td {
-    padding: 0.5rem; /* Espaciado interno */
-    text-align: center; /* Centrar texto */
-    vertical-align: middle; /* Alinear verticalmente al centro */
-    border: 1px solid #e0e0e0; /* Bordes grises claros */
-}
-
-.table-responsive {
-    overflow-x: auto; /* Permitir scroll horizontal si es necesario */
-}
