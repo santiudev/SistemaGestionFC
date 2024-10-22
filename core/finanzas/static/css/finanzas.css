@@ -567,13 +567,6 @@ margin-top: 2vh;
     font-size: 1.1rem;
 }
 
-/* Nueva clase para botones con ancho fijo y responsive */
-.btn-fixed {
-    width: 100%;
-    @media (min-width: 576px) {
-        width: 18vh;
-    }
-}
 /* Centrar el botón "Detalle" en la tarjeta */
 .center-button {
     display: flex;

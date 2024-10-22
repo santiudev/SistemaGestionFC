@@ -19,25 +19,25 @@
                 <div class="d-flex flex-row align-items-center gap-2">
                     <div class="d-flex flex-column">
                         <label for="start_date" class="form-label">Desde:</label>
-                        <input type="date" id="start_date" name="start_date" class="form-control" value="{{ start_date }}">
+                        <input type="date" id="start_date" name="start_date" class="form-control" style="height: 30px;" value="{{ start_date }}">
                     </div>
                     <div class="d-flex flex-column">
                         <label for="end_date" class="form-label">Hasta:</label>
-                        <input type="date" id="end_date" name="end_date" class="form-control" value="{{ end_date }}">
+                        <input style="height: 30px;"  type="date" id="end_date" name="end_date" class="form-control" value="{{ end_date }}">
                     </div>
                 </div>
                 <div class="mt-auto">
-                    <button type="submit" class="btn btn-sm btn-primary btn-fixed">Aplicar Filtro</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Aplicar Filtro</button>
                 </div>
             </form>
         </div>
         <div class="col-12 col-md-auto ms-md-auto text-center text-md-end">
             <!-- Grupo de Botones para pantallas grandes -->
             <div class="btn-group d-none d-md-flex">
-                <a href="{% url 'finanzas:lista_movimientos' %}" class="btn btn-primary btn-sm btn-fixed">Lista de Movimientos</a>
-                <a href="{% url 'finanzas:crear_categoria' %}" class="btn btn-white-custom btn-sm btn-fixed">Crear Categoría</a>
-                <a href="{% url 'finanzas:crear_movimiento' %}" class="btn btn-white-custom btn-sm btn-fixed">Crear Movimiento</a>
-                <a href="{% url 'finanzas:crear_mediodepago' %}" class="btn btn-white-custom btn-sm btn-fixed">Crear Medio de Pago</a>
+                <a href="{% url 'finanzas:lista_movimientos' %}" class="btn btn-primary btn-sm ">Lista de Movimientos</a>
+                <a href="{% url 'finanzas:crear_categoria' %}" class="btn btn-white-custom btn-sm">Crear Categoría</a>
+                <a href="{% url 'finanzas:crear_movimiento' %}" class="btn btn-white-custom btn-sm ">Crear Movimiento</a>
+                <a href="{% url 'finanzas:crear_mediodepago' %}" class="btn btn-white-custom btn-sm ">Crear Medio de Pago</a>
             </div>
             <!-- Dropdown de acciones para pantallas pequeñas -->
             <div class="d-md-none mt-3">
