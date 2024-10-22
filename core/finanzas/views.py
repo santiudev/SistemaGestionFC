@@ -7,7 +7,7 @@ from .forms import MovimientoForm, CategoriaForm, MedioPagoForm, CotizacionDolar
 from django.db.models import Sum  # Add this line to import Sum
 from .utils import filtrar_movimientos_por_fecha, calcular_totales, calcular_totales_por_medio_pago
 from django.utils import timezone
-
+from datetime import datetime
 
 from datetime import datetime
 
@@ -18,10 +18,13 @@ def home_finanzas(request):
     movimientos, start_date_str, end_date_str = filtrar_movimientos_por_fecha(request)
     
     # Formatear las fechas para mostrar en el formato "dd/mm/yyyy"
+    start_date_formatted = None
+    end_date_formatted = None
+
     if start_date_str:
-        start_date_str = datetime.strptime(start_date_str, "%Y-%m-%d").strftime("%d/%m/%Y")
+        start_date_formatted = datetime.strptime(start_date_str, "%Y-%m-%d").strftime("%d/%m/%Y")
     if end_date_str:
-        end_date_str = datetime.strptime(end_date_str, "%Y-%m-%d").strftime("%d/%m/%Y")
+        end_date_formatted = datetime.strptime(end_date_str, "%Y-%m-%d").strftime("%d/%m/%Y")
 
     # Obtener los últimos 5 movimientos ordenados por fecha descendente (sin filtrar)
     recent_movements = Movimiento.objects.all().order_by('-fecha')[:5]
@@ -40,11 +43,11 @@ def home_finanzas(request):
         cotizacion_actual = 0  # O un valor por defecto
 
     # Determinar los textos según si hay filtro de fecha aplicado o no
-    if start_date_str and end_date_str:
-        ingresos_pesos_label = f"Entradas de pesos\nDesde: {start_date_str}\nHasta: {end_date_str}"
-        salidas_pesos_label = f"Salidas de pesos\nDesde: {start_date_str}\nHasta: {end_date_str}"
-        ingresos_dolares_label = f"Entradas de dólares\nDesde: {start_date_str}\nHasta: {end_date_str}"
-        salidas_dolares_label = f"Salidas de dólares\nDesde: {start_date_str}\nHasta: {end_date_str}"
+    if start_date_formatted and end_date_formatted:
+        ingresos_pesos_label = f"Entradas de pesos\nDesde: {start_date_formatted}\nHasta: {end_date_formatted}"
+        salidas_pesos_label = f"Salidas de pesos\nDesde: {start_date_formatted}\nHasta: {end_date_formatted}"
+        ingresos_dolares_label = f"Entradas de dólares\nDesde: {start_date_formatted}\nHasta: {end_date_formatted}"
+        salidas_dolares_label = f"Salidas de dólares\nDesde: {start_date_formatted}\nHasta: {end_date_formatted}"
     else:
         ingresos_pesos_label = "Entradas de pesos\nHistórico"
         salidas_pesos_label = "Salidas de pesos\nHistórico"
@@ -65,9 +68,12 @@ def home_finanzas(request):
         'salidas_pesos_label': salidas_pesos_label,
         'ingresos_dolares_label': ingresos_dolares_label,
         'salidas_dolares_label': salidas_dolares_label,
+        'start_date_formatted': start_date_formatted,
+        'end_date_formatted': end_date_formatted,
     }
 
     return render(request, 'finanzas/home.html', context)
+
 
 
 
