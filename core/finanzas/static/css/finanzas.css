@@ -18,7 +18,11 @@ body {
 .text-secondary {
     color: gray; /* O el color que desees para el ícono inactivo */
 }
-
+@media (min-width: 768px) {
+    .fechashome {
+        margin-left: 2vh;
+    }
+}
 /* Table Styles */
 .table {
     width: 100%;
@@ -254,16 +258,7 @@ body {
     }
 }
 
-/* Card Styles */
-.card {
-    padding: 1.5rem; /* Espaciado interno para el card */
-    background-color: #ffffff; /* Fondo blanco */
-    border-radius: 0.5rem; /* Bordes redondeados */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera para el card */
-    height: 100%; /* Asegura que las tarjetas ocupen toda la altura disponible */
-    display: flex; /* Permite que el contenido interno se ajuste */
-    flex-direction: column; /* Alinea el contenido verticalmente */
-}
+
 .carta-home {
 margin-top: 2vh;
 }   
@@ -411,6 +406,13 @@ margin-top: 2vh;
 }
 
 .card {
+    padding: 1.5rem; /* Espaciado interno para el card */
+    background-color: #ffffff; /* Fondo blanco */
+    border-radius: 0.5rem; /* Bordes redondeados */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera para el card */
+    height: 100%; /* Asegura que las tarjetas ocupen toda la altura disponible */
+    display: flex; /* Permite que el contenido interno se ajuste */
+    flex-direction: column; /* Alinea el contenido verticalmente */
     margin: 1rem; /* Añadir margen a las tarjetas para mejor espaciado */
     flex: 1 1 300px; /* Permitir que las tarjetas se expandan y se contraigan */
 }
@@ -499,4 +501,60 @@ margin-top: 2vh;
     padding-left: 1rem;
 }
 
+.carta-especial {
+    margin-top: 0 !important;
+}
 
+/* Asegura que todas las tarjetas y la tabla tengan la misma altura */
+.row {
+    display: flex; /* Asegura que los elementos dentro de la fila se alineen correctamente */
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan si es necesario */
+    margin: 0; /* Eliminar márgenes para evitar desbordamientos */
+}
+/* Estilo específico para la tarjeta de movimientos */
+.movimientos-card {
+    flex: 1; /* Asegura que la tarjeta de movimientos ocupe el mismo espacio que las otras */
+    display: flex; /* Permite que el contenido interno se ajuste */
+    flex-direction: column; /* Alinea el contenido verticalmente */
+}
+
+
+/* Estilos para la tarjeta de información del Medio de Pago */
+.payment-info-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.payment-info-card:hover {
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Título del Medio de Pago */
+.payment-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+/* Estilo de los detalles de pago */
+.payment-details {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.payment-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px dashed #ccc;
+}
+
+.payment-value {
+    font-weight: bold;
+    font-size: 1.1rem;
+}

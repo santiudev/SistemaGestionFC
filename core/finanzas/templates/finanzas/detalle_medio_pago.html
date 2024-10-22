@@ -14,42 +14,70 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
 </head>
 <body>
-    <div class="row mb-2 mb-xl-3 align-items-center">
+    <div class="row mb-2 mb-xl-3 align-items-center mx-2"> <!-- Añadido mx-2 para agregar un borde a los lados -->
         <div class="col-auto d-flex align-items-center">
-            <h3 class="mb-0 me-3"><strong>Detalle de {{ medio_pago.nombre }}</strong></h3>
+            <h3 class="mb-0 me-3 fechashome"><strong>Detalle de {{ medio_pago.nombre }}</strong></h3>
             <a href="{% url 'finanzas:home' %}" class="btn btn-primary btn-sm">Inicio</a>
         </div>
-        <div class="col-auto ms-auto text-end">
-            <a href="{% url 'finanzas:lista_movimientos' %}" class="btn btn-white-custom btn-sm">Lista de Movimientos</a>  
-            <a href="{% url 'finanzas:crear_movimiento' %}" class="btn btn-white-custom btn-sm">Crear Movimiento</a>
-            <a href="{% url 'finanzas:crear_mediodepago' %}" class="btn btn-white-custom btn-sm">Crear Medio de Pago</a>
+        <div class="col-auto ms-auto text-center">
+            <!-- Grupo de Botones para pantallas grandes -->
+            <div class="btn-group d-none d-md-flex">
+                <a href="{% url 'finanzas:lista_movimientos' %}" class="btn btn-primary btn-sm">Lista de Movimientos</a>
+                <a href="{% url 'finanzas:crear_categoria' %}" class="btn btn-white-custom btn-sm">Crear Categoría</a>
+                <a href="{% url 'finanzas:crear_movimiento' %}" class="btn btn-white-custom btn-sm">Crear Movimiento</a>
+                <a href="{% url 'finanzas:crear_mediodepago' %}" class="btn btn-white-custom btn-sm">Crear Medio de Pago</a>
+            </div>
+            <!-- Dropdown de acciones para pantallas pequeñas -->
+            <div class="d-md-none mt-3 text-center"> <!-- Añadido text-center para centrar el dropdown -->
+                <div class="btn-group w-100">
+                    <button class="btn btn-primary btn-sm dropdown-toggle btn-acciones-mobile" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Acciones
+                    </button>
+                    <ul class="dropdown-menu w-150">
+                        <li><a class="dropdown-item" href="{% url 'finanzas:lista_movimientos' %}">Lista de Movimientos</a></li>
+                        <li><a class="dropdown-item" href="{% url 'finanzas:crear_categoria' %}">Crear Categoría</a></li>
+                        <li><a class="dropdown-item" href="{% url 'finanzas:crear_movimiento' %}">Crear Movimiento</a></li>
+                        <li><a class="dropdown-item" href="{% url 'finanzas:crear_mediodepago' %}">Crear Medio de Pago</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="row">
         <!-- Información del Medio de Pago y Totales -->
-        <div class="col-12 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">{{ medio_pago.nombre }}</h4>
-                    <p class="card-text">
-                        <strong>Total Ingresos:</strong> {{ total_ingresos }}<br>
-                        <strong>Total Salidas:</strong> {{ total_salidas }}<br>
-                        {% if total_neto > 0 %}
-                            <strong>Total Neto:</strong> <span class="text-success">{{ total_neto }}</span>
-                        {% elif total_neto < 0 %}
-                            <strong>Total Neto:</strong> <span class="text-danger">{{ total_neto }}</span>
-                        {% else %}
-                            <strong>Total Neto:</strong> <span class="text-secondary">{{ total_neto }}</span>
-                        {% endif %}
-                    </p>
+<!-- Información del Medio de Pago y Totales -->
+<div class="col-12 mb-4">
+    <div class="card payment-info-card shadow-sm">
+        <div class="card-body">
+            <h4 class="card-title payment-title">{{ medio_pago.nombre }}</h4>
+            <div class="card-text payment-details">
+                <div class="payment-item">
+                    <strong>Total Ingresos:</strong>
+                    <span class="payment-value text-success">{{ total_ingresos }}</span>
+                </div>
+                <div class="payment-item">
+                    <strong>Total Salidas:</strong>
+                    <span class="payment-value text-danger">{{ total_salidas }}</span>
+                </div>
+                <div class="payment-item">
+                    <strong>Total Neto:</strong>
+                    {% if total_neto > 0 %}
+                        <span class="payment-value text-success">{{ total_neto }}</span>
+                    {% elif total_neto < 0 %}
+                        <span class="payment-value text-danger">{{ total_neto }}</span>
+                    {% else %}
+                        <span class="payment-value text-secondary">{{ total_neto }}</span>
+                    {% endif %}
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
         <!-- Tabla de Movimientos del Medio de Pago -->
         <div class="col-12">
-            <div class="card flex-fill w-100">
+            <div class="card flex-fill w-90">
                 <div class="card-header d-flex justify-content-between">
                     <h5 class="card-title mb-0">Movimientos de {{ medio_pago.nombre }}</h5>
                     <button id="exportarExcel" class="btn btn-success" style="width: 150px; height: 4vh;">
@@ -58,7 +86,7 @@
                 </div>
                 <div class="card-body pt-2 pb-3">
                     <div class="table-responsive">
-                        <table  class="table table-striped table-hover table-bordered my-0 w-100">
+                        <table  class="table table-hover table-bordered my-0 w-100">
                             <thead class="table-light">
                                 <tr>
                                     <th>Fecha</th>
@@ -73,7 +101,9 @@
                                 {% for movimiento in movimientos %}
                                 <tr>
                                     <td>{{ movimiento.fecha|date:"j/n/Y" }}</td>
-                                    <td>{{ movimiento.get_tipo_display }}</td>
+                                    <td>
+                                        <span class="tipo-label {{ movimiento.tipo|lower }}">{{ movimiento.get_tipo_display }}</span>
+                                    </td>
                                     <td>{{ movimiento.categoria.nombre }}</td>
                                     <td>{{ movimiento.monto }}</td>
                                     <td>{{ movimiento.get_moneda_display }}</td>

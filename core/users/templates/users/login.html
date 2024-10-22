@@ -8,7 +8,7 @@
         <div class="card border-0 rounded p-4">
           <div class="card-body">
             <img src="{% static 'images/logoflippingnegro.png' %}" alt="Imagen de inicio de sesión" class="mx-auto d-block" style="width: 60%;">
-            <h2 class="text-center mb-4">INICIAR SESIÓN</h2>
+            <h2 class="text-center mb-4"><b>INICIAR SESIÓN</b></h2>
             <form method="post">
               {% csrf_token %}
               <div class="mb-3">
@@ -28,4 +28,9 @@
       </div>
     </div>
   </div>
+  <style>
+    .main-content {
+      margin-left: 0 !important;
+    }
+  </style>
 {% endblock %}

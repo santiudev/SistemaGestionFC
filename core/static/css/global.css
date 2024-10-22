@@ -74,7 +74,7 @@ body {
 }
 
 .sidebar-link:hover {
-    background: rgba(9, 255, 0, 0.712); /* Fondo al pasar el mouse */
+    background: rgba(9, 255, 0, 0.486); /* Fondo al pasar el mouse */
     color: #fff; /* Cambiar color de texto */
 }
 
