@@ -1,6 +1,7 @@
-from django.shortcuts import render
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
+from django.contrib import messages
+from django.shortcuts import render
 
 def home(request):
     return render(request, 'users/home.html')
@@ -25,6 +26,10 @@ class CustomLoginView(LoginView):
 
         # URL por defecto si el usuario no pertenece a ningún grupo específico
         return reverse_lazy('finanzas:home')  # Reemplaza con tu URL por defecto
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'Nombre de usuario o contraseña incorrectos.')
+        return super().form_invalid(form)
 
 class CustomLogoutView(LogoutView):
     next_page = reverse_lazy('login')  # Redirige a la página de login después de cerrar sesión

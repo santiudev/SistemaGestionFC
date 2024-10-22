@@ -27,17 +27,17 @@
                     </div>
                 </div>
                 <div class="mt-auto">
-                    <button type="submit" class="btn btn-primary">Aplicar Filtro</button>
+                    <button type="submit" class="btn btn-sm btn-primary btn-fixed">Aplicar Filtro</button>
                 </div>
             </form>
         </div>
         <div class="col-12 col-md-auto ms-md-auto text-center text-md-end">
             <!-- Grupo de Botones para pantallas grandes -->
             <div class="btn-group d-none d-md-flex">
-                <a href="{% url 'finanzas:lista_movimientos' %}" class="btn btn-primary btn-sm">Lista de Movimientos</a>
-                <a href="{% url 'finanzas:crear_categoria' %}" class="btn btn-white-custom btn-sm">Crear Categoría</a>
-                <a href="{% url 'finanzas:crear_movimiento' %}" class="btn btn-white-custom btn-sm">Crear Movimiento</a>
-                <a href="{% url 'finanzas:crear_mediodepago' %}" class="btn btn-white-custom btn-sm">Crear Medio de Pago</a>
+                <a href="{% url 'finanzas:lista_movimientos' %}" class="btn btn-primary btn-sm btn-fixed">Lista de Movimientos</a>
+                <a href="{% url 'finanzas:crear_categoria' %}" class="btn btn-white-custom btn-sm btn-fixed">Crear Categoría</a>
+                <a href="{% url 'finanzas:crear_movimiento' %}" class="btn btn-white-custom btn-sm btn-fixed">Crear Movimiento</a>
+                <a href="{% url 'finanzas:crear_mediodepago' %}" class="btn btn-white-custom btn-sm btn-fixed">Crear Medio de Pago</a>
             </div>
             <!-- Dropdown de acciones para pantallas pequeñas -->
             <div class="d-md-none mt-3">
@@ -198,25 +198,42 @@
 
 
     <!-- Nueva Sección: Tarjetas por Medio de Pago -->
-    <div class="row mt-4">
+    <div class="row mt-4 align-items-stretch"> <!-- Alineación uniforme de todas las tarjetas -->
         {% for medio in totales_medio_pago %}
-        <div class="col-md-3 mb-3">
-            <div class="card" style="width: 90%; height: 90%;">
-                <div class="card-body">
-                    <h5 class="card-title">{{ medio.medio_pago }}</h5>
-                    <p class="card-text">
-                        <span class="text-success" style="font-size: larger;"><i class="fas fa-arrow-up"></i> Ingresos: {{ medio.ingresos }}</span><br>
-                        <span class="text-danger" style="font-size: larger;"><i class="fas fa-arrow-down"></i> Salidas: {{ medio.salidas }}</span>
-                    </p>
-                    <hr>
-                    {% if medio.neto > 0 %}
-                        <h4 class="text-success">Total Neto: {{ medio.neto }}</h4>
-                    {% elif medio.neto < 0 %}
-                        <h4 class="text-danger">Total Neto: {{ medio.neto }}</h4>
-                    {% else %}
-                        <h4 class="text-secondary">Total Neto: {{ medio.neto }}</h4>
-                    {% endif %}
-                    <a href="{% url 'finanzas:detalle_medio_pago' medio_pago_id=medio.id %}" class="btn btn-primary mt-3">Detalle</a>
+        <div class="col-md-3 mb-3 d-flex align-items-stretch"> <!-- Asegura que todas las tarjetas tengan el mismo tamaño -->
+            <div class="card payment-info-card flex-grow-1">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title payment-title">{{ medio.medio_pago }}</h5>
+                    <div class="payment-details flex-grow-1">
+                        <div class="payment-item">
+                            <span class="text-success"><i class="fas fa-arrow-up"></i> Ingresos:</span>
+                            <span class="payment-value">{{ medio.ingresos }}</span>
+                        </div>
+                        <div class="payment-item">
+                            <span class="text-danger"><i class="fas fa-arrow-down"></i> Salidas:</span>
+                            <span class="payment-value">{{ medio.salidas }}</span>
+                        </div>
+                        <hr class="flex-grow-0">
+                        {% if medio.neto > 0 %}
+                        <div class="payment-item text-success">
+                            <strong>Total Neto:</strong>
+                            <span class="payment-value">{{ medio.neto }}</span>
+                        </div>
+                        {% elif medio.neto < 0 %}
+                        <div class="payment-item text-danger">
+                            <strong>Total Neto:</strong>
+                            <span class="payment-value">{{ medio.neto }}</span>
+                        </div>
+                        {% else %}
+                        <div class="payment-item text-secondary">
+                            <strong>Total Neto:</strong>
+                            <span class="payment-value">{{ medio.neto }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="mt-3 center-button">
+                        <a href="{% url 'finanzas:detalle_medio_pago' medio_pago_id=medio.id %}" class="btn btn-primary btn-fixed">Detalle</a>
+                    </div>
                 </div>
             </div>
         </div>

@@ -42,6 +42,9 @@
             </div>
             <div class="text-center">
                 <button id="download-pdf" class="btn btn-primary btn-sm">Descargar PDF</button>
+                {{ edit_1 }}
+                <a href="{% url 'finanzas:editar_movimiento' movimiento.id %}" class="btn btn-success btn-sm mx-1">Editar Movimiento <i class="fas fa-pencil-alt"></i></a>
+                {{ edit_2 }}
             </div>
         </div>
     </div>
@@ -49,8 +52,13 @@
     <script>
         document.getElementById('download-pdf').addEventListener('click', function() {
             const element = document.getElementById('movimiento-detalle');
-            const button = document.getElementById('download-pdf');
-            button.style.display = 'none'; // Ocultar el botón antes de generar el PDF
+            const downloadButton = document.getElementById('download-pdf');
+            const editButton = document.getElementById('editar_movimiento');
+    
+            // Añadir clase para ocultar botones
+            editButton.classList.add('d-none');
+            downloadButton.classList.add('d-none');
+    
             html2pdf()
                 .from(element)
                 .set({
@@ -61,7 +69,9 @@
                 })
                 .save()
                 .then(() => {
-                    button.style.display = 'block'; // Mostrar el botón nuevamente después de la descarga
+                    // Remover clase para mostrar los botones nuevamente
+                    downloadButton.classList.remove('d-none');
+                    editButton.classList.remove('d-none');
                 });
         });
     </script>
