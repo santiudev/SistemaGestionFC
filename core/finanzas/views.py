@@ -9,12 +9,20 @@ from .utils import filtrar_movimientos_por_fecha, calcular_totales, calcular_tot
 from django.utils import timezone
 
 
+from datetime import datetime
+
 @login_required
 @permission_required('finanzas.view_movimiento', raise_exception=True)
 def home_finanzas(request):
     # Filtrar los movimientos según el rango de fechas
     movimientos, start_date_str, end_date_str = filtrar_movimientos_por_fecha(request)
     
+    # Formatear las fechas para mostrar en el formato "dd/mm/yyyy"
+    if start_date_str:
+        start_date_str = datetime.strptime(start_date_str, "%Y-%m-%d").strftime("%d/%m/%Y")
+    if end_date_str:
+        end_date_str = datetime.strptime(end_date_str, "%Y-%m-%d").strftime("%d/%m/%Y")
+
     # Obtener los últimos 5 movimientos ordenados por fecha descendente (sin filtrar)
     recent_movements = Movimiento.objects.all().order_by('-fecha')[:5]
 
@@ -31,6 +39,18 @@ def home_finanzas(request):
     except CotizacionDolar.DoesNotExist:
         cotizacion_actual = 0  # O un valor por defecto
 
+    # Determinar los textos según si hay filtro de fecha aplicado o no
+    if start_date_str and end_date_str:
+        ingresos_pesos_label = f"Entradas de pesos\nDesde: {start_date_str}\nHasta: {end_date_str}"
+        salidas_pesos_label = f"Salidas de pesos\nDesde: {start_date_str}\nHasta: {end_date_str}"
+        ingresos_dolares_label = f"Entradas de dólares\nDesde: {start_date_str}\nHasta: {end_date_str}"
+        salidas_dolares_label = f"Salidas de dólares\nDesde: {start_date_str}\nHasta: {end_date_str}"
+    else:
+        ingresos_pesos_label = "Entradas de pesos\nHistórico"
+        salidas_pesos_label = "Salidas de pesos\nHistórico"
+        ingresos_dolares_label = "Entradas de dólares\nHistórico"
+        salidas_dolares_label = "Salidas de dólares\nHistórico"
+
     context = {
         'recent_movements': recent_movements,
         'total_ingresos_pesos': totales['total_ingresos_pesos'],
@@ -40,10 +60,17 @@ def home_finanzas(request):
         'start_date': start_date_str if start_date_str else '',
         'end_date': end_date_str if end_date_str else '',
         'totales_medio_pago': totales_medio_pago,
-        'cotizacion_actual': cotizacion_actual,  # Asegúrate de pasar esto al contexto
+        'cotizacion_actual': cotizacion_actual,
+        'ingresos_pesos_label': ingresos_pesos_label,
+        'salidas_pesos_label': salidas_pesos_label,
+        'ingresos_dolares_label': ingresos_dolares_label,
+        'salidas_dolares_label': salidas_dolares_label,
     }
 
     return render(request, 'finanzas/home.html', context)
+
+
+
 
 @login_required
 @permission_required('finanzas.view_movimiento', raise_exception=True)
@@ -206,3 +233,36 @@ def eliminar_movimiento(request, movimiento_id):
     movimiento.delete()
     messages.success(request, 'Movimiento eliminado exitosamente.')
     return redirect('finanzas:lista_movimientos')
+
+
+@login_required
+@permission_required('finanzas.change_movimiento', raise_exception=True)
+def editar_movimiento(request, movimiento_id):
+    movimiento = get_object_or_404(Movimiento, id=movimiento_id)
+    
+    # Obtener la URL de referencia (HTTP_REFERER) para usar como 'next'
+    next_url = request.GET.get('next', request.META.get('HTTP_REFERER', 'finanzas:lista_movimientos'))
+
+    if request.method == 'POST':
+        form = MovimientoForm(request.POST, request.FILES, instance=movimiento)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Movimiento actualizado exitosamente.')
+            return redirect(next_url)  # Redirige a la URL previa
+    else:
+        form = MovimientoForm(instance=movimiento)
+
+    # Agregar medios de pago y categorías al contexto
+    categorias = Categoria.objects.all()
+    medios_pago = MedioPago.objects.all()
+
+    context = {
+        'form': form,
+        'categorias': categorias,
+        'medios_pago': medios_pago,
+        'movimiento': movimiento,
+        'next_url': next_url,
+    }
+
+    return render(request, 'finanzas/editar_movimiento.html', context)
+

@@ -16,5 +16,7 @@ urlpatterns = [
     path('mediopagos/detalle/<int:medio_pago_id>/', views.detalle_medio_pago, name='detalle_medio_pago'),
     path('actualizar-cotizacion/', views.actualizar_cotizacion, name='actualizar_cotizacion'),
     path('eliminar-movimiento/<int:movimiento_id>/', views.eliminar_movimiento, name='eliminar_movimiento'),
+    path('movimientos/editar/<int:movimiento_id>/', views.editar_movimiento, name='editar_movimiento'),  
+
 
 ]

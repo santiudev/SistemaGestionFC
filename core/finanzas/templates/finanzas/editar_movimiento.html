@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Movimiento</title>
+    <link href="{% static 'css/finanzas.css' %}" rel="stylesheet">
+    <script src="{% static 'js/finanzas.js' %}" defer></script>
+    <!-- Agregar Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="containercrearmovimiento mt-4">
+        <h2 class="crearmov text-center mb-4">Editar Movimiento</h2>
+        <!-- Agregar el parámetro next_url para preservar la referencia -->
+        <form method="post" enctype="multipart/form-data" id="editarMovimientoForm" action="?next={{ next_url }}">
+            {% csrf_token %}
+            <div class="row g-4"> <!-- Espaciado entre columnas -->
+                <div class="col-md-6">
+                    <!-- Primera columna con 6 labels -->
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control" id="fecha" name="fecha" value="{{ movimiento.fecha|date:'Y-m-d' }}" required>
+                        <label for="fecha">Fecha</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="tipo" name="tipo" required>
+                            <option value="">Seleccione un tipo</option>
+                            <option value="INGRESO" {% if movimiento.tipo == 'INGRESO' %}selected{% endif %}>Ingreso</option>
+                            <option value="SALIDA" {% if movimiento.tipo == 'SALIDA' %}selected{% endif %}>Salida</option>
+                        </select>
+                        <label for="tipo">Tipo</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="categoria" name="categoria" required>
+                            <option value="">Seleccione una categoría</option>
+                            {% for categoria in categorias %}
+                                <option value="{{ categoria.id }}" data-requiere-patente="{{ categoria.requiere_patente|yesno:'true,false' }}" {% if movimiento.categoria.id == categoria.id %}selected{% endif %}>{{ categoria.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="categoria">Categoría</label>
+                    </div>
+                    <div class="form-floating mb-3" style="display: none;">
+                        <input type="text" class="form-control" id="patente" name="patente" value="{{ movimiento.patente }}">
+                        <label for="patente">Patente</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="medio_pago" name="medio_pago" required>
+                            <option value="">Seleccione un medio de pago</option>
+                            {% for medio in medios_pago %}
+                                <option value="{{ medio.id }}" data-moneda="{{ medio.moneda }}" {% if movimiento.medio_pago.id == medio.id %}selected{% endif %}>{{ medio.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="medio_pago">Medio de Pago</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="moneda" name="moneda" value="{{ movimiento.moneda }}" readonly>
+                        <label for="moneda">Moneda</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <!-- Segunda columna con 5 labels -->
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="monto" name="monto" value="{{ movimiento.monto }}" required>
+                        <label for="monto">Monto</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" id="detalles" name="detalles" style="height: 100px;">{{ movimiento.detalles }}</textarea>
+                        <label for="detalles">Detalles</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" id="comentario" name="comentario" style="height: 100px;">{{ movimiento.comentario }}</textarea>
+                        <label for="comentario">Comentario</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="numero_comprobante" name="numero_comprobante" value="{{ movimiento.numero_comprobante|default_if_none:'' }}">
+                        <label for="numero_comprobante">Número de Comprobante</label>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="documento_adjunto" class="form-label">Documento Adjunto</label>
+                        <input type="file" class="form-control" id="documento_adjunto" name="documento_adjunto">
+                        {% if movimiento.documento_adjunto %}
+                            <a href="{{ movimiento.documento_adjunto.url }}" target="_blank">Ver documento actual</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary" id="guardarMovimientoBtn">Guardar Movimiento</button>
+                <a href="{{ next_url }}" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoriaSelect = document.getElementById('categoria');
+            const patenteInput = document.getElementById('patente');
+
+            function togglePatenteInput() {
+                const selectedOption = categoriaSelect.options[categoriaSelect.selectedIndex];
+                const requierePatente = selectedOption.getAttribute('data-requiere-patente') === 'true';
+                patenteInput.closest('.mb-3').style.display = requierePatente ? 'block' : 'none';
+            }
+
+            categoriaSelect.addEventListener('change', togglePatenteInput);
+            togglePatenteInput(); // Llamar al inicio para establecer el estado correcto
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const medioPagoSelect = document.getElementById('medio_pago');
+            const monedaInput = document.getElementById('moneda');
+
+            medioPagoSelect.addEventListener('change', function() {
+                const selectedOption = medioPagoSelect.options[medioPagoSelect.selectedIndex];
+                const moneda = selectedOption.getAttribute('data-moneda');
+                monedaInput.value = moneda ? (moneda === 'None' ? '-' : moneda) : '-'; // Actualiza el campo de moneda, si es null, muestra un guion
+            });
+        });
+    </script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+</body>
+{% endblock %}
