@@ -18,12 +18,12 @@
             <form method="GET" action="{% url 'finanzas:home' %}" class="d-flex flex-column flex-sm-row align-items-center gap-2 w-100">
                 <div class="d-flex flex-row align-items-center gap-2">
                     <div class="d-flex flex-column">
-                        <label for="start_date" class="form-label">Desde:</label>
+                        <label for="start_date" class="form-label" style="font-size: 0.85rem;">Desde:</label>
                         <input type="date" id="start_date" name="start_date" class="form-control" style="height: 30px;" value="{{ start_date }}">
                     </div>
                     <div class="d-flex flex-column">
-                        <label for="end_date" class="form-label">Hasta:</label>
-                        <input style="height: 30px;"  type="date" id="end_date" name="end_date" class="form-control" value="{{ end_date }}">
+                        <label for="end_date" class="form-label" style="font-size: 0.85rem;">Hasta:</label>
+                        <input type="date" id="end_date" name="end_date" class="form-control" style="height: 30px;" value="{{ end_date }}">
                     </div>
                 </div>
                 <div class="mt-auto">
@@ -34,10 +34,10 @@
         <div class="col-12 col-md-auto ms-md-auto text-center text-md-end">
             <!-- Grupo de Botones para pantallas grandes -->
             <div class="btn-group d-none d-md-flex">
-                <a href="{% url 'finanzas:lista_movimientos' %}" class="btn btn-primary btn-sm ">Lista de Movimientos</a>
+                <a href="{% url 'finanzas:lista_movimientos' %}" class="btn btn-primary btn-sm">Lista de Movimientos</a>
                 <a href="{% url 'finanzas:crear_categoria' %}" class="btn btn-white-custom btn-sm">Crear Categoría</a>
-                <a href="{% url 'finanzas:crear_movimiento' %}" class="btn btn-white-custom btn-sm ">Crear Movimiento</a>
-                <a href="{% url 'finanzas:crear_mediodepago' %}" class="btn btn-white-custom btn-sm ">Crear Medio de Pago</a>
+                <a href="{% url 'finanzas:crear_movimiento' %}" class="btn btn-white-custom btn-sm">Crear Movimiento</a>
+                <a href="{% url 'finanzas:crear_mediodepago' %}" class="btn btn-white-custom btn-sm">Crear Medio de Pago</a>
             </div>
             <!-- Dropdown de acciones para pantallas pequeñas -->
             <div class="d-md-none mt-3">
@@ -56,113 +56,110 @@
         </div>
     </div>
     
-
     <div class="row">
         <!-- Sección de Tarjetas Principales -->
         <div class="col-xl-6 col-xxl-5 d-flex flex-column">
             <div class="w-100 d-flex flex-grow-1">
-                <div class="row justify-content-center flex-grow-1"> <!-- Centrar tarjetas -->
-<!-- Tarjeta de Ingresos en Pesos -->
-<div class="col-sm-6 mb-3 d-flex justify-content-center carta-home">
-    <div class="card carta-especial flex-fill">
-        <div class="card-body d-flex flex-column">
-            <div class="row">
-                <div class="col mt-0">
-                    <h5>Ingresos en Pesos</h5>
-                </div>
-                <div class="col-auto">
-                    <div class="stat-icon rounded-icon bg-success">
-                        <i class="fas fa-arrow-up text-white"></i>
+                <div class="row justify-content-center flex-grow-1">
+                    <!-- Tarjeta de Ingresos en Pesos -->
+                    <div class="col-sm-6 mb-3 d-flex justify-content-center carta-home">
+                        <div class="card carta-especial flex-fill">
+                            <div class="card-body d-flex flex-column">
+                                <div class="row">
+                                    <div class="col mt-0">
+                                        <h5>Ingresos en Pesos</h5>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="stat-icon rounded-icon bg-success">
+                                            <i class="fas fa-arrow-up text-white"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h1 class="mt-1 mb-3" style="font-size: xx-large;">{{ total_ingresos_pesos }}</h1>
+                                <div class="mb-0">
+                                    <span class="text-muted" style="white-space: pre-line;">{{ ingresos_pesos_label }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta de Salidas en Pesos -->
+                    <div class="col-sm-6 mb-3 d-flex justify-content-center carta-home">
+                        <div class="card carta-especial flex-fill">
+                            <div class="card-body d-flex flex-column">
+                                <div class="row">
+                                    <div class="col mt-0">
+                                        <h5>Salidas en Pesos</h5>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="stat-icon rounded-icon bg-danger">
+                                            <i class="fas fa-arrow-down text-white"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h1 class="mt-1 mb-3" style="font-size: xx-large;">{{ total_salidas_pesos }}</h1>
+                                <div class="mb-0">
+                                    <span class="text-muted" style="white-space: pre-line;">{{ salidas_pesos_label }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta de Ingresos en Dólares -->
+                    <div class="col-sm-6 mb-3 d-flex justify-content-center carta-home">
+                        <div class="card carta-especial flex-fill">
+                            <div class="card-body d-flex flex-column">
+                                <div class="row">
+                                    <div class="col mt-0">
+                                        <h5>Ingresos en Dólares</h5>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="stat-icon rounded-icon bg-success">
+                                            <i class="fas fa-arrow-up text-white"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h1 class="mt-1 mb-3" style="font-size: xx-large;">{{ total_ingresos_dolares }}</h1>
+                                <div class="mb-0">
+                                    <span class="text-muted" style="white-space: pre-line;">{{ ingresos_dolares_label }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta de Salidas en Dólares -->
+                    <div class="col-sm-6 mb-3 d-flex justify-content-center carta-home">
+                        <div class="card carta-especial flex-fill">
+                            <div class="card-body d-flex flex-column">
+                                <div class="row">
+                                    <div class="col mt-0">
+                                        <h5>Salidas en Dólares</h5>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="stat-icon rounded-icon bg-danger">
+                                            <i class="fas fa-arrow-down text-white"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h1 class="mt-1 mb-3" style="font-size: xx-large;">{{ total_salidas_dolares }}</h1>
+                                <div class="mb-0">
+                                    <span class="text-muted" style="white-space: pre-line;">{{ salidas_dolares_label }}</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <h1 class="mt-1 mb-3" style="font-size: xx-large;">{{ total_ingresos_pesos }}</h1>
-            <div class="mb-0">
-                <span class="text-muted" style="white-space: pre-line;">{{ ingresos_pesos_label }}</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Tarjeta de Salidas en Pesos -->
-<div class="col-sm-6 mb-3 d-flex justify-content-center carta-home">
-    <div class="card carta-especial flex-fill">
-        <div class="card-body d-flex flex-column">
-            <div class="row">
-                <div class="col mt-0">
-                    <h5>Salidas en Pesos</h5>
-                </div>
-                <div class="col-auto">
-                    <div class="stat-icon rounded-icon bg-danger">
-                        <i class="fas fa-arrow-down text-white"></i>
-                    </div>
-                </div>
-            </div>
-            <h1 class="mt-1 mb-3" style="font-size: xx-large;">{{ total_salidas_pesos }}</h1>
-            <div class="mb-0">
-                <span class="text-muted" style="white-space: pre-line;">{{ salidas_pesos_label }}</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Tarjeta de Ingresos en Dólares -->
-<div class="col-sm-6 mb-3 d-flex justify-content-center carta-home">
-    <div class="card carta-especial flex-fill">
-        <div class="card-body d-flex flex-column">
-            <div class="row">
-                <div class="col mt-0">
-                    <h5>Ingresos en Dólares</h5>
-                </div>
-                <div class="col-auto">
-                    <div class="stat-icon rounded-icon bg-success">
-                        <i class="fas fa-arrow-up text-white"></i>
-                    </div>
-                </div>
-            </div>
-            <h1 class="mt-1 mb-3" style="font-size: xx-large;">{{ total_ingresos_dolares }}</h1>
-            <div class="mb-0">
-                <span class="text-muted" style="white-space: pre-line;">{{ ingresos_dolares_label }}</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Tarjeta de Salidas en Dólares -->
-<div class="col-sm-6 mb-3 d-flex justify-content-center carta-home">
-    <div class="card carta-especial flex-fill">
-        <div class="card-body d-flex flex-column">
-            <div class="row">
-                <div class="col mt-0">
-                    <h5>Salidas en Dólares</h5>
-                </div>
-                <div class="col-auto">
-                    <div class="stat-icon rounded-icon bg-danger">
-                        <i class="fas fa-arrow-down text-white"></i>
-                    </div>
-                </div>
-            </div>
-            <h1 class="mt-1 mb-3" style="font-size: xx-large;">{{ total_salidas_dolares }}</h1>
-            <div class="mb-0">
-                <span class="text-muted" style="white-space: pre-line;">{{ salidas_dolares_label }}</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-                    
-                </div>
-            </div>
         </div>
 
-<!-- Tabla de Últimos Movimientos -->
-<div class="col-xl-6 col-xxl-7 d-flex flex-column">
-    <div class="card flex-fill w-90 movimientos-card">
-        <div class="card-header">
-            <h5 class="card-title mb-0 text-center">Últimos Movimientos</h5>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
+        <!-- Tabla de Últimos Movimientos -->
+        <div class="col-xl-6 col-xxl-7 d-flex flex-column">
+            <div class="card flex-fill w-90 movimientos-card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0 text-center">Últimos Movimientos</h5>
+                </div>
+                <div class="card-body">
+                <div class="table-responsive">
                 <table class="table table-hover table-bordered my-0 w-100 home-table">
                     <thead class="table-light">
                         <tr>
