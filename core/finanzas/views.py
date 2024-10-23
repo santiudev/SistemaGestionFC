@@ -2,7 +2,7 @@ from datetime import datetime
 from django.shortcuts import render, redirect, get_object_or_404  # Añadir esta línea
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages  # Agregar esta línea para importar messages
-from .models import Movimiento, Categoria, MedioPago, CotizacionDolar
+from .models import Movimiento, Categoria, MedioPago, CotizacionDolar, DocumentoAdjunto
 from .forms import MovimientoForm, CategoriaForm, MedioPagoForm, CotizacionDolarForm
 from django.db.models import Sum  # Add this line to import Sum
 from .utils import filtrar_movimientos_por_fecha, calcular_totales, calcular_totales_por_medio_pago
@@ -101,6 +101,7 @@ def lista_movimientos(request):
         'medios_pago': medios_pago  # Asegúrate de pasar los medios de pago
     })
 
+# views.py
 @login_required
 @permission_required('finanzas.add_movimiento', raise_exception=True)
 def crear_movimiento(request):
@@ -114,7 +115,13 @@ def crear_movimiento(request):
             movimiento = form.save(commit=False)
             movimiento.usuario = request.user  # Asocia el movimiento al usuario actual
             movimiento.save()
-            return redirect('finanzas:lista_movimientos')  # Redirige a la lista de movimientos
+
+            # Guardar los archivos adjuntos
+            for archivo in request.FILES.getlist('archivos'):
+                DocumentoAdjunto.objects.create(movimiento=movimiento, archivo=archivo)
+
+            messages.success(request, 'Movimiento creado exitosamente.')
+            return redirect('finanzas:lista_movimientos')
     else:
         form = MovimientoForm()
 
@@ -126,10 +133,13 @@ def crear_movimiento(request):
         'form': form,
         'categorias': categorias,
         'medios_pago': medios_pago,
-        'cotizacion_actualizada_hoy': cotizacion_actualizada_hoy
+        'cotizacion_actualizada_hoy': cotizacion_actualizada_hoy,
     }
 
     return render(request, 'finanzas/crear_movimiento.html', context)
+
+
+
 
 
 @login_required
@@ -245,14 +255,17 @@ def eliminar_movimiento(request, movimiento_id):
 @permission_required('finanzas.change_movimiento', raise_exception=True)
 def editar_movimiento(request, movimiento_id):
     movimiento = get_object_or_404(Movimiento, id=movimiento_id)
-    
+
     # Obtener la URL de referencia (HTTP_REFERER) para usar como 'next'
     next_url = request.GET.get('next', request.META.get('HTTP_REFERER', 'finanzas:lista_movimientos'))
 
     if request.method == 'POST':
         form = MovimientoForm(request.POST, request.FILES, instance=movimiento)
         if form.is_valid():
-            form.save()
+            movimiento = form.save()
+            # Guardar múltiples documentos adjuntos
+            for archivo in request.FILES.getlist('documentos_adjuntos'):
+                movimiento.documentos_adjuntos.create(archivo=archivo)
             messages.success(request, 'Movimiento actualizado exitosamente.')
             return redirect(next_url)  # Redirige a la URL previa
     else:
@@ -271,4 +284,13 @@ def editar_movimiento(request, movimiento_id):
     }
 
     return render(request, 'finanzas/editar_movimiento.html', context)
+
+@login_required
+@permission_required('finanzas.delete_movimiento', raise_exception=True)
+def eliminar_documento_adjunto(request, documento_id):
+    documento = get_object_or_404(DocumentoAdjunto, id=documento_id)
+    movimiento_id = documento.movimiento.id
+    documento.delete()
+    messages.success(request, 'Documento adjunto eliminado exitosamente.')
+    return redirect('finanzas:editar_movimiento', movimiento_id=movimiento_id)
 

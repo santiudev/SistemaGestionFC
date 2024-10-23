@@ -17,6 +17,7 @@ urlpatterns = [
     path('actualizar-cotizacion/', views.actualizar_cotizacion, name='actualizar_cotizacion'),
     path('eliminar-movimiento/<int:movimiento_id>/', views.eliminar_movimiento, name='eliminar_movimiento'),
     path('movimientos/editar/<int:movimiento_id>/', views.editar_movimiento, name='editar_movimiento'),  
+    path('documento-adjunto/<int:documento_id>/eliminar/', views.eliminar_documento_adjunto, name='eliminar_documento_adjunto'),
 
 
 ]

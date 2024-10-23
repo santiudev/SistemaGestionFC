@@ -2,6 +2,8 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from datetime import date
 from django.conf import settings
+
+
 class Categoria(models.Model):
     nombre = models.CharField(max_length=100)
     requiere_patente = models.BooleanField(default=False)
@@ -47,7 +49,6 @@ class Movimiento(models.Model):
     medio_pago = models.ForeignKey(MedioPago, on_delete=models.CASCADE)
     numero_comprobante = models.CharField(max_length=50, blank=True, null=True)
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    documento_adjunto = models.FileField(upload_to='finanzas/movimientos/', blank=True, null=True)
     precio_dolar = models.DecimalField(max_digits=12, decimal_places=2, editable=False)
     precio_peso = models.DecimalField(max_digits=12, decimal_places=2, editable=False)
 
@@ -86,3 +87,12 @@ class CotizacionDolar(models.Model):
 
     def __str__(self):
         return f'Cotización del {self.fecha}: {self.valor_cotizacion}'
+    
+
+
+class DocumentoAdjunto(models.Model):
+    movimiento = models.ForeignKey(Movimiento, related_name='documentos_adjuntos', on_delete=models.CASCADE)
+    archivo = models.FileField(upload_to='finanzas/documentos_adjuntos/')
+
+    def __str__(self):
+        return f"Documento para Movimiento {self.movimiento.id}"

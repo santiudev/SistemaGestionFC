@@ -80,12 +80,21 @@
                     </div>
                     
                     <div class="mb-3">
-                        <label for="documento_adjunto" class="form-label">Documento Adjunto</label>
-                        <input type="file" class="form-control" id="documento_adjunto" name="documento_adjunto">
-                        {% if movimiento.documento_adjunto %}
-                            <a href="{{ movimiento.documento_adjunto.url }}" target="_blank">Ver documento actual</a>
+                        <label for="documentos_adjuntos" class="form-label">Documentos Adjuntos</label>
+                        <input type="file" class="form-control" id="documentos_adjuntos" name="documentos_adjuntos" multiple>
+                        {% if movimiento.documentos_adjuntos.exists %}
+                            <div class="mt-3">
+                                <p><strong>Documentos Adjuntos Existentes:</strong></p>
+                                {% for documento in movimiento.documentos_adjuntos.all %}
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <a href="{{ documento.archivo.url }}" target="_blank" class="btn btn-outline-primary">Ver Documento {{ forloop.counter }}</a>
+                                        <a href="{% url 'finanzas:eliminar_documento_adjunto' documento.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                                    </div>
+                                {% endfor %}
+                            </div>
                         {% endif %}
                     </div>
+                    
                 </div>
             </div>
             <div class="text-center mt-4">
