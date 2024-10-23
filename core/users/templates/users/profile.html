@@ -20,9 +20,9 @@
                 </div>
 
                 <div class="action-buttons d-grid gap-3">
-                    <form method="post" style="width: 100%;">
-                        <button class="btn btn-primary w-100 py-2">Editar Perfil</button>
-                    </form>
+                    <a href="{% url 'editar_perfil' %}" class="btn btn-primary w-100 py-2">Editar Perfil</a>
+                       
+                    
                     <form method="post" action="{% url 'logout' %}" style="width: 100%;">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-danger w-100 py-2">Cerrar Sesión</button>

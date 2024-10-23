@@ -1,0 +1,59 @@
+<!-- users/templates/users/editar_perfil.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil</title>
+    <link href="{% static 'css/finanzas.css' %}" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Editar Perfil</h2>
+        <div class="card p-4 shadow-sm">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="mb-3 text-center">
+                    {% if request.user.foto %}
+                        <img src="{{ request.user.foto.url }}" class="img-thumbnail mb-2" alt="Foto de perfil" width="150">
+                    {% else %}
+                        <img src="{% static 'user_photos/default.jpg' %}" class="img-thumbnail mb-2" alt="Foto de perfil" width="150">
+                    {% endif %}
+                </div>
+                
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    {{ form.nombre }}
+                </div>
+                <div class="mb-3">
+                    <label for="apellido" class="form-label">Apellido</label>
+                    {{ form.apellido }}
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo Electrónico</label>
+                    {{ form.email }}
+                </div>
+                <div class="mb-3">
+                    <label for="celular" class="form-label">Celular</label>
+                    {{ form.celular }}
+                </div>
+                <div class="mb-3">
+                    <label for="edad" class="form-label">Edad</label>
+                    {{ form.edad }}
+                </div>
+                <div class="mb-3">
+                    <label for="foto" class="form-label">Foto de Perfil</label>
+                    {{ form.foto }}
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    <a href="{% url 'perfil' %}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+{% endblock %}

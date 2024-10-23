@@ -1,7 +1,9 @@
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
 from django.contrib import messages
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from .forms import EditarPerfilForm
 
 def home(request):
     return render(request, 'users/home.html')
@@ -47,3 +49,20 @@ def perfil_usuario(request):
     }
     
     return render(request, 'users/profile.html', context)
+
+
+@login_required
+def editar_perfil(request):
+    if request.method == 'POST':
+        form = EditarPerfilForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Perfil actualizado exitosamente.')
+            return redirect('perfil')
+    else:
+        form = EditarPerfilForm(instance=request.user)
+    
+    context = {
+        'form': form
+    }
+    return render(request, 'users/editar_perfil.html', context)
