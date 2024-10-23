@@ -10,6 +10,8 @@ class CustomUser(AbstractUser):
     dni = models.CharField(max_length=15, unique=True)
     edad = models.PositiveIntegerField()
     rol = models.CharField(max_length=30, blank=True)
+    foto = models.ImageField(upload_to='user_photos/', blank=True, null=True, default='user_photos/default.jpg')
+
 
     REQUIRED_FIELDS = ['email', 'nombre', 'apellido', 'celular', 'dni', 'edad']
     def __str__(self):
