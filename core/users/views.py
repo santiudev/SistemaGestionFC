@@ -34,3 +34,16 @@ class CustomLoginView(LoginView):
 class CustomLogoutView(LogoutView):
     next_page = reverse_lazy('login')  # Redirige a la página de login después de cerrar sesión
     template_name = 'users/logged_out.html'  # Asegúrate de tener esta plantilla
+
+
+
+def perfil_usuario(request):
+    # Obtenemos el usuario actual
+    usuario = request.user
+
+    # Pasamos la información del usuario al contexto para usar en el template
+    context = {
+        'usuario': usuario,
+    }
+    
+    return render(request, 'users/profile.html', context)
