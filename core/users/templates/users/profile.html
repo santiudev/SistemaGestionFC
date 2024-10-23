@@ -1,0 +1,59 @@
+{% extends 'users/base_user.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="profile-card">
+                <img src="https://via.placeholder.com/150" alt="Profile Image" class="profile-img mb-3">
+                <h3 class="mb-2">{{ user.nombre }} {{ user.apellido }}</h3>
+                <p class="text-muted">{{ user.rol }}</p>
+                <div class="info-block">
+                    <h5>Información de Contacto</h5>
+                    <p>Teléfono: {{ user.celular }}</p>
+                    <p>DNI: {{ user.dni }}</p>
+                    <p>Edad: {{ user.edad }}</p>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <button class="btn btn-outline-primary w-100">Editar Perfil</button>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <button class="btn btn-outline-danger w-100">Cerrar Sesión</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+        font-family: Arial, sans-serif;
+    }
+    .profile-card {
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        text-align: center;
+    }
+    .profile-img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #007bff;
+    }
+    .info-block {
+        color: #fff;
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 20px;
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

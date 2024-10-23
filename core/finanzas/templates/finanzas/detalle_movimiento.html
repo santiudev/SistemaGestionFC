@@ -51,7 +51,7 @@
             <div class="text-center">
                 <button id="download-pdf" class="btn btn-primary btn-sm">Descargar PDF</button>
                 {{ edit_1 }}
-                <a href="{% url 'finanzas:editar_movimiento' movimiento.id %}" class="btn btn-success btn-sm mx-1">Editar Movimiento <i class="fas fa-pencil-alt"></i></a>
+                <a id="editar_movimiento" href="{% url 'finanzas:editar_movimiento' movimiento.id %}" class="btn btn-success btn-sm mx-1">Editar Movimiento <i class="fas fa-pencil-alt"></i></a>
                 {{ edit_2 }}
             </div>
         </div>
@@ -61,7 +61,7 @@
         document.getElementById('download-pdf').addEventListener('click', function() {
             const element = document.getElementById('movimiento-detalle');
             const downloadButton = document.getElementById('download-pdf');
-            const editButton = document.getElementById('editar_movimiento');
+            const editButton = document.getElementById('editar_movimiento'); // Asegúrate de que el ID sea correcto
     
             // Añadir clase para ocultar botones
             if (editButton) editButton.classList.add('d-none');

@@ -194,10 +194,10 @@
 </div>
 
 
-    <!-- Nueva Sección: Tarjetas por Medio de Pago -->
-    <div class="row mt-4 align-items-stretch"> <!-- Alineación uniforme de todas las tarjetas -->
+        <!-- Nueva Sección: Tarjetas por Medio de Pago -->
+    <div class="row mt-4 align-items-stretch">
         {% for medio in totales_medio_pago %}
-        <div class="col-md-3 mb-3 d-flex align-items-stretch"> <!-- Asegura que todas las tarjetas tengan el mismo tamaño -->
+        <div class="col-12 col-sm-6 col-lg-3 mb-3 d-flex align-items-stretch"> <!-- Adaptar a ser igual que mobile -->
             <div class="card payment-info-card flex-grow-1">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title payment-title">{{ medio.medio_pago }}</h5>
