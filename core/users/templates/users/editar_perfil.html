@@ -1,59 +1,97 @@
-<!-- users/templates/users/editar_perfil.html -->
-
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Perfil</title>
-    <link href="{% static 'css/finanzas.css' %}" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-5">
-        <h2 class="text-center mb-4">Editar Perfil</h2>
-        <div class="card p-4 shadow-sm">
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                
-                <div class="mb-3 text-center">
-                    {% if request.user.foto %}
-                        <img src="{{ request.user.foto.url }}" class="img-thumbnail mb-2" alt="Foto de perfil" width="150">
-                    {% else %}
-                        <img src="{% static 'user_photos/default.jpg' %}" class="img-thumbnail mb-2" alt="Foto de perfil" width="150">
-                    {% endif %}
-                </div>
-                
-                <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre</label>
-                    {{ form.nombre }}
-                </div>
-                <div class="mb-3">
-                    <label for="apellido" class="form-label">Apellido</label>
-                    {{ form.apellido }}
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Correo Electrónico</label>
-                    {{ form.email }}
-                </div>
-                <div class="mb-3">
-                    <label for="celular" class="form-label">Celular</label>
-                    {{ form.celular }}
-                </div>
-                <div class="mb-3">
-                    <label for="edad" class="form-label">Edad</label>
-                    {{ form.edad }}
-                </div>
-                <div class="mb-3">
-                    <label for="foto" class="form-label">Foto de Perfil</label>
-                    {{ form.foto }}
-                </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                    <a href="{% url 'perfil' %}" class="btn btn-secondary">Cancelar</a>
-                </div>
-            </form>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="profile-card text-center p-4">
+                <h2 class="text-center mb-4">Editar Perfil</h2>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="profile-img-container mb-4">
+                        {% if request.user.foto %}
+                            <img src="{{ request.user.foto.url }}" class="profile-img shadow" alt="Foto de perfil">
+                        {% else %}
+                            <img src="{% static 'user_photos/default.jpg' %}" class="profile-img shadow" alt="Foto de perfil">
+                        {% endif %}
+                    </div>
+
+                    <div class="info-block mb-4 p-4">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            {{ form.nombre }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="apellido" class="form-label">Apellido</label>
+                            {{ form.apellido }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Correo Electrónico</label>
+                            {{ form.email }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="celular" class="form-label">Celular</label>
+                            {{ form.celular }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="edad" class="form-label">Edad</label>
+                            {{ form.edad }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="foto" class="form-label">Foto de Perfil</label>
+                            {{ form.foto }}
+                        </div>
+                    </div>
+
+                    <div class="action-buttons d-grid gap-3">
+                        <button type="submit" class="btn btn-primary w-100 py-2">Guardar Cambios</button>
+                        <a href="{% url 'perfil' %}" class="btn btn-secondary w-100 py-2">Cancelar</a>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
+</div><style>
+    body {
+        background-color: #f0f2f5;
+        font-family: 'Roboto', sans-serif;
+    }
+    .profile-card {
+        background: linear-gradient(145deg, #ffffff, #f0f0f0);
+        border-radius: 15px;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: transform 0.3s;
+    } 
+    .profile-img-container {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
+    }
+    .profile-img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #007bff;
+    }
+    .info-block {
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+    .info-block h5 {
+        font-weight: bold;
+        color: #007bff;
+    }
+    .info-block p {
+        color: #333;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+</style>
+
 </body>
 {% endblock %}

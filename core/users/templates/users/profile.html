@@ -7,7 +7,9 @@
         <div class="col-md-8">
             <div class="profile-card text-center p-4">
                 <div class="profile-img-container mb-4">
-                    <img src="{% static 'favicon.ico' %}" alt="Profile Image" class="profile-img shadow">
+                    {% if request.user.foto %}
+                    <img src="{{ request.user.foto.url }}" class="profile-img shadow" alt="Foto de perfil">
+                    {% else %}
                 </div>
                 <h3 class="mb-2">{{ user.nombre }} {{ user.apellido }}</h3>
                 <p class="text-muted">{{ user.rol }}</p>
@@ -44,9 +46,6 @@
         box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
         text-align: center;
         transition: transform 0.3s;
-    }
-    .profile-card:hover {
-        transform: translateY(-10px);
     }
     .profile-img-container {
         position: relative;
