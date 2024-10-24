@@ -15,13 +15,14 @@ SECRET_KEY = 'django-insecure-i-kzs%-8s+^z8gti@1)g)%(1l%-i93i!rp79j2_ifrj1r#_m3@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['.agenciaflippingcars.com', 'demo1.agenciaflippingcars.com']
 
 
 
-#CSRF_TRUSTED_ORIGINS = [
-#    'https://a4e5-181-93-211-50.ngrok-free.app'
-#]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://demo1.agenciaflippingcars.com',
+]
 
 
 # Application definition
@@ -111,6 +112,27 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'django.log'),
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
 
 
 # Internationalization
