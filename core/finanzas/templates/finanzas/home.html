@@ -1,17 +1,6 @@
-<!-- finanzas/templates/finanzas/home.html -->
-
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
-    <link href="{% static 'css/finanzas.css' %}" rel="stylesheet">
-    <!-- FontAwesome para los íconos -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-</head>
-<body>
     <div class="row mb-2 mb-xl-3 align-items-center g-0">
         <div class="fechashome col-12 col-md-auto d-flex align-items-center justify-content-between flex-wrap mb-3">
             <!-- Formulario de Fechas -->
@@ -242,6 +231,5 @@
         </div>
         {% endfor %}
     </div>
-</body>
 {% endblock %}
 

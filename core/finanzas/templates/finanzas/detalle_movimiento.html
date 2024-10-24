@@ -1,13 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle del Movimiento</title>
-    <link href="{% static 'css/finanzas.css' %}" rel="stylesheet">
-</head>
-<body>
     <div class="container mt-5">
         <h2 class="text-center mb-4">Detalle del Movimiento</h2>
         <div class="card p-4 shadow-sm detalle-movimiento-card" id="movimiento-detalle">
@@ -83,5 +76,4 @@
                 });
         });
     </script>
-</body>
 {% endblock %}
