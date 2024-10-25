@@ -1,5 +1,5 @@
 // Función para exportar la tabla de detalle medio de pago a un archivo Excel con estilos usando ExcelJS
-document.getElementById('exportarExcel').addEventListener('click', function () {
+document.getElementById('exportarExcelMedioPago').addEventListener('click', function () {
     var table = document.querySelector('table'); // Asegúrate de que esta tabla sea la correcta en detalle_medio_pago.html
     var rows = table.querySelectorAll('tbody tr');
 
