@@ -39,6 +39,7 @@ class CustomLogoutView(LogoutView):
 
 
 
+@login_required
 def perfil_usuario(request):
     # Obtenemos el usuario actual
     usuario = request.user
