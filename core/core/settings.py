@@ -15,7 +15,7 @@ SECRET_KEY = 'django-insecure-i-kzs%-8s+^z8gti@1)g)%(1l%-i93i!rp79j2_ifrj1r#_m3@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.agenciaflippingcars.com', 'demo1.agenciaflippingcars.com']
+ALLOWED_HOSTS = ['.agenciaflippingcars.com', 'demo1.agenciaflippingcars.com', 'localhost', '127.0.0.1']
 
 
 
