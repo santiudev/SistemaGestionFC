@@ -1,3 +1,4 @@
+{% load static %}
 <nav class="navbar navbar-expand navbar-light navbar-bg">
     <a class="sidebar-toggle js-sidebar-toggle">
         <i class="hamburger align-self-center"></i>
@@ -24,7 +25,12 @@
         <ul class="navbar-nav navbar-align">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                    <img src="https://flipp.vendomiauto.com/static/favicon.ico" class="avatar img-fluid rounded me-1" alt="Usuario" /> <span class="text-dark">{{ request.user.nombre }} </span>
+                    {% if request.user.foto %}
+                        <img src="{{ request.user.foto.url }}" class="avatar img-fluid rounded me-2" alt="Foto de perfil">
+                    {% else %}
+                        <img src="{% static 'favicon.ico' %}" class="avatar img-fluid rounded me-2" alt="Foto de perfil por defecto">
+                    {% endif %}
+                    <span class="text-dark">{{ request.user.nombre }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
                     <a class="dropdown-item" href= "{% url 'perfil' %}"><i class="align-middle me-1" data-feather="user"></i> Perfil</a>
