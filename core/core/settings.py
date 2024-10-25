@@ -15,13 +15,14 @@ SECRET_KEY = 'django-insecure-i-kzs%-8s+^z8gti@1)g)%(1l%-i93i!rp79j2_ifrj1r#_m3@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['.agenciaflippingcars.com', 'demo1.agenciaflippingcars.com', 'localhost', '127.0.0.1']
 
 
 
-#CSRF_TRUSTED_ORIGINS = [
-#    'https://a4e5-181-93-211-50.ngrok-free.app'
-#]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://demo1.agenciaflippingcars.com',
+]
 
 
 # Application definition
@@ -87,8 +88,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'defaultdb',
         'USER': 'doadmin',
-        'PASSWORD': 'AVNS_OBbYu5umakZ4BogqemE',
-        'HOST': 'testfc-do-user-16285424-0.m.db.ondigitalocean.com',
+        'PASSWORD': 'AVNS_8WTr-_g2mWGnxHpW5jX',
+        'HOST': 'demo1fc-do-user-16285424-0.k.db.ondigitalocean.com',
         'PORT': '25060',
     }
 }
@@ -111,6 +112,27 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'django.log'),
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
 
 
 # Internationalization

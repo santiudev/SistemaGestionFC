@@ -8,8 +8,10 @@
             <div class="profile-card text-center p-4">
                 <div class="profile-img-container mb-4">
                     {% if request.user.foto %}
-                    <img src="{{ request.user.foto.url }}" class="profile-img shadow" alt="Foto de perfil">
+                        <img src="{{ request.user.foto.url }}" class="profile-img shadow" alt="Foto de perfil">
                     {% else %}
+                        <img src="{% static 'favicon.ico' %}" class="profile-img shadow" alt="Foto de perfil por defecto">
+                    {% endif %}
                 </div>
                 <h3 class="mb-2">{{ user.nombre }} {{ user.apellido }}</h3>
                 <p class="text-muted">{{ user.rol }}</p>
@@ -23,7 +25,6 @@
 
                 <div class="action-buttons d-grid gap-3">
                     <a href="{% url 'editar_perfil' %}" class="btn btn-primary w-100 py-2">Editar Perfil</a>
-                       
                     
                     <form method="post" action="{% url 'logout' %}" style="width: 100%;">
                         {% csrf_token %}
